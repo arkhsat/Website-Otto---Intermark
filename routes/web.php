@@ -24,9 +24,18 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\GateTypeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\MemberProductController;
 use App\Http\Controllers\ReportSummaryController;
+use App\Http\Controllers\ReportONController;
 use App\Http\Controllers\ReportDailyController;
-
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ReportMemberDailyController;
+use App\Http\Controllers\ReportMemberNonPaymentController;
+use App\Http\Controllers\ReportHotelController;
+use App\Http\Controllers\TandaTerimaController;
+use App\Http\Controllers\ReportPajakController;
+use Illuminate\Routing\Router;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,8 +137,8 @@ Route::group(
     Route::get('settings/payment', [SettingController::class,'payment'])->name('setting.payment');
     Route::post('settings/payment', [SettingController::class,'paymentData'])->name('setting.paymentsave');
 
-    Route::get('settings/company', [SettingController::class,'company'])->name('setting.company');
-    Route::post('settings/company', [SettingController::class,'companyData'])->name('setting.companysave');
+    // Route::get('settings/company', [SettingController::class,'company'])->name('setting.company');
+    // Route::post('settings/company', [SettingController::class,'companyData'])->name('setting.companysave');
 
     Route::get('language/{lang}', [SettingController::class,'lanquageChange'])->name('language.change');
     Route::post('theme/settings', [SettingController::class,'themeSettings'])->name('theme.settings');
@@ -276,6 +285,8 @@ Route::group(
 
     Route::resource('parking-slot', ParkingSlotController::class);
     Route::get('zone/{zid}/floor/{fid}/type/{tid}', [ParkingSlotController::class,'getSlot'])->name('zone.floor.slot');
+    Route::get('vehicle_id/{vehicleid}', [MemberProductController::class,'getVehicleProduct'])->name('vehicleid');
+    Route::get('membertype/{membertype}', [MemberProductController::class,'getMemberProduct'])->name('membertype');
 });
 
 //-------------------------------Gate-------------------------------------------
@@ -295,11 +306,24 @@ Route::resource('rfid-vehicle', RfidVehicleController::class)->middleware(
     ]
 );
 
-Route::resource('rfid-extend', RfidExtendVehicleController::class)->middleware(
+// Route::resource('rfid-extend', RfidExtendVehicleController::class)->middleware(
+//     [
+//         'auth',
+//         'XSS',
+//     ]
+// );
+
+Route::group(
     [
-        'auth',
-        'XSS',
-    ]
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function () {
+        Route::get('rfid-extend', [RfidExtendVehicleController::class, 'index'])->name('rfid-extend.index');
+        Route::get('rfid-extend/{id}/extend', [RfidExtendVehicleController::class, 'extend'])->name('rfid-extend.extend');
+        Route::put('rfid-extend/{id}/update', [RfidExtendVehicleController::class, 'update'])->name('rfid-extend.update');
+    }
 );
 
 Route::group(
@@ -311,7 +335,9 @@ Route::group(
     ], function () {
 
     Route::resource('rfid-vehicle', RfidVehicleController::class);
-    Route::get('rfid-vehicle/extend/{eid}', [RfidVehicleController::class,'extend'])->name('rfid-vehicle.extend');
+    
+    // Route::get('rfid-vehicle/edit')
+    // Route::get('rfid-vehicle/extend/{eid}', [RfidVehicleController::class,'extend'])->name('rfid-vehicle.extend');
    
 });
 
@@ -327,6 +353,7 @@ Route::group(
     ], function () {
 
     Route::resource('parking', ParkingController::class);
+    Route::patch('parking/{transactionid}/close', [ParkingController::class,'close'])->name('parking.close');
     Route::get('parking/zone/{zid}/floor/{fid}/type/{tid}', [ParkingController::class,'getSlot'])->name('parking.zone.floor.slot');
     Route::get('parking/{id}/exit/{amount}', [ParkingController::class,'exitVehicle'])->name('parking.exit.vehicle');
     Route::post('parking/{id}/exit', [ParkingController::class,'exitVehicleData'])->name('exit.vehicle.store');
@@ -355,7 +382,23 @@ Route::group(
 
 //-------------------------------Report-------------------------------------------
 
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
 
+    // Route::resource('reportsummary', ReportSummaryController::class, 'getamountreport')->name('report.summary');
+    Route::get('/report-amount-summary', [ReportSummaryController::class, 'getAmountReport'])->name('report.summary.amount');
+    Route::get('/report-amount-summary/pdf', [ReportSummaryController::class, 'downloadpdfAmount'])->name('report.summary.amount.pdf');
+    Route::get('/report-amount-summary/excel', [ReportSummaryController::class, 'downloadexcelAmount'])->name('report.summary.amount.excel');
+    Route::get('/report-qty-summary', [ReportSummaryController::class, 'getQtyReport'])->name('report.summary.qty');
+    Route::get('/report-qty-summary/pdf', [ReportSummaryController::class, 'downloadpdfQty'])->name('report.summary.qty.pdf'); 
+    Route::get('/report-qty-summary/excel', [ReportSummaryController::class, 'downloadexcelQty'])->name('report.summary.qty.excel');
+}
+);
 
 Route::group(
     [
@@ -365,10 +408,38 @@ Route::group(
         ],
     ], function (){
 
-    Route::resource('reportsummary', ReportSummaryController::class);
-    Route::get('/report-summary', [ReportSummaryController::class, 'getPaymentReport'])->name('report.summary');
-    Route::get('/report-qty-summary', [ReportSummaryController::class, 'getQtyReport'])->name('report.summary.qty');
-     
+        Route::get('/report-member-summary-daily', [ReportMemberDailyController::class, 'getmemberReport'])->name('reportmember.daily');
+        Route::get('/report-member-summary-daily/pdf', [ReportMemberDailyController::class, 'downloadpdfMember'])->name('reportmember.daily.pdf');
+        Route::get('/report-member-summary-daily/excel', [ReportMemberDailyController::class, 'downloadexcelMember'])->name('reportmember.daily.excel');
+}
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+        Route::get('/report-member-nonpayment', [ReportMemberNonPaymentController::class, 'getmemberReport'])->name('reportmember.nonpayment');
+        Route::get('/report-member-nonpayment/pdf', [ReportMemberNonPaymentController::class, 'downloadpdfMember'])->name('reportmember.nonpayment.pdf');
+        Route::get('/report-member-nonpayment/excel', [ReportMemberNonPaymentController::class, 'downloadexcelMember'])->name('reportmember.nonpayment.excel');
+}
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+   
+    Route::resource('company', CompanyController::class);
+    // Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+    // Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+    // Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
 }
 );
 
@@ -382,7 +453,58 @@ Route::group(
 
     
     Route::get('/reportdaily-summary', [ReportDailyController::class, 'getPaymentReport'])->name('reportdaily.index');
+    Route::get('/reportdaily-summary/pdf', [ReportDailyController::class, 'downloadPdfDaily'])->name('reportdaily.index.pdf');
+    Route::get('/reportdaily-summary/excel', [ReportDailyController::class, 'downloadExcelDaily'])->name('reportdaily.index.excel');
      
+}
+);
+
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('report-tanda-terima', [TandaTerimaController::class, 'index'])->name('tanda.terima.member');
+    Route::get('tanda-terima', [TandaTerimaController::class, 'show'])->name('tanda.terima.view');
+
+}
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('report-hotel', [ReportHotelController::class, 'index'])->name('report.hotel');
+
+    Route::get('report-hotel-trx', [ReportHotelController::class, 'dataTrxHotel'])->name('report.hotel.trx');
+
+    Route::get('report-hotel/pdfSBSR', [ReportHotelController::class, 'downloadPDF'])->name('report.hotel.SBSR.pdf');
+    Route::get('report-hotel/excelSBSR', [ReportHotelController::class, 'downloadExcel'])->name('report.hotel.SBSR.excel');
+
+    Route::get('report-hotel/pdfSCSR', [ReportHotelController::class, 'downloadPDF'])->name('report.hotel.SCSR.pdf');
+    Route::get('report-hotel/excelSCSR', [ReportHotelController::class, 'downloadExcel'])->name('report.hotel.SCSR.excel');
+}
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('report-on', [ReportONController::class, 'index'])->name('report.on');
+    Route::get('report-on/pdf', [ReportONController::class, 'downloadPdf'])->name('report.on.pdf');
+    Route::get('report-on/excel', [ReportONController::class, 'downloadExcel'])->name('report.on.excel');
 }
 );
 
@@ -420,6 +542,19 @@ Route::resource('rfidextend', RfidVehicleController::class)->middleware(
         'auth',
         'XSS',
     ]
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function () {
+        Route::get('report-pajak', [ReportPajakController::class, 'index'])->name('report.pajak');
+        Route::get('report-pajak-data', [ReportPajakController::class, 'data'])->name('report.pajak.data');
+        Route::get('report-pajak-print', [ReportPajakController::class, 'generate'])->name('report.pajak.print');
+    }
 );
 
 

@@ -16,8 +16,8 @@ class VehicleType extends Model
         'parent_id',
     ];
 
-    public function zones()
-    {
-        return $this->hasOne('\App\Models\ParkingZone','id','zone');
-    }
+    // public function zones()
+    // {
+    //     return $this->hasOne('\App\Models\ParkingZone','id','zone');
+    // }
 }

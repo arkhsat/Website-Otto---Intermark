@@ -12,7 +12,7 @@ class HotelController extends Controller
     public function index()
     {
         // if (\Auth::user()->can('manage hotel')) {
-            $hotels = Hotel::where('parent_id', '=', parentId())->get();
+            $hotels = Hotel::where('parent_id', '=', parentId())->orderBy('id', 'desc')->limit(100)->get();
             return view('hotel.index', compact('hotels'));
         // } else {
             // return redirect()->back()->with('error', __('Permission denied.'));
@@ -40,7 +40,7 @@ class HotelController extends Controller
             $hotel->check_out = $request->check_out;
             $hotel->plat_no = $request->plat_no;
             $hotel->uidno = $request->uidno;
-            $hotel->status = $request->status;
+            $hotel->status = '1';
             
             $hotel->parent_id = parentId();
             $hotel->save();

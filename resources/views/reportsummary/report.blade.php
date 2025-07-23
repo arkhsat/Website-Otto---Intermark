@@ -28,33 +28,33 @@
                     <table class="display dataTable cell-border datatbl-advance">
                         <thead>
                         <tr>
-<td width="85">TID BANK</td>
-<td width="97">MID BANK</td>
-<td width="105">No KARTU</td>
-<td width="87">AMOUNT</td>
-<td width="128">Last Balance</td>
-<td width="136">Tanggal Transaksi</td>
-<td width="148">Settlement Report</td>
-<td width="93">IsSettled</td>
-<td width="172">Refrence ID Settlement</td>
-<td width="152">FileName Settlement</td>
-</tr>
-                        </thead>
-                        <tbody>
-                        
-                        <tr role="row">
-                       
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+                            <td width="85">TID BANK</td>
+                            <td width="97">MID BANK</td>
+                            <td width="105">No KARTU</td>
+                            <td width="87">AMOUNT</td>
+                            <td width="128">Last Balance</td>
+                            <td width="136">Tanggal Transaksi</td>
+                            <td width="148">Settlement Report</td>
+                            <td width="93">IsSettled</td>
+                            <td width="172">Refrence ID Settlement</td>
+                            <td width="152">FileName Settlement</td>
+                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                        <tr role="row">
+                                    
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

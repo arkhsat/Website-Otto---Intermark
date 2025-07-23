@@ -15,8 +15,8 @@
         <div class="auth-header">
             <div class="codex-brand">
                 <a href="#">
-                    <img class="img-fluid light-logo" src="{{asset(Storage::url('upload/logo/')).'/logo.png'}}" alt="">
-                    <img class="img-fluid dark-logo" src="{{asset(Storage::url('upload/logo/')).'/logo.png'}}" alt="">
+                    <img class="img-fluid light-logo" style="height: auto !important" src="{{ asset('images\Logo Utama.png') }}" alt="Logo Utama">
+                    <img class="img-fluid dark-logo" style="height: auto !important" src="{{ asset('images\Logo Utama.png') }}" alt="Logo Utama">
                 </a>
             </div>
             <h3>{{__('Welcome to')}} {{env('APP_NAME')}}</h3>

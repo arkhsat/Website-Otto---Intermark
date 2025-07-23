@@ -8,6 +8,7 @@ use App\Models\ParkingSlot;
 use App\Models\ParkingZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 
 class ParkingController extends Controller
 {
@@ -15,7 +16,11 @@ class ParkingController extends Controller
     public function index()
     {
         if (\Auth::user()->can('manage parking')) {
-            $parkings = Transaction::where('statusparking', '=', 'Casual')->orderBy('dateout', 'desc')->get();
+            $parkings = Transaction::where('statusparking', '=', 'Casual')
+            ->where('timein', '>',Carbon::now()->subDays(7))
+            ->whereNull('dateout')
+            ->whereNull('alreadyout')
+            ->orderBy('dateout', 'desc')->get();
             return view('parking.index', compact('parkings'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
@@ -136,6 +141,21 @@ class ParkingController extends Controller
 
             return redirect()->back()->with('success', __('Parking successfully updated.'));
 
+        } else {
+            return redirect()->back()->with('error', __('Permission denied.'));
+        }
+    }
+
+    public function close($transactionid){
+        if (\Auth::user()->can('delete parking')) {
+            $parking = Transaction::where('transactionid', $transactionid)->firstOrFail();
+            $parking->paymentby = 'CloseByON';
+            $parking->alreadyout = 'x';
+            $parking->dateout = Carbon::now()->format('Y-m-d H:i:s');
+
+            $parking->save();
+
+            return redirect()->back()->with('success', __('Parking successfully closed.'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
         }

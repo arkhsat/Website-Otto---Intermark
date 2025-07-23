@@ -25,6 +25,7 @@
     <meta property="twitter:title" content="{{$settings['meta_seo_title']}}">
     <meta property="twitter:description" content="{{$settings['meta_seo_description']}}">
     <meta property="twitter:image" content="{{asset(Storage::url('upload/seo')).'/'.$settings['meta_seo_image']}}">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- shortcut icon-->
     <link rel="icon" href="{{asset(Storage::url('upload/logo')).'/'.$settings['company_favicon']}}" type="image/x-icon">
@@ -45,7 +46,9 @@
     <!-- Slick slider-->
     <link href="{{ asset('assets/css/vendor/slider/slick-slider/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/vendor/slider/slick-slider/slick-theme.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/vendor/select2/select2.css') }}" rel="stylesheet">
+    {{-- Select2 CSS --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
     <!-- Scrollbar-->
     <link href="{{ asset('assets/css/vendor/simplebar.css') }}" rel="stylesheet">
@@ -63,5 +66,28 @@
 
     <link href="{{ asset('css/custom.css') }}"  rel="stylesheet">
 
+    <!-- Lightbox2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+    
+<!-- ✅ Tambahkan jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- ✅ Tambahkan Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- ✅ Tambahkan Bootstrap JS jika diperlukan -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ✅ Inisialisasi Select2 -->
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Pilih Perusahaan",
+            width: '100%' // agar tidak terpotong
+        });
+
+        // Jika kamu juga ingin pakai DataTable
+        $('.datatbl-advance').DataTable();
+    });
+</script>
 </head>

@@ -9,20 +9,20 @@
     <div class="logo-gridwrap">
         <a class="codexbrand-logo" href="{{route('home')}}">
             <img class="img-fluid"
-                 src="{{asset(Storage::url('upload/logo/')).'/'.(isset($admin_logo) && !empty($admin_logo)?$admin_logo:'logo.png')}}"
-                 alt="theeme-logo">
+                 src="{{ asset('images\Logo Utama.png') }}"
+                 alt="Otto Parking">
         </a>
         <a class="codex-darklogo" href="{{route('home')}}">
             <img class="img-fluid"
-                 src="{{asset(Storage::url('upload/logo/')).'/'.(isset($admin_logo) && !empty($admin_logo)?$admin_logo:'logo.png')}}"
-                 alt="theeme-logo"></a>
+                 src="{{ asset('images\Logo Utama.png') }}"
+                 alt="Otto Parking"></a>
         <div class="sidebar-action"><i data-feather="menu"></i></div>
     </div>
     <div class="icon-logo">
         <a href="{{route('home')}}">
             <img class="img-fluid"
-                 src="{{asset(Storage::url('upload/logo/')).'/'.(isset($admin_logo) && !empty($admin_logo)?$admin_logo:'logo.png')}}"
-                 alt="theeme-logo">
+                 src="{{ asset('images\Logo Utama.png') }}"
+                 alt="Otto Parking">
         </a>
     </div>
     <div class="codex-menuwrapper">
@@ -120,6 +120,22 @@
                     </li>
                 @endif
 
+            @if( Gate::check('manage parking rate') ||  Gate::check('manage parking slot') ||  Gate::check('manage rfid vehicle') ||  Gate::check('manage parking') || Gate::check('manage contact') || Gate::check('manage support') || Gate::check('manage note') )
+                <li class="cdxmenu-title">
+                    <h5>{{__('Parking Capacity')}}</h5>
+                </li>
+
+                @if(Gate::check('manage parking'))
+                <li class="menu-item {{in_array($routeName,['parking.index','parking.show'])?'active':''}}">
+                    <a href="{{route('parking.index')}}">
+                        <div class="icon-item"><i data-feather="trello"></i></div>
+                        <span>{{__('Parked Vehicle')}}</span>
+                    </a>
+                </li>
+                @endif
+
+            @endif
+
 
             @if( Gate::check('manage parking rate') ||  Gate::check('manage parking slot') ||  Gate::check('manage rfid vehicle') ||  Gate::check('manage parking') || Gate::check('manage contact') || Gate::check('manage support') || Gate::check('manage note') )
                 <li class="cdxmenu-title">
@@ -141,6 +157,16 @@
                         </a>
                     </li>
                 @endif
+                
+                @if(Gate::check('manage rfid vehicle'))
+                    <li class="menu-item {{in_array($routeName,['company.index'])?'active':''}}">
+                        <a href="{{route('company.index')}}">
+                            <div class="icon-item"><i data-feather="truck"></i></div>
+                            <span>{{__('Company')}}</span>
+                        </a>
+                    </li>
+                @endif
+                
                 @if(Gate::check('manage rfid vehicle'))
                     <li class="menu-item {{in_array($routeName,['rfid-vehicle.index'])?'active':''}}">
                         <a href="{{route('rfid-vehicle.index')}}">
@@ -158,23 +184,16 @@
                         </a>
                     </li>
                 @endif
-                @if(Gate::check('manage parking'))
-                    <li class="menu-item {{in_array($routeName,['parking.index','parking.show'])?'active':''}}">
-                        <a href="{{route('parking.index')}}">
-                            <div class="icon-item"><i data-feather="trello"></i></div>
-                            <span>{{__('Parking')}}</span>
-                        </a>
-                    </li>
-                @endif
-                @if(Gate::check('manage parking'))
+
+                {{-- @if(Gate::check('manage parking'))
                     <li class="menu-item {{in_array($routeName,['parked.vehicle'])?'active':''}}">
                         <a href="{{route('parked.vehicle')}}">
                             <div class="icon-item"><i data-feather="slash"></i></div>
                             <span>{{__('Parked Vehicle')}}</span>
                         </a>
                     </li>
-                @endif
-                @if(Gate::check('manage parking'))
+                @endif --}}
+                {{-- @if(Gate::check('manage parking'))
                     <li class="menu-item {{in_array($routeName,['parked.member.motor'])?'active':''}}">
                         <a href="{{route('parked.member.motor')}}">
                             <div class="icon-item"><i data-feather="bycle"></i></div>
@@ -206,28 +225,37 @@
                             <span>{{__('Notes')}}</span>
                         </a>
                     </li>
-                @endif
+                @endif --}}
 
             @endif
+            @if(\Auth::user()->type=='super admin' || \Auth::user()->type=='owner')
             <li class="cdxmenu-title">
-                <h5>{{__('Report')}}</h5>
+                <h5>{{__('Report Transactions')}}</h5>
             </li>
-            <li class="menu-item {{in_array($routeName,['reportsummary.index',''])?'active':''}}">
-                <a href="{{route('reportsummary.index')}}">
+
+            {{-- <li class="menu-item {{in_array($routeName,['report.summary.amount',''])?'active':''}}">
+                <a href="{{route('report.summary.amount')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
                     <span>{{__('Report Settlement')}}</span>
                 </a>
+            </li> --}}
+
+            <li class="menu-item {{in_array($routeName,['report.hotel',''])?'active':''}}">
+                <a href="{{route('report.hotel')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Transaksi Hotel')}}</span>
+                </a>
             </li>
+            
             <li class="menu-item {{in_array($routeName,['report.summary.qty',''])?'active':''}}">
                 <a href="{{route('report.summary.qty')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
                     <span>{{__('Report Summary Qty')}}</span>
                 </a>
             </li>
-            
 
-            <li class="menu-item {{in_array($routeName,['reportsummary.index',''])?'active':''}}">
-                <a href="{{route('reportsummary.index')}}">
+            <li class="menu-item {{in_array($routeName,['report.summary.amount',''])?'active':''}}">
+                <a href="{{route('report.summary.amount')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
                     <span>{{__('Report Summary Amount')}}</span>
                 </a>
@@ -238,8 +266,62 @@
                     <span>{{__('Report Harian')}}</span>
                 </a>
             </li>
+
+            <li class="menu-item {{in_array($routeName,['report.on',''])?'active':''}}">
+                <a href="{{route('report.on')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Close ON')}}</span>
+                </a>
+            </li>
+
+            <li class="menu-item {{in_array($routeName,['report.pajak',''])?'active':''}}">
+                <a href="{{route('report.pajak')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Pajak')}}</span>
+                </a>
+            </li>
             
-           
+            
+            <li class="cdxmenu-title">
+                <h5>{{__('Report Member')}}</h5>
+            </li>
+            <li class="menu-item {{in_array($routeName,['reportmember.nonpayment',''])?'active':''}}">
+                <a href="{{route('reportmember.nonpayment')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Riwayat Edit Data Member')}}</span>
+                </a>
+            </li>
+
+            <li class="menu-item {{in_array($routeName,['reportmember.daily',''])?'active':''}}">
+                <a href="{{route('reportmember.daily')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Perpanjangan Member')}}</span>
+                </a>
+            </li>
+
+            @endif
+
+            @if(\Auth::user()->type=='super admin' || \Auth::user()->type=='owner')
+            <li class="cdxmenu-title">
+                <h5>{{__('Tanda Terima Member')}}</h5>
+            </li>
+
+            {{-- <li class="menu-item {{in_array($routeName,['report.summary.amount',''])?'active':''}}">
+                <a href="{{route('report.summary.amount')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Settlement')}}</span>
+                </a>
+            </li> --}}
+
+            <li class="menu-item {{in_array($routeName,['tanda.terima.member',''])?'active':''}}">
+                <a href="{{route('tanda.terima.member')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Tanda Terima')}}</span>
+                </a>
+            </li>
+            
+
+            @endif
 
             @if( Gate::check('manage parking zone') || Gate::check('manage gatetype') || Gate::check('manage vehicle_type') || Gate::check('manage floor'))
                 <li class="cdxmenu-title">
@@ -325,7 +407,7 @@
                     </li>
                 @endif
                 @if(Gate::check('manage account settings') || Gate::check('manage password settings') || Gate::check('manage general settings') || Gate::check('manage company settings') || Gate::check('manage seo settings') || Gate::check('manage google recaptcha settings'))
-                    <li class="menu-item {{in_array($routeName,['setting.account','setting.password','setting.general','setting.company','setting.smtp','setting.payment','setting.site.seo','setting.google.recaptcha'])?'active':''}}">
+                    {{-- <li class="menu-item {{in_array($routeName,['setting.account','setting.password','setting.general','setting.company','setting.smtp','setting.payment','setting.site.seo','setting.google.recaptcha'])?'active':''}}">
                         <a href="javascript:void(0);">
                             <div class="icon-item"><i data-feather="settings"></i></div>
                             <span>{{__('Settings')}}</span><i class="fa fa-angle-down"></i></a>
@@ -335,7 +417,7 @@
                                 <li class="{{in_array($routeName,['setting.account'])?'active':''}} ">
                                     <a href="{{route('setting.account')}}">{{__('Account Setting')}}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                             @if(Gate::check('manage password settings'))
                                 <li class="{{in_array($routeName,['setting.password'])?'active':''}}">
                                     <a href="{{route('setting.password')}}">{{__('Password Setting')}}</a>
@@ -346,11 +428,11 @@
                                     <a href="{{route('setting.general')}}">{{__('General Setting')}}</a>
                                 </li>
                             @endif
-                            @if(Gate::check('manage company settings'))
+                            {{-- @if(Gate::check('manage company settings'))
                                 <li class="{{in_array($routeName,['setting.company'])?'active':''}}">
                                     <a href="{{route('setting.company')}}">{{__('Company Setting')}}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                             @if(Gate::check('manage email settings'))
                                 <li class="{{in_array($routeName,['setting.smtp'])?'active':''}} ">
                                     <a href="{{route('setting.smtp')}}">{{__('SMTP Setting')}}</a>

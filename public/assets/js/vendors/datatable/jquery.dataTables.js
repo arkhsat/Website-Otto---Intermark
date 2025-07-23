@@ -1604,14 +1604,14 @@ $jscomp.polyfill(
         return -1 !== a ? b[a] : null;
     }
     function da(a, b, c, d) {
-        c = "DataTables warning: " + (a ? "table id=" + a.sTableId + " - " : "") + c;
-        d && (c += ". For more information about this error, please see http://datatables.net/tn/" + d);
-        if (b) z.console && console.log && console.log(c);
-        else if (((b = u.ext), (b = b.sErrMode || b.errMode), a && F(a, null, "error", [a, d, c]), "alert" == b)) alert(c);
-        else {
-            if ("throw" == b) throw Error(c);
-            "function" == typeof b && b(a, d, c);
-        }
+        // c = "DataTables warning: " + (a ? "table id=" + a.sTableId + " - " : "") + c;
+        // d && (c += ". For more information about this error, please see http://datatables.net/tn/" + d);
+        // if (b) z.console && console.log && console.log(c);
+        // else if (((b = u.ext), (b = b.sErrMode || b.errMode), a && F(a, null, "error", [a, d, c]), "alert" == b)) alert(c);
+        // else {
+        //     if ("throw" == b) throw Error(c);
+        //     "function" == typeof b && b(a, d, c);
+        // }
     }
     function X(a, b, c, d) {
         Array.isArray(c)

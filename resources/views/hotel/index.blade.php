@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <table class="display dataTable cell-border datatbl-advance">
                         <thead>
-                        <tr>
+                            <tr>
                             <th>{{__('Room No')}}</th>
                             <th>{{__('Guest Name')}}</th>
                             <th>{{__('Plat No')}}</th>
@@ -34,41 +34,21 @@
                             <th>{{__('Check In')}}</th>
                             <th>{{__('Check Out')}}</th>
                             <th>{{__('Status')}}</th>
-                            <th class="text-right">{{__('Action')}}</th>
+                            <th>{{__('Date Created')}}</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($hotels as $hotel)
-                            <tr>
+                            <tr role="row">
                                 <td>{{ ucfirst($hotel->room_no) }} </td>
-                               
                                 <td> {{ ucfirst($hotel->guest_name)}}   </td>
                                 <td> {{ ucfirst($hotel->plat_no)}}   </td>
                                 <td> {{ ucfirst($hotel->uidno)}}   </td>
                                 <td> {{ ucfirst($hotel->check_in)}}   </td>
                                 <td> {{ ucfirst($hotel->check_out)}}   </td>
                                 <td> {{ ucfirst($hotel->status)}}   </td>
-                                
-                                @if(Gate::check('edit gate') ||  Gate::check('delete gate'))
-                                    <td class="text-right">
-                                        <div class="cart-action">
-                                            {!! Form::open(['method' => 'DELETE', 'route' => ['gate.destroy', $gate->id]]) !!}
-
-                                            @if(Gate::check('edit gate') )
-                                                <a class="text-success customModal" data-bs-toggle="tooltip"
-                                                   data-bs-original-title="{{__('Edit')}}" data-size="md" href="#"
-                                                   data-url="{{ route('gate.edit',$floor->id) }}"
-                                                   data-title="{{__('Edit Gate')}}"> <i data-feather="edit"></i></a>
-                                            @endcan
-                                            @if( Gate::check('delete gate'))
-                                                <a class=" text-danger confirm_dialog" data-bs-toggle="tooltip"
-                                                   data-bs-original-title="{{__('Delete')}}" href="#"> <i
-                                                        data-feather="trash-2"></i></a>
-                                            @endcan
-                                            {!! Form::close() !!}
-                                        </div>
-                                    </td>
-                                @endif
+                                <td> {{ ucfirst($hotel->created_at)}}   </td>
                             </tr>
                         @endforeach
 

@@ -1,82 +1,164 @@
 @extends('layouts.app')
+
 @section('page-title')
-    {{__('RFID Vehicle')}}
+    {{ __('RFID Vehicle') }}
 @endsection
+
 @section('breadcrumb')
     <ul class="breadcrumb mb-0">
         <li class="breadcrumb-item">
-            <a href="{{route('dashboard')}}"><h1>{{__('Dashboard')}}</h1></a>
+            <a href="{{ route('dashboard') }}">
+                <h1>{{ __('Dashboard') }}</h1>
+            </a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="#">{{__('RFID Vehicle')}}</a>
+            <a href="#">{{ __('RFID Vehicle') }}</a>
         </li>
     </ul>
 @endsection
+
 @section('card-action-btn')
     @if(Gate::check('create rfid vehicle'))
-       
-           <a class="btn btn-primary btn-sm ml-20 customModal" href="#" data-size="lg"
+        <a class="btn btn-primary btn-sm ml-20 customModal" href="#" data-size="lg"
            data-url="{{ route('rfid-vehicle.create') }}"
-           data-title="{{__('Create RFID Vehicle')}}"> <i class="ti-plus mr-5"></i>{{__('Create RFID Vehicle')}}</a>
+           data-title="{{ __('Create RFID Vehicle') }}">
+            <i class="ti-plus mr-5"></i>{{ __('Create RFID Vehicle') }}
+        </a>
     @endif
 @endsection
-@section('content')
 
+@section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="display dataTable cell-border datatbl-advance">
-                        <thead>
-                        <tr>
-                            <th>{{__('RFID No')}}</th>
-                            <th>{{__('Vehicle No')}}</th>
-                           
-                            <th>{{__('Vehicle Type')}}</th>
-                            
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Company')}}</th>
-                            <th>{{__('Start Date')}}</th>
-                            <th>{{__('End Date')}}</th>
-                            <th>{{__('Status')}}</th>
-                            @if(Gate::check('edit rfid vehicle') ||  Gate::check('delete rfid vehicle'))
-                                <th class="text-right">{{__('Action')}}</th>
-                            @endif
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($vehicles as $vehicle)
-
-                            <tr role="row">
-                                <td>{{$vehicle->rfid_no}}</td>
-                                <td>{{$vehicle->vehicle_no}}</td>
-                                <td> {{ !empty($vehicle->types)?$vehicle->types->title:'-' }}   </td>
-                                <td>{{ $vehicle->name }} </td>
-                                <td>{{ $vehicle->company_name }} </td>
-                                <td>{{ $vehicle->start_date }} </td>
-                                <td>{{ $vehicle->end_date }} </td>
-                                <td>{{ $vehicle->status }} </td>
-                                   <td class="text-right">
-                                   
-                                        <div class="cart-action">
-                                           
-                                            
-                                                <a class="text-success customModal" data-bs-toggle="tooltip"
-                                                   
-                                                  
-                                                  >EDIT</a>
-                                            
-                                          
-                                        </div>
-                                    </td>
-                               
+                    <button id="btnPrint" class="btn btn-info mb-3">Cetak Laporan</button>
+                    <div class="table-responsive">
+                        <table class="display dataTable cell-border datatbl-advance" id="rfidVehicleTable">
+                            <thead>
+                            <tr>
+                                <th>RFID</th>
+                                <th>Plat Nomor</th>
+                                <th>Kendaraan</th>
+                                <th>Nama</th>
+                                <th>Company</th>
+                                <th>Awal Berlaku</th>
+                                <th>Kadaluarsa</th>
+                                <th>Status</th>
+                                <th>Produk</th>
+                                @if(Gate::check('edit rfid vehicle') || Gate::check('delete rfid vehicle'))
+                                    <th class="text-right">{{ __('Action') }}</th>
+                                @endif
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($vehicles as $vehicle)
+                                <tr>
+                                    <td>
+                                        <a class="text-success customModal" data-bs-toggle="tooltip"
+                                           data-bs-original-title="{{ __('Edit') }}" data-size="lg" href="#"
+                                           data-url="{{ route('rfid-vehicle.edit', $vehicle->id) }}"
+                                           data-title="{{ __('Edit RFID Vehicle') }}">
+                                            {{ $vehicle->rfid_no }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $vehicle->vehicle_no }}</td>
+                                    <td>
+                                        @if($vehicle->vehicleid == '1')
+                                            Mobil
+                                        @elseif($vehicle->vehicleid == '2')
+                                            Motor
+                                        @else
+                                            Tidak Diketahui
+                                        @endif
+                                    </td>
+                                    <td>{{ $vehicle->name }}</td>
+                                    <td>{{ $vehicle->company_name }}</td>
+                                    <td>{{ $vehicle->start_date }}</td>
+                                    <td>{{ $vehicle->end_date }}</td>
+                                    <td>
+                                        @if(\Carbon\Carbon::parse($vehicle->end_date)->isPast() && \Carbon\Carbon::parse($vehicle->end_date)->lt(\Carbon\Carbon::today()))
+                                            <span class="badge badge-danger">{{ __('Kadaluarsa') }}</span>
+                                        @else
+                                            <span class="badge badge-success">{{ __('Aktif') }}</span>
+                                        @endif
+
+                                        @if(Str::startsWith($vehicle->rfid_no, 'B'))
+                                            <br><span class="badge badge-secondary">{{ __('Terblokir') }}</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $vehicle->member_type_keterangan }}</td>
+                                    @if(Gate::check('edit rfid vehicle') || Gate::check('delete rfid vehicle'))
+                                        <td class="text-right">
+                                            <div class="cart-action">
+                                                <a class="btn btn-primary customModal" data-bs-toggle="tooltip"
+                                                   data-bs-original-title="{{ __('Edit') }}" data-size="lg" href="#"
+                                                   data-url="{{ route('rfid-vehicle.edit', $vehicle->id) }}"
+                                                   data-title="{{ __('Edit RFID Vehicle') }}">
+                                                    Edit
+                                                </a>
+                                            </div>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div> <!-- table-responsive -->
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
+@push('script')
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("btnPrint");
+    if (btn) {
+        btn.addEventListener("click", function () {
+            let table = $('#rfidVehicleTable').DataTable();
+            let filteredData = table.rows({ search: 'applied' }).nodes();
+
+            let printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>ottoparking</title>');
+            printWindow.document.write(`
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 14px; }
+                    th { background-color: #f2f2f2; }
+                    h2,h3 { text-align: center; }
+                </style>
+            `);
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<h2>Data Member</h2>');
+            printWindow.document.write('<h3>Otto Parking - Intermark Indonesia</h3>');
+
+            let ths = $('#rfidVehicleTable thead tr th').slice(1, 8);
+            let htmlTable = '<table><thead><tr>';
+            ths.each(function () {
+                htmlTable += '<th>' + $(this).text() + '</th>';
+            });
+            htmlTable += '</tr></thead><tbody>';
+
+            for (let i = 0; i < filteredData.length; i++) {
+                let cells = $(filteredData[i]).find('td').slice(1, 8);
+                htmlTable += '<tr>';
+                cells.each(function () {
+                    htmlTable += '<td>' + $(this).text() + '</td>';
+                });
+                htmlTable += '</tr>';
+            }
+
+            htmlTable += '</tbody></table>';
+
+            printWindow.document.write(htmlTable);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    }
+});
+</script>
+@endpush

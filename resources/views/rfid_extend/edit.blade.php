@@ -1,179 +1,177 @@
-{{Form::model($rfidVehicle, array('route' => array('rfid-vehicle.update', $rfidVehicle->id), 'method' => 'PUT')) }}
+{{ Form::model($vehicle, [
+    'route' => ['rfid-extend.update', $vehicle->id], 'method' => 'PUT', 'id' => 'formUpdate']) }}
 <div class="modal-body">
     <div class="row">
-        <div class="form-group  col-md-6">
-            {{Form::label('name',__('Name'),array('class'=>'form-label'))}}
-            {{Form::text('name',null,array('class'=>'form-control','placeholder'=>__('Enter name')))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('phone_number',__('Phone Number'),array('class'=>'form-label'))}}
-            {{Form::text('phone_number',null,array('class'=>'form-control','placeholder'=>__('Enter phone number')))}}
+        <div class="form-group col-md-6">
+            {{ Form::label('name', __('Nama'), array('class' => 'form-label')) }}
+            {{ Form::text('name', null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('zone',__('Parking Zone'),array('class'=>'form-label'))}}
-            {{Form::select('zone',$zones,null,array('class'=>'form-control hidesearch','id'=>'zone_id'))}}
+            {{ Form::label('phone_number', __('Nomor HP'), array('class' => 'form-label')) }}
+            {{ Form::text('phone_number', null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('vehicle_type',__('Vehicle Type'),array('class'=>'form-label'))}}
-            <input type="hidden" id="edit_type" value="{{$rfidVehicle->type}}">
-            <div class="vehicle_type_dive">
-                <select class="form-control hidesearch vehicle_type" id="vehicle_type" name="type">
-                    <option value="">{{__('Select Vehicle Type')}}</option>
-                </select>
-            </div>
+            {{ Form::label('vehicle_type', __('Jenis Kendaraan'), array('class' => 'form-label')) }}
+            {{ Form::select('vehicle_type', $vehicleTypes->toArray(), $vehicle->vehicleid, array('class' => 'form-control hidesearch', 'id' => 'vehicle_type')) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('floor',__('Floor'),array('class'=>'form-label'))}}
-            <input type="hidden" id="edit_floor" value="{{$rfidVehicle->floor}}">
-            <div class="floor_dive">
-                <select class="form-control hidesearch floor" id="floor_id" name="floor">
-                    <option value="">{{__('Select Floor')}}</option>
-                </select>
-            </div>
+            {{ Form::label('company_name', __('Nama Perusahaan'), array('class' => 'form-label')) }}
+            {{ Form::text('company_name', null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('slot',__('Slot'),array('class'=>'form-label'))}}
-            <input type="hidden" id="edit_slot" value="{{$rfidVehicle->slot}}">
-            <div class="slot_dive">
-                <select class="form-control hidesearch slot" id="slot" name="slot">
-                    @foreach($slots as $k=>$slot)
-                        <option value="{{$k}}" {{$k==$rfidVehicle->slot?'selected':''}}>{{$slot}}</option>
-                    @endforeach
-                </select>
-            </div>
+            {{ Form::label('membertype', __('Produk'), array('class' => 'form-label')) }}
+            {{ Form::select('membertype', [], null, array('class' => 'form-control hidesearch', 'id' => 'product_code')) }}
         </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('vehicle_no',__('Vehicle Number'),array('class'=>'form-label'))}}
-            {{Form::text('vehicle_no',null,array('class'=>'form-control','placeholder'=>__('Enter vehicle number')))}}
+        <div class="form-group col-md-6">
+            {{ Form::label('vehicle_no', __('Nomor Polisi'), array('class' => 'form-label')) }}
+            {{ Form::text('vehicle_no', null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
         </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('rfid_no',__('RFID Number'),array('class'=>'form-label'))}}
-            {{Form::text('rfid_no',null,array('class'=>'form-control','placeholder'=>__('Enter RFID number')))}}
+        <div class="form-group col-md-12">
+            {{ Form::label('price', __('Harga'), array('class' => 'form-label')) }}
+            {{ Form::text('price', null, array('class' => 'form-control', 'id' => 'price', 'disabled' => 'disabled')) }}
+            {{ Form::hidden('price', null, array('id' => 'hidden_price')) }}
         </div>
-        <div class="form-group  col-md-12">
-            {{Form::label('notes',__('Notes'),array('class'=>'form-label'))}}
-            {{Form::textarea('notes',null,array('class'=>'form-control','placeholder'=>__('Enter notes'),'rows'=>2))}}
+        <div class="form-group col-md-12">
+            {{ Form::label('rfid_no', __('Nomor RFID'), array('class' => 'form-label')) }}
+            {{ Form::text('rfid_no', null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            {{ Form::label('start_date', __('Start Date'), array('class' => 'form-label')) }}
+            {{ Form::date('start_date', null, array('class' => 'form-control')) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ Form::label('end_date', __('End Date'), array('class' => 'form-label')) }}
+            {{ Form::date('end_date', null, array('class' => 'form-control')) }}
+        </div>
+        <div class="form-group col-md-12">
+            {{ Form::label('notes', __('Notes'), array('class' => 'form-label')) }}
+            {{ Form::textarea('notes', null, array('class' => 'form-control', 'placeholder' => __('Enter notes'), 'rows' => 2)) }}
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{__('Close')}}</button>
-    {{Form::submit(__('Update'),array('class'=>'btn btn-primary btn-rounded'))}}
+    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+    {{ Form::submit(__('Update'), array('class' => 'btn btn-primary btn-rounded', 'id' => 'BTNUpdate')) }}
 </div>
 {{ Form::close() }}
+
 <script>
-
-    $('#zone_id').on('change', function () {
-        "use strict";
-        var zone_id = $(this).val();
-        var url = '{{ route("zone.type", ":id") }}';
-        url = url.replace(':id', zone_id);
-        $.ajax({
-            url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                zone_id: zone_id,
-            },
-            contentType: false,
-            processData: false,
-            type: 'GET',
-            success: function (data) {
-                $('.vehicle_type').empty();
-                var vehicle_type = `<select class="form-control hidesearch vehicle_type" id="vehicle_type" name="type"></select>`;
-                $('.vehicle_type_div').html(vehicle_type);
-
-                $.each(data, function (key, value) {
-                    var edit_type_id = $('#edit_type').val();
-                    if (key == edit_type_id) {
-                        $('.vehicle_type').append('<option selected value="' + key + '">' + value + '</option>');
-                    } else {
-                        $('.vehicle_type').append('<option value="' + key + '">' + value + '</option>');
-                    }
-                });
-
-            },
-
-        });
+    $(document).ready(function () {
+    
+        $('#formUpdate').on('submit', function () {
+        const btn = $('#BTNUpdate');
+        btn.prop('disabled', true);
+        btn.html('<span class="spinner-border spinner-border-sm"></span> Memproses...'); // Feedback ke user
     });
 
-    $('#zone_id').on('change', function () {
-        "use strict";
-        var zone_id = $(this).val();
-        var url = '{{ route("zone.floor", ":id") }}';
-        url = url.replace(':id', zone_id);
-        $.ajax({
-            url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                zone_id: zone_id,
-            },
-            contentType: false,
-            processData: false,
-            type: 'GET',
-            success: function (data) {
-                $('.floor').empty();
-                var floor = `<select class="form-control hidesearch floor" id="floor_id" name="floor"><option value="">Select Floor</option></select>`;
-                $('.floor').html(floor);
-
-                $.each(data, function (key, value) {
-                    var edit_floor_id = $('#edit_floor').val();
-                    if (key == edit_floor_id) {
-                        $('.floor').append('<option selected value="' + key + '">' + value + '</option>');
-                    } else {
-                        $('.floor').append('<option value="' + key + '">' + value + '</option>');
-                    }
-
-                });
-
-            },
-
+        var vehicle_id = $('#vehicle_type').val(); // Ambil nilai vehicle_id saat pertama kali modal terbuka
+        var productPrices = {}; // Object to store product prices
+        var productMonth = {};
+    
+        if (vehicle_id) {
+            loadProductOptions(vehicle_id); // Panggil fungsi untuk mengambil data produk berdasarkan vehicle_id
+        }
+    
+        // Fungsi untuk mengambil data produk berdasarkan vehicle_id
+        function loadProductOptions(vehicle_id) {
+            var url = '{{ route("vehicleid", ":vehicle_id") }}';
+            url = url.replace(':vehicle_id', vehicle_id);
+    
+            $.ajax({
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                success: function (data) {
+                    $('#product_code').empty();
+                    $('#product_code').append('<option value="">{{ __("Pilih Produk") }}</option>');
+    
+                    $.each(data, function (index, item) {
+                        $('#product_code').append('<option value="' + item.product_code + '">' + item.keterangan + '</option>');
+                        productPrices[item.product_code] = item.price; // Store product price
+                        productMonth[item.product_code] = item.month; // Store product month
+                    });
+                },
+                error: function () {
+                    alert("Terjadi kesalahan saat mengambil data produk.");
+                }
+            });
+        }
+    
+        // Ketika vehicle_type berubah, muat ulang daftar produk
+        $('#vehicle_type').on('change', function () {
+            var selectedVehicleId = $(this).val();
+            if (selectedVehicleId) {
+                loadProductOptions(selectedVehicleId);
+            } else {
+                $('#product_code').empty();
+                $('#product_code').append('<option value="">{{ __("Pilih Produk") }}</option>');
+            }
         });
-    });
 
-    $('#floor_id').on('change', function () {
-        "use strict";
-        var floor_id = $(this).val();
-        var zone_id = $('#zone_id').val();
-        var type_id = $('#vehicle_type').val();
+        // Fungsi untuk menghitung tanggal akhir berdasarkan logika yang diberikan
+        function calculateEndDate(month) {
+            var today = new Date();
+            var endDate = new Date();
 
-        var url = '{{ route("zone.floor.slot", [":floor_id",":zone_id",":type_id"]) }}';
-        url = url.replace(':floor_id', floor_id);
-        url = url.replace(':zone_id', zone_id);
-        url = url.replace(':type_id', type_id);
-        $.ajax({
-            url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
+            if (month === 0) {
+                return endDate.toISOString().split('T')[0]; // Return today's date if month is 0
+            }
 
-            },
-            contentType: false,
-            processData: false,
-            type: 'GET',
-            success: function (data) {
-                $('.slot').empty();
-                var slot = `<select class="form-control hidesearch slot" id="slot" name="slot"></select>`;
-                $('.slot_div').html(slot);
+            if (today.getDate() >= 25 && today.getDate() <= 31) {
+                endDate.setMonth(today.getMonth() + month + 1);
+                endDate.setDate(5);
+            } else if (today.getDate() >= 1) {
+                endDate.setMonth(today.getMonth() + month);
+                endDate.setDate(5);
+            }
 
-                $.each(data, function (key, value) {
-                    var edit_slot_id= $('#edit_slot').val();
-                    if(key==edit_slot_id){
-                        $('.slot').append('<option selected value="' + key + '">' + value +'</option>');
-                    }else{
-                        $('.slot').append('<option value="' + key + '">' + value + '</option>');
-                    }
-                });
+            return endDate.toISOString().split('T')[0];
+        }
 
-            },
+        // Fungsi untuk memformat angka dengan pemisah ribuan
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
+        }
+
+        // Ketika product_code berubah, muat ulang harga
+        $('#product_code').on('change', function () {
+            var selectedProductCode = $(this).val();
+            if (selectedProductCode && productPrices[selectedProductCode] !== undefined) {
+                var price = productPrices[selectedProductCode];
+                $('#price').val(formatRupiah(price.toString(), 'Rp '));
+                $('#hidden_price').val(price); // Set hidden input value
+                var month = productMonth[selectedProductCode];
+                $('#end_date').val(calculateEndDate(month));
+            } else {
+                $('#price').val('');
+                $('#hidden_price').val(''); // Clear hidden input value
+                $('#end_date').val('');
+            }
         });
+    
+        // Mencegah enter di field RFID
+        $('#rfid_no').on('keydown', function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+        });
+    
     });
-    $('#zone_id').trigger('change');
 
 </script>
-

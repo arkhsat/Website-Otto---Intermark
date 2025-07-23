@@ -1,203 +1,172 @@
-{{Form::model($rfidVehicle, array('route' => array('rfid-vehicle.update', $rfidVehicle->id), 'method' => 'PUT')) }}
+{{ Form::model($rfidVehicle, ['route' => ['rfid-vehicle.update', $rfidVehicle->id], 'method' => 'PUT']) }}
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 <div class="modal-body">
     <div class="row">
-        <div class="form-group  col-md-6">
-            {{Form::label('name',__('Name'),array('class'=>'form-label'))}}
-            {{Form::text('name',null,array('class'=>'form-control','placeholder'=>__('Enter name')))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('phone_number',__('Phone Number'),array('class'=>'form-label'))}}
-            {{Form::text('phone_number',null,array('class'=>'form-control','placeholder'=>__('Enter phone number')))}}
+        <div class="form-group col-md-6">
+            {{ Form::label('name', __('Nama'), ['class' => 'form-label']) }}
+            {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => __('Masukkan Nama')]) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('zone',__('Parking Zone'),array('class'=>'form-label'))}}
-            {{Form::select('zone',$zones,null,array('class'=>'form-control hidesearch','id'=>'zone_id'))}}
+            {{ Form::label('phone_number', __('Nomor HP'), ['class' => 'form-label']) }}
+            {{ Form::text('phone_number', null, ['class' => 'form-control', 'placeholder' => __('Masukkan Nomor HP')]) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('vehicle_type',__('Vehicle Type'),array('class'=>'form-label'))}}
-            <input type="hidden" id="edit_type" value="{{$rfidVehicle->type}}">
-            <div class="vehicle_type_dive">
-                <select class="form-control hidesearch vehicle_type" id="vehicle_type" name="type">
-                    <option value="">{{__('Select Vehicle Type')}}</option>
-                </select>
+            {{ Form::label('vehicleid', __('Jenis Kendaraan'), ['class' => 'form-label']) }}
+            {{ Form::select('vehicleid', [
+            '1' => 'Mobil',
+            '2' => 'Motor'
+            ], $rfidVehicle->vehicleid, ['class' => 'form-control hidesearch', 'id' => 'vehicleid', 'placeholder' => __('Pilih Jenis Kendaraan'), 'readonly' => 'readonly']) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ Form::label('company_name', __('Nama Perusahaan'), ['class' => 'form-label']) }}
+            {{ Form::select('company_name', ['' => __('Pilih Perusahaan')] + $company->toArray(), null, array('class' => 'form-control hidesearch')) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ Form::label('membertype', __('Produk'), ['class' => 'form-label']) }}
+            {{ Form::text('product_code', $rfidVehicle->member_type, [
+            'class' => 'form-control',
+            'id' => 'product_code',
+            'readonly' => 'readonly'
+            ]) }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ Form::label('vehicle_no', __('Nomor Polisi'), ['class' => 'form-label']) }}
+            {{ Form::text('vehicle_no', null, ['class' => 'form-control', 'placeholder' => __('Masukkan Nomor Polisi')]) }}
+        </div>
+
+        <div class="form-group col-md-12">
+            <label class="form-label">{{ __('Status Kartu') }}</label>
+            <div>
+                <label>
+                    <input type="radio" name="card_status" value="lost" id="card_lost"> {{ __('Kartu Hilang') }}
+                </label>
+                <label style="margin-left: 15px;">
+                    <input type="radio" name="card_status" value="damaged" id="card_damaged"> {{ __('Kartu Rusak') }}
+                </label>
+                
+                @if (!Str::startsWith($rfidVehicle->rfid_no, 'B'))
+                    <label style="margin-left: 15px;">
+                        <input type="radio" name="card_status" value="blokir" id="card_blokir"> {{ __('Blokir Kartu') }}
+                    </label>
+                @endif
+                
+                @if ($rfidVehicle->rfid_no == null || $rfidVehicle->rfid_no == '' || Str::startsWith($rfidVehicle->rfid_no, 'B'))
+                    <label style="margin-left: 15px;">
+                        <input type="radio" name="card_status" value="activate" id="card_activate"> {{ __('Aktifkan Kembali') }}
+                    </label>
+                @endif
             </div>
         </div>
+
+        
+        <div class="form-group col-md-12">
+            {{ Form::label('rfid_no', __('Nomor RFID'), ['class' => 'form-label']) }}
+            {{ Form::text('rfid_no', null, ['class' => 'form-control', 'placeholder' => __('Masukkan Nomor RFID'), 'id' => 'rfid_no', 'disabled' => 'disabled']) }}
+            {{ Form::hidden('rfid_no', null, ['id' => 'rfid_no_hidden']) }}
+        </div>
+
+    </div>
+    <div class="row">
         <div class="form-group col-md-6">
-            {{Form::label('floor',__('Floor'),array('class'=>'form-label'))}}
-            <input type="hidden" id="edit_floor" value="{{$rfidVehicle->floor}}">
-            <div class="floor_dive">
-                <select class="form-control hidesearch floor" id="floor_id" name="floor">
-                    <option value="">{{__('Select Floor')}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            {{Form::label('slot',__('Slot'),array('class'=>'form-label'))}}
-            <input type="hidden" id="edit_slot" value="{{$rfidVehicle->slot}}">
-            <div class="slot_dive">
-                <select class="form-control hidesearch slot" id="slot" name="slot">
-                    @foreach($slots as $k=>$slot)
-                        <option value="{{$k}}" {{$k==$rfidVehicle->slot?'selected':''}}>{{$slot}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('vehicle_no',__('Vehicle Number'),array('class'=>'form-label'))}}
-            {{Form::text('vehicle_no',null,array('class'=>'form-control','placeholder'=>__('Enter vehicle number')))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('rfid_no',__('RFID Number'),array('class'=>'form-label'))}}
-            {{Form::text('rfid_no',null,array('class'=>'form-control','placeholder'=>__('Enter RFID number')))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('company_name',__('Company Name'),array('class'=>'form-label'))}}
-            {{Form::text('company_name',null,array('class'=>'form-control','placeholder'=>__('Enter Company Name')))}}
+            {{ Form::label('start_date', __('Start Date'), ['class' => 'form-label']) }}
+            {{ Form::date('start_date', date('Y-m-d', strtotime($rfidVehicle->start_date)), ['class' => 'form-control', 'readonly' => 'readonly']) }}
+            {{ Form::hidden('start_date', date('Y-m-d', strtotime($rfidVehicle->start_date))) }}
         </div>
         <div class="form-group col-md-6">
-            {{Form::label('membertype',__('Member Type'),array('class'=>'form-label'))}}
-            {{Form::select('membertype',$membertypes,null,array('class'=>'form-control hidesearch','id'=>'member_type'))}}
+            {{ Form::label('end_date', __('End Date'), ['class' => 'form-label']) }}
+            {{ Form::date('end_date', date('Y-m-d', strtotime($rfidVehicle->end_date)), ['class' => 'form-control', 'readonly' => 'readonly']) }}
+            {{ Form::hidden('end_date', date('Y-m-d', strtotime($rfidVehicle->end_date))) }}
         </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('vehicle_no',__('Vehicle Number'),array('class'=>'form-label'))}}
-            {{Form::text('vehicle_no',null,array('class'=>'form-control','placeholder'=>__('Enter vehicle number')))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('rfid_no',__('RFID Number'),array('class'=>'form-label'))}}
-            {{Form::text('rfid_no',null,array('class'=>'form-control','placeholder'=>__('Enter RFID number')))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('start_date',__('Start Date'),array('class'=>'form-label'))}}
-            {{Form::date('start_date',null,array('class'=>'form-control'))}}
-        </div>
-        <div class="form-group  col-md-6">
-            {{Form::label('end_date',__('End Date'),array('class'=>'form-label'))}}
-            {{Form::date('end_date',null,array('class'=>'form-control'))}}
-        </div>
-        <div class="form-group  col-md-12">
-            {{Form::label('notes',__('Notes'),array('class'=>'form-label'))}}
-            {{Form::textarea('notes',null,array('class'=>'form-control','placeholder'=>__('Enter notes'),'rows'=>2))}}
+        <div class="form-group col-md-12">
+            {{ Form::label('notes', __('Notes'), ['class' => 'form-label']) }}
+            {{ Form::textarea('notes', null, ['class' => 'form-control', 'placeholder' => __('Enter notes'), 'rows' => 2]) }}
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{__('Close')}}</button>
-    {{Form::submit(__('Update'),array('class'=>'btn btn-primary btn-rounded'))}}
+    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+    {{ Form::submit(__('Update'), ['class' => 'btn btn-primary btn-rounded', 'id' => 'submitBtn']) }}
 </div>
 {{ Form::close() }}
+
 <script>
+$(document).ready(function () {
+    var member_type = "{{ $rfidVehicle->member_type }}"; // Ambil nilai dari Blade
+    
+    if (member_type) {
+        var url = '{{ route("membertype", ":member_type") }}';
+        url = url.replace(':member_type', member_type);
 
-    $('#zone_id').on('change', function () {
-        "use strict";
-        var zone_id = $(this).val();
-        var url = '{{ route("zone.type", ":id") }}';
-        url = url.replace(':id', zone_id);
         $.ajax({
             url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                zone_id: zone_id,
-            },
-            contentType: false,
-            processData: false,
             type: 'GET',
             success: function (data) {
-                $('.vehicle_type').empty();
-                var vehicle_type = `<select class="form-control hidesearch vehicle_type" id="vehicle_type" name="type"></select>`;
-                $('.vehicle_type_div').html(vehicle_type);
-
-                $.each(data, function (key, value) {
-                    var edit_type_id = $('#edit_type').val();
-                    if (key == edit_type_id) {
-                        $('.vehicle_type').append('<option selected value="' + key + '">' + value + '</option>');
-                    } else {
-                        $('.vehicle_type').append('<option value="' + key + '">' + value + '</option>');
-                    }
-                });
-
+                if (data.length > 0) {
+                    $('#product_code').val(data[0].keterangan); // Set nilai input dengan keterangan
+                }
             },
-
+            error: function () {
+                alert("Gagal mengambil data produk.");
+            }
         });
+    }
+});
+
+    // Mencegah enter di field RFID
+    $('#rfid_no').on('keydown', function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+        }
     });
 
-    $('#zone_id').on('change', function () {
-        "use strict";
-        var zone_id = $(this).val();
-        var url = '{{ route("zone.floor", ":id") }}';
-        url = url.replace(':id', zone_id);
-        $.ajax({
-            url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                zone_id: zone_id,
-            },
-            contentType: false,
-            processData: false,
-            type: 'GET',
-            success: function (data) {
-                $('.floor').empty();
-                var floor = `<select class="form-control hidesearch floor" id="floor_id" name="floor"><option value="">Select Floor</option></select>`;
-                $('.floor').html(floor);
+    $('input[name="card_status"]').on('change', function () {
+    var rfid_Number = $('#rfid_no').val();
 
-                $.each(data, function (key, value) {
-                    var edit_floor_id = $('#edit_floor').val();
-                    if (key == edit_floor_id) {
-                        $('.floor').append('<option selected value="' + key + '">' + value + '</option>');
-                    } else {
-                        $('.floor').append('<option value="' + key + '">' + value + '</option>');
-                    }
+    if ($('#card_lost').is(':checked') || $('#card_damaged').is(':checked')) {
+        $('#rfid_no').prop('disabled', false);
+        console.log('Enable RFID input');
+    } else if ($('#card_blokir').is(':checked')) {
+        $('#rfid_no').prop('disabled', false);
+        console.log('Blokir Kartu');
+        console.log('B'+rfid_Number); 
+        $('#rfid_no').val('B'+rfid_Number);
+        $('#rfid_no_hidden').val('B'+rfid_Number);
+        $('#notes').val('RFID Sebelum Di Blokir : '+rfid_Number);
+    } else if ($('#card_activate').is(':checked')) {
+        if (rfid_Number.startsWith('B')) {
+            $('#rfid_no').prop('disabled', false);
+            $('#rfid_no').val(rfid_Number.substring(1));
+            $('#rfid_no_hidden').val(rfid_Number.substring(1));
+        } else {
+            $('#rfid_no').prop('disabled', false);
+            $('#rfid_no').val(rfid_Number);
+            $('#rfid_no_hidden').val(rfid_Number);
+        }
+        $('#notes').val('Diaktifkan Kembali');
+    } else {
+        $('#rfid_no').prop('disabled', true).val('');
+        $('#rfid_no_hidden').val('');
+    }
+});
 
-                });
+// Sync value ke hidden saat input berubah
+$('#rfid_no').on('input', function () {
+    $('#rfid_no_hidden').val($(this).val());
+});
 
-            },
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submitBtn');
 
-        });
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Processing...'; // opsional untuk UX
     });
-
-    $('#floor_id').on('change', function () {
-        "use strict";
-        var floor_id = $(this).val();
-        var zone_id = $('#zone_id').val();
-        var type_id = $('#vehicle_type').val();
-
-        var url = '{{ route("zone.floor.slot", [":floor_id",":zone_id",":type_id"]) }}';
-        url = url.replace(':floor_id', floor_id);
-        url = url.replace(':zone_id', zone_id);
-        url = url.replace(':type_id', type_id);
-        $.ajax({
-            url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-
-            },
-            contentType: false,
-            processData: false,
-            type: 'GET',
-            success: function (data) {
-                $('.slot').empty();
-                var slot = `<select class="form-control hidesearch slot" id="slot" name="slot"></select>`;
-                $('.slot_div').html(slot);
-
-                $.each(data, function (key, value) {
-                    var edit_slot_id= $('#edit_slot').val();
-                    if(key==edit_slot_id){
-                        $('.slot').append('<option selected value="' + key + '">' + value +'</option>');
-                    }else{
-                        $('.slot').append('<option value="' + key + '">' + value + '</option>');
-                    }
-                });
-
-            },
-
-        });
-    });
-    $('#zone_id').trigger('change');
+});
+    
 
 </script>
 

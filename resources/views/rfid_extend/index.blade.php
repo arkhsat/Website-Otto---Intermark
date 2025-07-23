@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('page-title')
-    {{__('RFID Extend')}}
+    {{__('RFID Vehicle')}}
 @endsection
 @section('breadcrumb')
     <ul class="breadcrumb mb-0">
@@ -8,16 +8,9 @@
             <a href="{{route('dashboard')}}"><h1>{{__('Dashboard')}}</h1></a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="#">{{__('RFID Extend')}}</a>
+            <a href="#">{{__('RFID Vehicle')}}</a>
         </li>
     </ul>
-@endsection
-@section('card-action-btn')
-    @if(Gate::check('create rfid vehicle'))
-        <a class="btn btn-primary btn-sm ml-20 customModal" href="#" data-size="lg"
-           data-url="{{ route('rfid-extend.create') }}"
-           data-title="{{__('Create RFID Vehicle')}}"> <i class="ti-plus mr-5"></i>{{__('Create RFID Extend')}}</a>
-    @endif
 @endsection
 @section('content')
 
@@ -29,13 +22,13 @@
                         <thead>
                         <tr>
                             <th>{{__('RFID No')}}</th>
-                            <th>{{__('Vehicle No')}}</th>
-                            <th>{{__('Parking Zone')}}</th>
-                            <th>{{__('Vehicle Type')}}</th>
-                            <th>{{__('Parking Floor')}}</th>
-                            <th>{{__('Slot')}}</th>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Phone Number')}}</th>
+                            <th>{{__('Plat Nomor')}}</th>
+                            <th>{{__('Kendaraan')}}</th>
+                            <th>{{__('Nama')}}</th>
+                            <th>{{__('Company')}}</th>
+                            <th>{{__('Awal Berlaku')}}</th>
+                            <th>{{__('Kadaluarsa')}}</th>
+                            <th>{{__('Status')}}</th>
                             @if(Gate::check('edit rfid vehicle') ||  Gate::check('delete rfid vehicle'))
                                 <th class="text-right">{{__('Action')}}</th>
                             @endif
@@ -45,34 +38,46 @@
                         @foreach($vehicles as $vehicle)
 
                             <tr role="row">
+                                {{-- <td><a class="text-success customModal" data-bs-toggle="tooltip"
+                                                   data-bs-original-title="{{__('Edit')}}" data-size="lg" href="#"
+                                                   data-url="{{ route('rfid-extend',$vehicle->id) }}"
+                                                   data-title="{{__('Edit RFID Vehicle')}}">{{$vehicle->rfid_no}}</a>
+                                </td> --}}
                                 <td>{{$vehicle->rfid_no}}</td>
                                 <td>{{$vehicle->vehicle_no}}</td>
-                                <td> {{ !empty($vehicle->zones)?$vehicle->zones->zone_name:'-' }}   </td>
-                                <td> {{ !empty($vehicle->types)?$vehicle->types->title:'-' }}   </td>
-                                <td> {{ !empty($vehicle->floors)?$vehicle->floors->title:'-' }}   </td>
-                                <td> {{ !empty($vehicle->slots)?$vehicle->slots->title:'-' }}   </td>
+                                <td>                                     
+                                    @if($vehicle->vehicleid == '1')
+                                        Mobil
+                                    @elseif($vehicle->vehicleid == '2')
+                                        Motor
+                                    @else
+                                        Tidak Diketahui
+                                    @endif  
+                                </td>
                                 <td>{{ $vehicle->name }} </td>
-                                <td>{{ $vehicle->phone_number }} </td>
+                                <td>{{ $vehicle->company_name }} </td>
+                                <td>{{ $vehicle->start_date }} </td>
+                                <td>{{ $vehicle->end_date }} </td>
+                                <td>
+                                    @if(\Carbon\Carbon::parse($vehicle->end_date)->isPast() && \Carbon\Carbon::parse($vehicle->end_date)->lt(\Carbon\Carbon::today()))
+                                        <span class="badge badge-danger">{{__('Kadaluarsa')}}</span>
+                                    @else
+                                        <span class="badge badge-success">{{__('Aktif')}}</span>
+                                    @endif
+                                </td>
                                 @if(Gate::check('edit rfid vehicle') ||  Gate::check('delete rfid vehicle'))
-                                    <td class="text-right">
-                                        <div class="cart-action">
-                                            {!! Form::open(['method' => 'DELETE', 'route' => ['rfid-extend.destroy', $vehicle->id]]) !!}
-
-                                            @if(Gate::check('edit rfid vehicle') )
-                                                <a class="text-success customModal" data-bs-toggle="tooltip"
-                                                   data-bs-original-title="{{__('Edit')}}" data-size="lg" href="#"
-                                                   data-url="{{ route('rfid-extend.edit',$vehicle->id) }}"
-                                                   data-title="{{__('Edit RFID Vehicle')}}"> <i data-feather="edit"></i></a>
-                                            @endcan
-                                            @if( Gate::check('delete rfid vehicle'))
-                                                <a class=" text-danger confirm_dialog" data-bs-toggle="tooltip"
-                                                   data-bs-original-title="{{__('Detete')}}" href="#"> <i
-                                                        data-feather="trash-2"></i></a>
-                                            @endcan
-                                            {!! Form::close() !!}
-                                        </div>
-                                    </td>
+                                <td class="text-right">
+                                   
+                                <div class="cart-action">
+                                    
+                                    <a class="btn btn-primary customModal" data-bs-toggle="tooltip"
+                                            data-url="{{ route('rfid-extend.extend',$vehicle->id) }}"
+                                            data-title="{{__('Perpanjang')}}">Perpanjang</a>
+                                    
+                                </div>
+                                </td>
                                 @endif
+                               
                             </tr>
                         @endforeach
                         </tbody>
@@ -82,4 +87,19 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('.dataTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
 

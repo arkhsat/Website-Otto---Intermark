@@ -50,7 +50,7 @@
             var c = d.open("", "");
             if (c) {
                 c.document.close();
-                var q = "<title>" + p.title + "</title>";
+                var q = "<title>" + p.title + "Nambah</title>";
                 b("style, link").each(function () {
                     var f = q,
                         g = b(this).clone()[0];

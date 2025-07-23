@@ -22,23 +22,24 @@
                     <table class="display dataTable cell-border datatbl-advance">
                         <thead>
                         <tr style="height: 16.0pt;">
-<td class="xl66" style="height: 32.0pt; width: 65pt;" rowspan="2" width="87" height="42">No</td>
-<td class="xl66" style="width: 65pt;" rowspan="2" width="87">Tanggal</td>
-<td class="xl65" style="width: 130pt;" colspan="2" width="174">Mandiri</td>
-<td class="xl65" style="width: 130pt;" colspan="2" width="174">BCA</td>
-<td class="xl65" style="width: 130pt;" colspan="2" width="174">BNI</td>
-<td class="xl65" style="width: 130pt;" colspan="2" width="174">BRI</td>
-</tr>
-<tr style="height: 16.0pt;">
-<td style="height: 16.0pt;" height="21">Mobil</td>
-<td>Motor</td>
-<td>Mobil</td>
-<td>Motor</td>
-<td>Mobil</td>
-<td>Motor</td>
-<td>Mobil</td>
-<td>Motor</td>
-</tr>
+                        <td class="xl66" style="height: 32.0pt; width: 65pt;" rowspan="2" width="87" height="42">No</td>
+                        <td class="xl66" style="width: 65pt;" rowspan="2" width="87">Tanggal</td>
+                        <td class="xl65" style="width: 130pt;" colspan="2" width="174">Mandiri</td>
+                        <td class="xl65" style="width: 130pt;" colspan="2" width="174">BCA</td>
+                        <td class="xl65" style="width: 130pt;" colspan="2" width="174">BNI</td>
+                        <td class="xl65" style="width: 130pt;" colspan="2" width="174">BRI</td>
+                        <td class="xl65" style="width: 130pt;" colspan="2" width="174">QRIS</td>
+                        </tr>
+                        <tr style="height: 16.0pt;">
+                        <td style="height: 16.0pt;" height="21">Mobil</td>
+                        <td>Truck</td>
+                        <td>Mobil</td>
+                        <td>Truck</td>
+                        <td>Mobil</td>
+                        <td>Truck</td>
+                        <td>Mobil</td>
+                        <td>Truck</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

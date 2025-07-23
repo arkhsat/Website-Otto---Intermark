@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ParkingSlot;
 use App\Models\ParkingZone;
-use App\Models\MemberType;
+use App\Models\MemberPackage;
 use App\Models\RfidVehicle;
+use App\Models\VehicleType;
+use App\Models\MemberHistory;
 use Illuminate\Http\Request;
 
 class RfidExtendVehicleController extends Controller
@@ -14,7 +16,9 @@ class RfidExtendVehicleController extends Controller
     public function index()
     {
         if (\Auth::user()->can('manage rfid vehicle')) {
-            $vehicles = RfidVehicle::where('parent_id', '=', parentId())->get();
+            $vehicles = RfidVehicle::where('parent_id', '=', parentId())
+            ->orderBy('end_date', 'desc')
+            ->get();
             return view('rfid_extend.index', compact('vehicles'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
@@ -33,12 +37,59 @@ class RfidExtendVehicleController extends Controller
         return view('rfid_extend.create', compact('members'));
     }
 
-    public function extend()
+    public function extend($id)
     {
-        
-        $member = RfidVehicle::where('parent_id', parentId())->get()->pluck('member_id', 'id');
-        $member->prepend(__('Select Member '), '');
-        return view('rfid_vehicle.extend', compact('member'));
+        $vehicle = RfidVehicle::findOrFail($id);
+        $vehicleTypes = VehicleType::pluck('title', 'id');
+        $memberTypes = MemberPackage::where('parent_id', parentId())->get();
+        return view('rfid_extend.edit', compact('vehicle', 'vehicleTypes', 'memberTypes'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = \Validator::make(
+            $request->all(), [
+                // 'name' => 'required|string|max:255',
+                // 'phone_number' => 'required|string|max:15',
+                // 'company_name' => 'required|string|max:255',
+                'membertype' => 'required|string',
+                // 'vehicle_no' => 'required|string|max:20',
+                // 'rfid_no' => 'required|string|max:50|unique:rfid_vehicles,rfid_no,' . $id,
+                // 'price' => 'required|numeric',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'notes' => 'nullable|string'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', $validator->errors()->first());
+        }
+
+        $vehicle = RfidVehicle::findOrFail($id);
+        // $vehicle->vehicle_no = $request->vehicle_no;
+        // $vehicle->rfid_no = $request->rfid_no;
+        // $vehicle->name = $request->name;
+        // $vehicle->phone_number = $request->phone_number;
+        $vehicle->notes = $request->notes;
+        $vehicle->vehicleid = $request->vehicle_type;
+        // $vehicle->company_name = $request->company_name;
+        $vehicle->member_type = $request->membertype;
+        $vehicle->start_date = $request->start_date;
+        $vehicle->end_date = $request->end_date;
+        $vehicle->save();
+
+        $memberHistory = new MemberHistory();
+        $memberHistory->member_id = $vehicle->id;
+        $memberHistory->product_code = $request->membertype;
+        $memberHistory->vehicle_id = $request->vehicle_type;
+        $memberHistory->new = 0;
+        $memberHistory->biaya = $request->price;
+        $memberHistory->awal_berlaku = $request->start_date;
+        $memberHistory->akhir_berlaku = $request->end_date;
+        $memberHistory->save();
+
+        return redirect()->back()->with('success', __('Berhasil Memperpanjang Masa Aktif RFID'));
     }
 
 
@@ -99,42 +150,6 @@ class RfidExtendVehicleController extends Controller
         $slots = ParkingSlot::where('zone', $rfidVehicle->zone)->get()->pluck('title', 'id');
 
         return view('rfid_vehicle.edit', compact('zones','rfidVehicle','slots'));
-    }
-
-
-    public function update(Request $request, RfidVehicle $rfidVehicle)
-    {
-        if (\Auth::user()->can('edit rfid vehicle')) {
-            $validator = \Validator::make(
-                $request->all(), [
-                    'zone' => 'required',
-                    'type' => 'required',
-                    'floor' => 'required',
-                    'vehicle_no' => 'required',
-                    'rfid_no' => 'required',
-                ]
-            );
-            if ($validator->fails()) {
-                $messages = $validator->getMessageBag();
-                return redirect()->back()->with('error', $messages->first());
-            }
-
-            $rfidVehicle->zone = $request->zone;
-            $rfidVehicle->type = $request->type;
-            $rfidVehicle->floor = $request->floor;
-            $rfidVehicle->slot = $request->slot;
-            $rfidVehicle->vehicle_no = $request->vehicle_no;
-            $rfidVehicle->rfid_no = $request->rfid_no;
-            $rfidVehicle->name = $request->name;
-            $rfidVehicle->phone_number = $request->phone_number;
-            $rfidVehicle->notes = $request->notes;
-            $rfidVehicle->save();
-
-            return redirect()->back()->with('success', __('RFID vehicle successfully updated.'));
-
-        } else {
-            return redirect()->back()->with('error', __('Permission denied.'));
-        }
     }
 
 

@@ -230,12 +230,12 @@ if (!function_exists('priceFormat')) {
 if (!function_exists('parentId')) {
     function parentId()
     {
-        if (\Auth::user()->type == 'owner' || \Auth::user()->type == 'super admin') {
-            return \Auth::user()->id;
-        } else {
+        // if (\Auth::user()->type == 'owner' || \Auth::user()->type == 'super admin') {
+        //     return \Auth::user()->id;
+        // } else {
             return \Auth::user()->parent_id;
         }
-    }
+    // }
 }
 if (!function_exists('assignSubscription')) {
     function assignSubscription($id)
