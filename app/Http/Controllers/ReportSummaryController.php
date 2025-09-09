@@ -167,19 +167,19 @@ class ReportSummaryController extends Controller
             SELECT
             DATE(timeout) AS tanggal,
             COUNT(vehicleid) AS total,
-            SUM(CASE WHEN TIMESTAMPDIFF(MINUTE, timein, timeout) < 60  THEN 1 ELSE 0 END) as s0sampai1,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 60 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 120) THEN 1 ELSE 0 END) as s1sampai2,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 120 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 180) THEN 1 ELSE 0 END) as s2sampai3,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 180 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 240) THEN 1 ELSE 0 END) as s3sampai4,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 240 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 300) THEN 1 ELSE 0 END) as s4sampai5,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 300 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 360) THEN 1 ELSE 0 END) as s5sampai6,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 360 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 420) THEN 1 ELSE 0 END) as s6sampai7,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 420 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 480) THEN 1 ELSE 0 END) as s7sampai8,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 480 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 540) THEN 1 ELSE 0 END) as s8sampai9,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 540 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 600) THEN 1 ELSE 0 END) as s9sampai10,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 600 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 660) THEN 1 ELSE 0 END) as s10sampai11,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 660 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 720) THEN 1 ELSE 0 END) as s11sampai12,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) >= 720 ) THEN 1 ELSE 0 END) as diatas12
+            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN 1 ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN 1 ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN 1 ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN 1 ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN 1 ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN 1 ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN 1 ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN 1 ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN 1 ELSE 0 END) as diatas12
             FROM transactions
             WHERE DATE(timeout) BETWEEN ? AND ?
             AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
@@ -232,6 +232,7 @@ class ReportSummaryController extends Controller
             ORDER BY 
                 DATE(dateout);
         ", [$startDate, $endDate]);
+
     
         if ($startDate == $endDate) {
             $fileName = 'Intermark - Report Pendapatan ' . date('d F Y', strtotime($startDate)) . '.pdf';
@@ -280,19 +281,19 @@ class ReportSummaryController extends Controller
             SELECT
             DATE(timeout) AS tanggal,
             COUNT(vehicleid) AS total,
-            SUM(CASE WHEN TIMESTAMPDIFF(MINUTE, timein, timeout) < 60  THEN 1 ELSE 0 END) as s0sampai1,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 60 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 120) THEN 1 ELSE 0 END) as s1sampai2,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 120 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 180) THEN 1 ELSE 0 END) as s2sampai3,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 180 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 240) THEN 1 ELSE 0 END) as s3sampai4,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 240 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 300) THEN 1 ELSE 0 END) as s4sampai5,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 300 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 360) THEN 1 ELSE 0 END) as s5sampai6,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 360 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 420) THEN 1 ELSE 0 END) as s6sampai7,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 420 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 480) THEN 1 ELSE 0 END) as s7sampai8,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 480 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 540) THEN 1 ELSE 0 END) as s8sampai9,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 540 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 600) THEN 1 ELSE 0 END) as s9sampai10,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 600 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 660) THEN 1 ELSE 0 END) as s10sampai11,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 660 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 720) THEN 1 ELSE 0 END) as s11sampai12,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) >= 720 ) THEN 1 ELSE 0 END) as diatas12
+            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN 1 ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN 1 ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN 1 ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN 1 ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN 1 ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN 1 ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN 1 ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN 1 ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN 1 ELSE 0 END) as diatas12
             FROM transactions
             WHERE DATE(timeout) BETWEEN ? AND ?
             AND vehicleid IN ('Mobil')
@@ -305,19 +306,19 @@ class ReportSummaryController extends Controller
             SELECT
             DATE(timeout) AS tanggal,
             COUNT(vehicleid) AS total,
-            SUM(CASE WHEN TIMESTAMPDIFF(MINUTE, timein, timeout) < 60  THEN 1 ELSE 0 END) as s0sampai1,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 60 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 120) THEN 1 ELSE 0 END) as s1sampai2,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 120 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 180) THEN 1 ELSE 0 END) as s2sampai3,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 180 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 240) THEN 1 ELSE 0 END) as s3sampai4,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 240 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 300) THEN 1 ELSE 0 END) as s4sampai5,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 300 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 360) THEN 1 ELSE 0 END) as s5sampai6,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 360 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 420) THEN 1 ELSE 0 END) as s6sampai7,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 420 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 480) THEN 1 ELSE 0 END) as s7sampai8,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 480 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 540) THEN 1 ELSE 0 END) as s8sampai9,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 540 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 600) THEN 1 ELSE 0 END) as s9sampai10,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 600 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 660) THEN 1 ELSE 0 END) as s10sampai11,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) > 660 and TIMESTAMPDIFF(MINUTE, timein, timeout) <= 720) THEN 1 ELSE 0 END) as s11sampai12,
-            SUM(CASE WHEN (TIMESTAMPDIFF(MINUTE, timein, timeout) >= 720 ) THEN 1 ELSE 0 END) as diatas12
+            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN 1 ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN 1 ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN 1 ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN 1 ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN 1 ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN 1 ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN 1 ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN 1 ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN 1 ELSE 0 END) as diatas12
             FROM transactions
             WHERE DATE(timeout) BETWEEN ? AND ?
             AND vehicleid IN ('Motor')
@@ -325,6 +326,7 @@ class ReportSummaryController extends Controller
             GROUP BY DATE(timeout)
             ORDER BY DATE(timeout)
         ", [$startDate, $endDate]);
+
 
         $judul = 'Laporan QTY Transaksi Harian'; // Ubah sesuai keinginan
 
@@ -369,6 +371,64 @@ class ReportSummaryController extends Controller
                     ORDER BY 
                         DATE(dateout);
         ", [$startDate, $endDate]);
+
+        
+        $car_duration = DB::select("
+            SELECT
+            DATE(timeout) AS tanggal,
+            SUM(cost) AS total,
+            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN cost ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN cost ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN cost ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN cost ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN cost ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN cost ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN cost ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN cost ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN cost ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN cost ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN cost ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN cost ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN cost ELSE 0 END) as diatas12
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+            AND vehicleid IN ('Mobil')
+            AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+        ", [$startDate, $endDate]);
+
+        $motorcycle_duration = DB::select("
+            SELECT
+            DATE(timeout) AS tanggal,
+            SUM(cost) AS total,
+            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN cost ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN cost ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN cost ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN cost ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN cost ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN cost ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN cost ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN cost ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN cost ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN cost ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN cost ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN cost ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN cost ELSE 0 END) as diatas12
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+            AND vehicleid IN ('Motor')
+            AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+        ", [$startDate, $endDate]);
+
+        // $car_datahours = DB::select(
+        //     "SELECT
+        //     DATE(timeout) AS tanggal,
+        //     COUNT(vehicleid) AS total,
+        //     COUNT(CASE WHEN HOUR(
+        // );
     
         $judul = 'Laporan Pendapatan Transaksi';
 
@@ -378,7 +438,7 @@ class ReportSummaryController extends Controller
             $fileName = 'Intermark - Report Pendapatan ' . date('d F Y', strtotime($startDate)) . ' sd ' . date('d F Y', strtotime($endDate)) . '.xlsx';
         }
     
-        return Excel::download(new ReportAmountExport($results, $startDate, $endDate, $judul), $fileName);
+        return Excel::download(new ReportAmountExport($results, $car_duration, $motorcycle_duration, $startDate, $endDate, $judul), $fileName);
     }
    
 }
