@@ -16,11 +16,21 @@ class ParkingController extends Controller
     public function index()
     {
         if (\Auth::user()->can('manage parking')) {
-            $parkings = Transaction::where('statusparking', '=', 'Casual')
-            ->where('timein', '>',Carbon::now()->subDays(7))
-            ->whereNull('dateout')
-            ->whereNull('alreadyout')
-            ->orderBy('dateout', 'desc')->get();
+            $parkings = \DB::table('transactions')
+                ->leftJoin('hotels', 'transactions.tiketno', '=', 'hotels.uidno')
+                ->select('transactions.*')
+                ->whereNull('transactions.dateout')
+                ->whereNull('transactions.alreadyout')
+                ->where('transactions.statusparking', '=', 'Casual')
+                ->whereDate('transactions.timein', '>', \DB::raw('CURDATE() - INTERVAL 7 DAY'))
+                ->where(function($query) {
+                    $query->whereNull('hotels.id')
+                        ->orWhere('hotels.check_out', '<=', now());
+                })
+                ->groupBy('transactions.transactionid')
+                ->orderBy('transactions.dateout', 'desc')
+                ->get();
+
             return view('parking.index', compact('parkings'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));

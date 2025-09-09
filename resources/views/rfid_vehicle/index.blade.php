@@ -33,6 +33,7 @@
             <div class="card">
                 <div class="card-body">
                     <button id="btnPrint" class="btn btn-info mb-3">Cetak Laporan</button>
+                    <button id="btnExcel" class="btn btn-success mb-3">Download Excel</button>
                     <div class="table-responsive">
                         <table class="display dataTable cell-border datatbl-advance" id="rfidVehicleTable">
                             <thead>
@@ -42,6 +43,7 @@
                                 <th>Kendaraan</th>
                                 <th>Nama</th>
                                 <th>Company</th>
+                                <th>No HP</th>
                                 <th>Awal Berlaku</th>
                                 <th>Kadaluarsa</th>
                                 <th>Status</th>
@@ -74,6 +76,7 @@
                                     </td>
                                     <td>{{ $vehicle->name }}</td>
                                     <td>{{ $vehicle->company_name }}</td>
+                                    <td>{{ $vehicle->phone_number }}</td>
                                     <td>{{ $vehicle->start_date }}</td>
                                     <td>{{ $vehicle->end_date }}</td>
                                     <td>
@@ -111,7 +114,6 @@
     </div>
 @endsection
 
-@push('script')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const btn = document.getElementById("btnPrint");
@@ -160,5 +162,44 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btnExcel = document.getElementById("btnExcel");
+
+    if (btnExcel) {
+        btnExcel.addEventListener("click", function () {
+            let table = $('#rfidVehicleTable').DataTable();
+            let filteredData = table.rows({ search: 'applied' }).nodes();
+
+            let ths = $('#rfidVehicleTable thead tr th').slice(1, 8);
+            let csvContent = '';
+            
+            // Header
+            ths.each(function () {
+                csvContent += '"' + $(this).text().trim() + '",';
+            });
+            csvContent = csvContent.slice(0, -1); // hapus koma terakhir
+            csvContent += "\n";
+
+            // Data
+            for (let i = 0; i < filteredData.length; i++) {
+                let row = '';
+                let cells = $(filteredData[i]).find('td').slice(1, 8);
+                cells.each(function () {
+                    row += '"' + $(this).text().trim() + '",';
+                });
+                row = row.slice(0, -1);
+                csvContent += row + "\n";
+            }
+
+            // Download
+            let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "rfid_vehicle.xlsx"; // bisa pakai .csv juga
+            link.click();
+        });
+    }
+});
+
 </script>
-@endpush

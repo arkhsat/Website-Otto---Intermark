@@ -81,6 +81,7 @@ class RfidVehicleController extends Controller
             $vehicle->phone_number = $request->phone_number;
             $vehicle->notes = $request->notes;
             $vehicle->status = 'x';
+            $vehicle->slot = $request->price;
             $vehicle->vehicleid = $request->vehicle_type; // Sesuai dengan form
             $vehicle->company_name = $request->company_name;
             $vehicle->member_type = $request->membertype; // Sesuai dengan form

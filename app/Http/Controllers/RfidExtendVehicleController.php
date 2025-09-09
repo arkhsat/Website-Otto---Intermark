@@ -73,9 +73,10 @@ class RfidExtendVehicleController extends Controller
         // $vehicle->phone_number = $request->phone_number;
         $vehicle->notes = $request->notes;
         $vehicle->vehicleid = $request->vehicle_type;
-        // $vehicle->company_name = $request->company_name;
+        $vehicle->slot = $request->price;
         $vehicle->member_type = $request->membertype;
         $vehicle->start_date = $request->start_date;
+        $vehicle->status = 'x';
         $vehicle->end_date = $request->end_date;
         $vehicle->save();
 

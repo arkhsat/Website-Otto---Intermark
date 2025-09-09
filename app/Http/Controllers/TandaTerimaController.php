@@ -20,6 +20,7 @@ class TandaTerimaController extends Controller
     $vehicleTypes = VehicleType::pluck('title', 'id');
     $memberTypes = MemberPackage::where('parent_id', parentId())->get();
 
+    
     $companyList = DB::table('rfid_vehicles')
         ->leftJoin('member_package', 'member_package.product_code', '=', 'rfid_vehicles.member_type')
         ->whereNotIn('member_package.product_code', ['CM01', 'CM03', 'CM06', 'CM12'])
@@ -72,16 +73,17 @@ class TandaTerimaController extends Controller
         ->leftJoin('member_package', 'member_package.product_code', '=', 'member_history.product_code')
         ->whereIn(DB::raw('UPPER(TRIM(vehicle_no))'), $vehicleNos)
         ->where('rfid_vehicles.rfid_no', '<>', '0')
-        ->whereNotNull('member_package.product_code')
+        ->whereNotNull('member_history.product_code')
         ->select(
                 'vehicle_no',
                 'company_name',
                 'vehicleid',
-                'member_package.product_code',
+                'member_history.product_code',
                 'member_package.keterangan',
                 'member_history.member_id',
                 'member_history.biaya'
         )
+        ->orderBy('member_history.id', 'desc')
         ->get();
 
     // Kelompokkan berdasarkan company_name

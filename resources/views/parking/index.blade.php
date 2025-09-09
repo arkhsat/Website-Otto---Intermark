@@ -65,22 +65,22 @@
 
                                 <td>
                                 @if($parking->posinid == '1')
-                                    <a href="{{asset('http://192.168.1.55/share/FotoPMLG/'.$parking->tiketno.'-'.$parking->transactionid.'.jpg')}}" data-lightbox="parking-{{$parking->transactionid}}" data-title="Vehicle Image">
-                                        <img src="{{asset('http://192.168.1.55/share/FotoPMLG/'.$parking->tiketno.'-'.$parking->transactionid.'.jpg')}}" 
+                                    <a href="{{asset('http://192.168.1.55/share/FotoPMLG/'.$parking->image_plate_in)}}" data-lightbox="parking-{{$parking->transactionid}}" data-title="Vehicle Image">
+                                        <img src="{{asset('http://192.168.1.55/share/FotoPMLG/'.$parking->image_plate_in)}}" 
                                             alt="Vehicle Image" 
                                             style="width: 200px; height: auto; cursor: pointer;"
                                             class="img-thumbnail">
                                     </a>
                                 @elseif($parking->posinid == '2')
-                                    <a href="{{asset('http://192.168.1.55/share/FotoPMLoading/'.$parking->tiketno.'-'.$parking->transactionid.'.jpg')}}" data-lightbox="parking-{{$parking->transactionid}}" data-title="Vehicle Image">
-                                        <img src="{{asset('http://192.168.1.55/share/FotoPMLoading/'.$parking->tiketno.'-'.$parking->transactionid.'.jpg')}}" 
+                                    <a href="{{asset('http://192.168.1.55/share/FotoPMLoading/'.$parking->image_plate_in)}}" data-lightbox="parking-{{$parking->transactionid}}" data-title="Vehicle Image">
+                                        <img src="{{asset('http://192.168.1.55/share/FotoPMLoading/'.$parking->image_plate_in)}}" 
                                             alt="Vehicle Image" 
                                             style="width: 200px; height: auto; cursor: pointer;"
                                             class="img-thumbnail">
                                     </a>
                                 @elseif($parking->posinid == '3')
-                                    <a href="{{asset('http://192.168.1.55/share/FotoPMMotor/'.$parking->tiketno.'-'.$parking->transactionid.'.jpg')}}" data-lightbox="parking-{{$parking->transactionid}}" data-title="Vehicle Image">
-                                        <img src="{{asset('http://192.168.1.55/share/FotoPMMotor/'.$parking->tiketno.'-'.$parking->transactionid.'.jpg')}}" 
+                                    <a href="{{asset('http://192.168.1.55/share/FotoPMMotor/'.$parking->image_plate_in)}}" data-lightbox="parking-{{$parking->transactionid}}" data-title="Vehicle Image">
+                                        <img src="{{asset('http://192.168.1.55/share/FotoPMMotor/'.$parking->image_plate_in)}}" 
                                             alt="Vehicle Image" 
                                             style="width: 200px; height: auto; cursor: pointer;"
                                             class="img-thumbnail">

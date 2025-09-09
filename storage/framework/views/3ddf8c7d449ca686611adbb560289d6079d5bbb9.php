@@ -143,20 +143,19 @@
             var today = new Date();
             var endDate = new Date();
 
-            if (month === 0) {
-                return endDate.toISOString().split('T')[0]; // Return today's date if month is 0
-            }
+            endDate.setDate(1); // ✅ Set tanggal ke 1 dulu supaya aman dari lompat bulan
 
             if (today.getDate() >= 25 && today.getDate() <= 31) {
-                endDate.setMonth(today.getMonth() + month + 1);
-                endDate.setDate(5);
-            } else if (today.getDate() >= 1) {
+                endDate.setMonth(today.getMonth() + 1 + month);
+            } else {
                 endDate.setMonth(today.getMonth() + month);
-                endDate.setDate(5);
             }
+
+            endDate.setDate(5); // ✅ Baru atur tanggal akhir
 
             return endDate.toISOString().split('T')[0];
         }
+
 
         // Fungsi untuk memformat angka dengan pemisah ribuan
         function formatRupiah(angka, prefix) {
