@@ -74,7 +74,7 @@
                 $totalMotor = 0;
             @endphp
             @foreach($data as $index => $result)
-                <tr>
+                <tr style="{{ date('w', strtotime($result->date)) == 0 ? 'color:red;' : '' }}">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $result->date }}</td>
                     <td>{{ number_format($result->Mandiri_Mobil) }}</td>

@@ -92,5 +92,12 @@ class ReportAmountExport1 implements FromView, WithDrawings, WithTitle, WithStyl
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
+
+        foreach ($this->data as $row => $result) {
+            $excelRow = $row + 4;
+            if (date('w', strtotime($result->date)) == 0) {
+                $sheet->getStyle("A{$excelRow}:M{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
+            }
+        }
     }
 }

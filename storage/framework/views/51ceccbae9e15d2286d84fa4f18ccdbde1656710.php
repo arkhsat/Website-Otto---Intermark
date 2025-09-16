@@ -76,7 +76,7 @@
                 $totalMotor = 0;
             ?>
             <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $result): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
+                <tr style="<?php echo e(date('w', strtotime($result->date)) == 0 ? 'color:red;' : ''); ?>">
                     <td><?php echo e($index + 1); ?></td>
                     <td><?php echo e($result->date); ?></td>
                     <td><?php echo e(number_format($result->Mandiri_Mobil)); ?></td>

@@ -88,5 +88,12 @@ class ReportAmountExport2 implements FromView, WithDrawings, WithTitle, WithStyl
         $sheet->getColumnDimension('N')->setWidth(10);
         $sheet->getColumnDimension('O')->setWidth(10);
         $sheet->getColumnDimension('P')->setWidth(20);
+
+        foreach ($this->car_datahours as $row => $result) {
+            $excelRow = $row + 3;
+            if (date('w', strtotime($result->tanggal)) == 0) {
+                $sheet->getStyle("A{$excelRow}:M{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
+            }
+        }
     }
 }

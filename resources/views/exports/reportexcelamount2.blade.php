@@ -82,7 +82,8 @@
                 $totalTransaksi = 0;
             @endphp
             @foreach($datahours as $index => $hours)
-                <tr role="row">
+
+                <tr role="row" style="{{ date('w', strtotime($result->date)) == 0 ? 'color:red;' : '' }}">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $hours->tanggal }}</td>
                     <td align="right">{{ number_format($hours->s0sampai1) }}</td>
