@@ -496,12 +496,78 @@ class ReportSummaryController extends Controller
             ORDER BY DATE(timeout)
         ", [$startDate, $endDate]);
 
-        // $car_datahours = DB::select(
-        //     "SELECT
-        //     DATE(timeout) AS tanggal,
-        //     COUNT(vehicleid) AS total,
-        //     COUNT(CASE WHEN HOUR(
-        // );
+$car_datahours_in = DB::select("
+            SELECT
+                DATE(timeout) AS tanggal,
+                COUNT(timein) AS total,
+                SUM(CASE WHEN HOUR(timein) = 0 THEN cost ELSE 0 END) AS jam0,
+                SUM(CASE WHEN HOUR(timein) = 1 THEN cost ELSE 0 END) AS jam1,
+                SUM(CASE WHEN HOUR(timein) = 2 THEN cost ELSE 0 END) AS jam2,
+                SUM(CASE WHEN HOUR(timein) = 3 THEN cost ELSE 0 END) AS jam3,
+                SUM(CASE WHEN HOUR(timein) = 4 THEN cost ELSE 0 END) AS jam4,
+                SUM(CASE WHEN HOUR(timein) = 5 THEN cost ELSE 0 END) AS jam5,
+                SUM(CASE WHEN HOUR(timein) = 6 THEN cost ELSE 0 END) AS jam6,
+                SUM(CASE WHEN HOUR(timein) = 7 THEN cost ELSE 0 END) AS jam7,
+                SUM(CASE WHEN HOUR(timein) = 8 THEN cost ELSE 0 END) AS jam8,
+                SUM(CASE WHEN HOUR(timein) = 9 THEN cost ELSE 0 END) AS jam9,
+                SUM(CASE WHEN HOUR(timein) = 10 THEN cost ELSE 0 END) AS jam10,
+                SUM(CASE WHEN HOUR(timein) = 11 THEN cost ELSE 0 END) AS jam11,
+                SUM(CASE WHEN HOUR(timein) = 12 THEN cost ELSE 0 END) AS jam12,
+                SUM(CASE WHEN HOUR(timein) = 13 THEN cost ELSE 0 END) AS jam13,
+                SUM(CASE WHEN HOUR(timein) = 14 THEN cost ELSE 0 END) AS jam14,
+                SUM(CASE WHEN HOUR(timein) = 15 THEN cost ELSE 0 END) AS jam15,
+                SUM(CASE WHEN HOUR(timein) = 16 THEN cost ELSE 0 END) AS jam16,
+                SUM(CASE WHEN HOUR(timein) = 17 THEN cost ELSE 0 END) AS jam17,
+                SUM(CASE WHEN HOUR(timein) = 18 THEN cost ELSE 0 END) AS jam18,
+                SUM(CASE WHEN HOUR(timein) = 19 THEN cost ELSE 0 END) AS jam19,
+                SUM(CASE WHEN HOUR(timein) = 20 THEN cost ELSE 0 END) AS jam20,
+                SUM(CASE WHEN HOUR(timein) = 21 THEN cost ELSE 0 END) AS jam21,
+                SUM(CASE WHEN HOUR(timein) = 22 THEN cost ELSE 0 END) AS jam22,
+                SUM(CASE WHEN HOUR(timein) = 23 THEN cost ELSE 0 END) AS jam23
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+                AND vehicleid IN ('Mobil')
+                AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+            ", [$startDate, $endDate]); 
+            
+        $motorcycle_datahours_in = DB::select("
+            SELECT
+                DATE(timeout) AS tanggal,
+                COUNT(timein) AS total,
+                SUM(CASE WHEN HOUR(timein) = 0 THEN cost ELSE 0 END) AS jam0,
+                SUM(CASE WHEN HOUR(timein) = 1 THEN cost ELSE 0 END) AS jam1,
+                SUM(CASE WHEN HOUR(timein) = 2 THEN cost ELSE 0 END) AS jam2,
+                SUM(CASE WHEN HOUR(timein) = 3 THEN cost ELSE 0 END) AS jam3,
+                SUM(CASE WHEN HOUR(timein) = 4 THEN cost ELSE 0 END) AS jam4,
+                SUM(CASE WHEN HOUR(timein) = 5 THEN cost ELSE 0 END) AS jam5,
+                SUM(CASE WHEN HOUR(timein) = 6 THEN cost ELSE 0 END) AS jam6,
+                SUM(CASE WHEN HOUR(timein) = 7 THEN cost ELSE 0 END) AS jam7,
+                SUM(CASE WHEN HOUR(timein) = 8 THEN cost ELSE 0 END) AS jam8,
+                SUM(CASE WHEN HOUR(timein) = 9 THEN cost ELSE 0 END) AS jam9,
+                SUM(CASE WHEN HOUR(timein) = 10 THEN cost ELSE 0 END) AS jam10,
+                SUM(CASE WHEN HOUR(timein) = 11 THEN cost ELSE 0 END) AS jam11,
+                SUM(CASE WHEN HOUR(timein) = 12 THEN cost ELSE 0 END) AS jam12,
+                SUM(CASE WHEN HOUR(timein) = 13 THEN cost ELSE 0 END) AS jam13,
+                SUM(CASE WHEN HOUR(timein) = 14 THEN cost ELSE 0 END) AS jam14,
+                SUM(CASE WHEN HOUR(timein) = 15 THEN cost ELSE 0 END) AS jam15,
+                SUM(CASE WHEN HOUR(timein) = 16 THEN cost ELSE 0 END) AS jam16,
+                SUM(CASE WHEN HOUR(timein) = 17 THEN cost ELSE 0 END) AS jam17,
+                SUM(CASE WHEN HOUR(timein) = 18 THEN cost ELSE 0 END) AS jam18,
+                SUM(CASE WHEN HOUR(timein) = 19 THEN cost ELSE 0 END) AS jam19,
+                SUM(CASE WHEN HOUR(timein) = 20 THEN cost ELSE 0 END) AS jam20,
+                SUM(CASE WHEN HOUR(timein) = 21 THEN cost ELSE 0 END) AS jam21,
+                SUM(CASE WHEN HOUR(timein) = 22 THEN cost ELSE 0 END) AS jam22,
+                SUM(CASE WHEN HOUR(timein) = 23 THEN cost ELSE 0 END) AS jam23
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+                AND vehicleid IN ('Motor')
+                AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+            ", [$startDate, $endDate]);
+
     
         $judul = 'Laporan Pendapatan Transaksi';
 
@@ -511,7 +577,8 @@ class ReportSummaryController extends Controller
             $fileName = 'Intermark - Report Pendapatan ' . date('d F Y', strtotime($startDate)) . ' sd ' . date('d F Y', strtotime($endDate)) . '.xlsx';
         }
     
-        return Excel::download(new ReportAmountExport($results, $car_duration, $motorcycle_duration, $startDate, $endDate, $judul), $fileName);
+        return Excel::download(new ReportAmountExport($results, $car_duration, $motorcycle_duration, 
+        $car_datahours_in, $motorcycle_datahours_in, $startDate, $endDate, $judul), $fileName);
     }
    
 }

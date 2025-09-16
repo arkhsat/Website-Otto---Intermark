@@ -18,11 +18,11 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
     protected $startDate;
     protected $endDate;
     protected $judul;
-    protected $motorcycle_datahours;
+    protected $car_datahours_in;
 
-    public function __construct($motorcycle_datahours, $startDate, $endDate, $judul)
+    public function __construct($car_datahours_in, $startDate, $endDate, $judul)
     {   
-        $this->motorcycle_datahours = $motorcycle_datahours;
+        $this->car_datahours_in = $car_datahours_in;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->judul = $judul;
@@ -31,7 +31,7 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
     public function view(): View
     {
         return view('exports.reportexcelqty3', [
-            'datahours' => $this->motorcycle_datahours,
+            'datahours' => $this->car_datahours_in,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
             'judul' => $this->judul,
@@ -54,25 +54,23 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
     {
         return 'Report Amount';
     }
-
     public function styles(Worksheet $sheet)
     {
-        // Apply border to the data range
-        $sheet->getStyle('A2:P' . (count($this->motorcycle_datahours) + 3))
+                $sheet->getStyle('A2:AA' . (count($this->car_datahours_in) + 3))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle('A1:P' . (count($this->motorcycle_datahours) + 3))
+        $sheet->getStyle('A1:AA' . (count($this->car_datahours_in) + 3))
               ->getAlignment()
               ->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:P' . (count($this->motorcycle_datahours) + 3))
+        $sheet->getStyle('A1:AA' . (count($this->car_datahours_in) + 3))
                 ->getAlignment()
                 ->setVertical(Alignment::VERTICAL_CENTER);
         $sheet->getRowDimension('1')->setRowHeight(80);
         $sheet->getStyle('1')->getFont()->setSize(13);
         $sheet->getStyle('2')->getFont()->setSize(11);
         $sheet->getStyle('1:2')->getFont()->setBold(true);
-        $sheet->getStyle('A3:P' . (count($this->motorcycle_datahours) + 3))->getFont()->setSize(9);
+        $sheet->getStyle('A3:AA' . (count($this->car_datahours_in) + 3))->getFont()->setSize(9);
         $sheet->getColumnDimension('B')->setWidth(15);
         $sheet->getColumnDimension('C')->setWidth(10);
         $sheet->getColumnDimension('D')->setWidth(10);
@@ -87,11 +85,23 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
         $sheet->getColumnDimension('M')->setWidth(10);
         $sheet->getColumnDimension('N')->setWidth(10);
         $sheet->getColumnDimension('O')->setWidth(10);
-        $sheet->getColumnDimension('P')->setWidth(20);
-        foreach ($this->motorcycle_datahours as $row => $result) {
+        $sheet->getColumnDimension('P')->setWidth(10);
+        $sheet->getColumnDimension('Q')->setWidth(10);
+        $sheet->getColumnDimension('R')->setWidth(10);
+        $sheet->getColumnDimension('S')->setWidth(10);
+        $sheet->getColumnDimension('T')->setWidth(10);
+        $sheet->getColumnDimension('U')->setWidth(10);
+        $sheet->getColumnDimension('V')->setWidth(10);
+        $sheet->getColumnDimension('W')->setWidth(10);
+        $sheet->getColumnDimension('X')->setWidth(10);
+        $sheet->getColumnDimension('Y')->setWidth(10);
+        $sheet->getColumnDimension('Z')->setWidth(10);
+        $sheet->getColumnDimension('AA')->setWidth(20);
+
+        foreach ($this->car_datahours_in as $row => $result) {
             $excelRow = $row + 3;
-            if (date('w', strtotime($result->date)) == 0) {
-                $sheet->getStyle("A{$excelRow}:M{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
+            if (date('w', strtotime($result->tanggal)) == 0) {
+                $sheet->getStyle("A{$excelRow}:AA{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
             }
         }
     }
