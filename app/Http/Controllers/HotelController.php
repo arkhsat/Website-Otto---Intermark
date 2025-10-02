@@ -31,6 +31,9 @@ class HotelController extends Controller
 
     public function store(Request $request)
     {
+            $request->validate([
+            'parent_id' => 'required',
+            ]);
         
 
             $hotel = new Hotel();
