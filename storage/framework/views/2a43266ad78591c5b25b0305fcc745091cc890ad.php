@@ -14,7 +14,7 @@
     </ul>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('card-action-btn'); ?>
-<?php if(!Gate::check('manage hotel')): ?>
+<?php if(Gate::check('manage hotel')): ?>
 <a class="btn btn-primary btn-sm ml-20 customModal" href="#" data-size="md"
    data-url="<?php echo e(route('hotel.create')); ?>"
    data-title="<?php echo e(__('Create Hotel')); ?>"> <i class="ti-plus mr-5"></i><?php echo e(__('Create Compliment')); ?></a>

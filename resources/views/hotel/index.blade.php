@@ -13,7 +13,7 @@
     </ul>
 @endsection
 @section('card-action-btn')
-@if(!Gate::check('manage hotel'))
+@if(Gate::check('manage hotel'))
 <a class="btn btn-primary btn-sm ml-20 customModal" href="#" data-size="md"
    data-url="{{ route('hotel.create') }}"
    data-title="{{__('Create Hotel')}}"> <i class="ti-plus mr-5"></i>{{__('Create Compliment')}}</a>
