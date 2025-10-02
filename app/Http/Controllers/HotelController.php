@@ -33,15 +33,9 @@ class HotelController extends Controller
 
     public function store(Request $request)
     {
-        $validator = \Validator::make(
-            $request->all(), [
-                'parent_id' => 'required',
-            ]
-        );
-
-        if ($validator->fails()) {
-            $messages = $validator->getMessageBag();
-            return redirect()->back()->with('error', $messages->first());
+        {
+        if (!Auth::user() || !Auth::user()->id) {
+            return redirect()->back()->with('error', 'Silakan login ulang untuk melanjutkan.');
         }
 
         $hotel = new Hotel();
@@ -51,6 +45,7 @@ class HotelController extends Controller
         $hotel->check_out = $request->check_out;
         $hotel->plat_no = $request->plat_no;
         $hotel->uidno = $request->uidno;
+        $hotel->user_id = Auth::user()->id;
         $hotel->status = '1';
         $hotel->parent_id = parentId();
         $hotel->save();
@@ -118,4 +113,5 @@ class HotelController extends Controller
     //     $floors = Floor::where('zone', $id)->get()->pluck('title', 'id');
     //     return response()->json($floors);
     // }
+    }
 }
