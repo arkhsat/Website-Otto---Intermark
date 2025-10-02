@@ -3,6 +3,8 @@
 namespace Illuminate\Auth\Events;
 
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class Login
 {

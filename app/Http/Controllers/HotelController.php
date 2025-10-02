@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Hotel;
 use App\Models\ParkingZone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HotelController extends Controller
 {
@@ -31,26 +33,29 @@ class HotelController extends Controller
 
     public function store(Request $request)
     {
-            $request->validate([
-            'parent_id' => 'required',
-            ]);
-        
+        $validator = \Validator::make(
+            $request->all(), [
+                'parent_id' => 'required',
+            ]
+        );
 
-            $hotel = new Hotel();
-            $hotel->room_no = $request->room_no;
-            $hotel->guest_name = $request->guest_name;
-            $hotel->check_in = $request->check_in;
-            $hotel->check_out = $request->check_out;
-            $hotel->plat_no = $request->plat_no;
-            $hotel->uidno = $request->uidno;
-            $hotel->status = '1';
-            
-            $hotel->parent_id = parentId();
-            $hotel->save();
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
+            return redirect()->back()->with('error', $messages->first());
+        }
 
-            return redirect()->back()->with('success', __('Parking Hotel successfully created.'));
+        $hotel = new Hotel();
+        $hotel->room_no = $request->room_no;
+        $hotel->guest_name = $request->guest_name;
+        $hotel->check_in = $request->check_in;
+        $hotel->check_out = $request->check_out;
+        $hotel->plat_no = $request->plat_no;
+        $hotel->uidno = $request->uidno;
+        $hotel->status = '1';
+        $hotel->parent_id = parentId();
+        $hotel->save();
 
-       
+        return redirect()->back()->with('success', __('Parking Hotel successfully created.'));
     }
 
 
