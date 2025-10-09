@@ -87,7 +87,7 @@ class ReportQtyExport2 implements FromView, WithDrawings, WithTitle, WithStyles
         $sheet->getColumnDimension('M')->setWidth(10);
         $sheet->getColumnDimension('N')->setWidth(10);
         $sheet->getColumnDimension('O')->setWidth(10);
-        $sheet->getColumnDimension('P')->setWidth(20);
+        $sheet->getColumnDimension('P')->setWidth(10);
 
         foreach ($this->car_datahours as $row => $result) {
             $excelRow = $row + 3;

@@ -48,6 +48,7 @@
             <tr>
                 <th>No</th>
                 <th>Tanggal</th>
+                <th>GP</th>
                 <th>1 jam</th>
                 <th>1 - 2 jam</th>
                 <th>2 - 3 jam</th>
@@ -61,11 +62,11 @@
                 <th>10 - 11 jam</th>
                 <th>11 - 12 jam</th>
                 <th>> 12 jam</th>
-                <th>Total</th>
             </tr>
         </thead>
         <tbody>
             @php
+                $totalGP = 0;
                 $total0sampai1 = 0;
                 $total1sampai2 = 0;
                 $total2sampai3 = 0;
@@ -85,6 +86,7 @@
                 <tr role="row">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $hours->tanggal }}</td>
+                    <td>{{ $hours->GP }}</td>
                     <td align="right">{{ number_format($hours->s0sampai1) }}</td>
                     <td align="right">{{ number_format($hours->s1sampai2) }}</td>
                     <td align="right">{{ number_format($hours->s2sampai3) }}</td>
@@ -98,9 +100,9 @@
                     <td align="right">{{ number_format($hours->s10sampai11) }}</td>
                     <td align="right">{{ number_format($hours->s11sampai12) }}</td>
                     <td align="right">{{ number_format($hours->diatas12) }}</td>
-                    <td align="right">{{ number_format($hours->total) }} transaksi</td>
                 </tr>
                 @php
+                    $totalGP += $hours->GP;
                     $total0sampai1 += $hours->s0sampai1;
                     $total1sampai2 += $hours->s1sampai2;
                     $total2sampai3 += $hours->s2sampai3;
@@ -114,11 +116,11 @@
                     $total10sampai11 += $hours->s10sampai11;
                     $total11sampai12 += $hours->s11sampai12;
                     $totalDiatas12 += $hours->diatas12;
-                    $totalTransaksi += $hours->total;
                 @endphp
             @endforeach
             <tr>
                 <td colspan="2"><strong>Total</strong></td>
+                <td align="right"><strong>{{ number_format($totalGP) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total0sampai1) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total1sampai2) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total2sampai3) }}</strong></td>
@@ -132,7 +134,6 @@
                 <td align="right"><strong>{{ number_format($total10sampai11) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total11sampai12) }}</strong></td>
                 <td align="right"><strong>{{ number_format($totalDiatas12) }}</strong></td>
-                <td align="right"><strong>{{ number_format($totalTransaksi) }} transaksi</strong></td>
             </tr>
         </tbody>
     </table>

@@ -166,8 +166,8 @@ class ReportSummaryController extends Controller
         $datahours = DB::select("
             SELECT
             DATE(timeout) AS tanggal,
-            COUNT(vehicleid) AS total,
-            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 960) THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 960 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) THEN 1 ELSE 0 END) as s0sampai1,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
@@ -280,8 +280,8 @@ class ReportSummaryController extends Controller
         $car_datahours = DB::select("
             SELECT
             DATE(timeout) AS tanggal,
-            COUNT(vehicleid) AS total,
-            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 960) THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 960 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) THEN 1 ELSE 0 END) as s0sampai1,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
@@ -305,8 +305,8 @@ class ReportSummaryController extends Controller
         $motorcycle_datahours = DB::select("
             SELECT
             DATE(timeout) AS tanggal,
-            COUNT(vehicleid) AS total,
-            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 960) THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 960 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) THEN 1 ELSE 0 END) as s0sampai1,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
