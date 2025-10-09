@@ -40,7 +40,7 @@
                         </div>
                     </form>
 
-                    @if(!empty($hour_out))
+                    @if(!empty($duration))
                     <div style="margin-bottom: 10px;">
                         <a href="{{ route('report.voucher.gelael.pdf', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-primary">Download PDF</a>
                         <a href="{{ route('report.voucher.gelael.excel', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-success">Download Excel</a>
@@ -48,68 +48,75 @@
                     <table class="display dataTable cell-border">
                         <thead>
                             <tr>
-                                <th rowspan = 3>No</th>
-                                <th rowspan = 3>Tanggal</th>
-                                <th rowspan = 3>0 &gt; x &lt; 1</th>
-                                <th rowspan = 3>1 &gt; x &lt; 2</th>
-                                <th rowspan = 3>2 &gt; x &lt; 3</th>
-                                <th rowspan = 3>3 &gt; x &lt; 4</th>
-                                <th rowspan = 3>4 &gt; x &lt; 5</th>
-                                <th rowspan = 3>5 &gt; x &lt; 6</th>
-                                <th rowspan = 3>6 &gt; x &lt; 7</th>
-                                <th rowspan = 3>7 &gt; x &lt; 8</th>
-                                <th rowspan = 3>8 &gt; x &lt; 9</th>
-                                <th rowspan = 3>9 &gt; x &lt; 10</th>
-                                <th rowspan = 3>10 &gt; x &lt; 11</th>
-                                <th rowspan = 3>11 &gt; x &lt; 12</th>
-                                <th rowspan = 3>12 &gt; x &lt; 13</th>
-                                <th rowspan = 3>13 &gt; x &lt; 14</th>
-                                <th rowspan = 3>14 &gt; x &lt; 15</th>
-                                <th rowspan = 3>15 &gt; x &lt; 16</th>
-                                <th rowspan = 3>16 &gt; x &lt; 17</th>
-                                <th rowspan = 3>17 &gt; x &lt; 18</th>
-                                <th rowspan = 3>18 &gt; x &lt; 19</th>
-                                <th rowspan = 3>19 &gt; x &lt; 20</th>
-                                <th rowspan = 3>20 &gt; x &lt; 21</th>
-                                <th rowspan = 3>21 &gt; x &lt; 22</th>
-                                <th rowspan = 3>22 &gt; x &lt; 23</th>
-                                <th rowspan = 3>23 &gt; x &lt; 24</th>
-                                <th rowspan = 3>Total</th>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>1 jam</th>
+                                <th>1 - 2 jam</th>
+                                <th>2 - 3 jam</th>
+                                <th>3 - 4 jam</th>
+                                <th>4 - 5 jam</th>
+                                <th>5 - 6 jam</th>
+                                <th>6 - 7 jam</th>
+                                <th>7 - 8 jam</th>
+                                <th>8 - 9 jam</th>
+                                <th>9 - 10 jam</th>
+                                <th>10 - 11 jam</th>
+                                <th>11 - 12 jam</th>
+                                <th>> 12 jam</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($hour_out as $index => $parking)
-
+                            @foreach($duration as $index => $hours)
                             <tr role="row">
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $parking->tanggal }}</td>
-                                <td> {{number_format($parking->jam0_mobil + $parking->jam0_motor + $parking->jam0_truck) }}</td>
-                                <td> {{number_format($parking->jam1_mobil + $parking->jam1_motor + $parking->jam1_truck) }}</td>
-                                <td> {{number_format($parking->jam2_mobil + $parking->jam2_motor + $parking->jam2_truck) }}</td>
-                                <td> {{number_format($parking->jam3_mobil + $parking->jam3_motor + $parking->jam3_truck) }}</td>
-                                <td> {{number_format($parking->jam4_mobil + $parking->jam4_motor + $parking->jam4_truck) }}</td>
-                                <td> {{number_format($parking->jam5_mobil + $parking->jam5_motor + $parking->jam5_truck) }}</td>
-                                <td> {{number_format($parking->jam6_mobil + $parking->jam6_motor + $parking->jam6_truck) }}</td>
-                                <td> {{number_format($parking->jam7_mobil + $parking->jam7_motor + $parking->jam7_truck) }}</td>
-                                <td> {{number_format($parking->jam8_mobil + $parking->jam8_motor + $parking->jam8_truck) }}</td>
-                                <td> {{number_format($parking->jam9_mobil + $parking->jam9_motor + $parking->jam9_truck) }}</td>
-                                <td> {{number_format($parking->jam10_mobil + $parking->jam10_motor + $parking->jam10_truck) }}</td>
-                                <td> {{number_format($parking->jam11_mobil + $parking->jam11_motor + $parking->jam11_truck) }}</td>
-                                <td> {{number_format($parking->jam12_mobil + $parking->jam12_motor + $parking->jam12_truck) }}</td>
-                                <td> {{number_format($parking->jam13_mobil + $parking->jam13_motor + $parking->jam13_truck) }}</td>
-                                <td> {{number_format($parking->jam14_mobil + $parking->jam14_motor + $parking->jam14_truck) }}</td>
-                                <td> {{number_format($parking->jam15_mobil + $parking->jam15_motor + $parking->jam15_truck) }}</td>
-                                <td> {{number_format($parking->jam16_mobil + $parking->jam16_motor + $parking->jam16_truck) }}</td>
-                                <td> {{number_format($parking->jam17_mobil + $parking->jam17_motor + $parking->jam17_truck) }}</td>
-                                <td> {{number_format($parking->jam18_mobil + $parking->jam18_motor + $parking->jam18_truck) }}</td>
-                                <td> {{number_format($parking->jam19_mobil + $parking->jam19_motor + $parking->jam19_truck) }}</td>
-                                <td> {{number_format($parking->jam20_mobil + $parking->jam20_motor + $parking->jam20_truck) }}</td>
-                                <td> {{number_format($parking->jam21_mobil + $parking->jam21_motor + $parking->jam21_truck) }}</td>
-                                <td> {{number_format($parking->jam22_mobil + $parking->jam22_motor + $parking->jam22_truck) }}</td>
-                                <td> {{number_format($parking->jam23_mobil + $parking->jam23_motor + $parking->jam23_truck) }}</td>
-                                <td> {{number_format($parking->total) }}</td>
+                                <td>{{ $hours->tanggal }}</td>
+                                <td align="right">{{ number_format($hours->s0sampai1) }}</td>
+                                <td align="right">{{ number_format($hours->s1sampai2) }}</td>
+                                <td align="right">{{ number_format($hours->s2sampai3) }}</td>
+                                <td align="right">{{ number_format($hours->s3sampai4) }}</td>
+                                <td align="right">{{ number_format($hours->s4sampai5) }}</td>
+                                <td align="right">{{ number_format($hours->s5sampai6) }}</td>
+                                <td align="right">{{ number_format($hours->s6sampai7) }}</td>
+                                <td align="right">{{ number_format($hours->s7sampai8) }}</td>
+                                <td align="right">{{ number_format($hours->s8sampai9) }}</td>
+                                <td align="right">{{ number_format($hours->s9sampai10) }}</td>
+                                <td align="right">{{ number_format($hours->s10sampai11) }}</td>
+                                <td align="right">{{ number_format($hours->s11sampai12) }}</td>
+                                <td align="right">{{ number_format($hours->diatas12) }}</td>
                             </tr>
+                            @php
+                                $total0sampai1 += $hours->s0sampai1;
+                                $total1sampai2 += $hours->s1sampai2;
+                                $total2sampai3 += $hours->s2sampai3;
+                                $total3sampai4 += $hours->s3sampai4;
+                                $total4sampai5 += $hours->s4sampai5;
+                                $total5sampai6 += $hours->s5sampai6;
+                                $total6sampai7 += $hours->s6sampai7;
+                                $total7sampai8 += $hours->s7sampai8;
+                                $total8sampai9 += $hours->s8sampai9;
+                                $total9sampai10 += $hours->s9sampai10;
+                                $total10sampai11 += $hours->s10sampai11;
+                                $total11sampai12 += $hours->s11sampai12;
+                                $totalDiatas12 += $hours->diatas12;
+                            @endphp
                         @endforeach
+                        <tr>
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td align="right"><strong>{{ number_format($totalGP) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total0sampai1) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total1sampai2) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total2sampai3) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total3sampai4) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total4sampai5) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total5sampai6) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total6sampai7) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total7sampai8) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total8sampai9) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total9sampai10) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total10sampai11) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($total11sampai12) }}</strong></td>
+                            <td align="right"><strong>{{ number_format($totalDiatas12) }}</strong></td>
+                        </tr>
                         </tbody>
                     </table>
                     @else

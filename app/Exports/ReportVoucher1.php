@@ -100,7 +100,7 @@ class ReportVoucher1 implements FromView, WithDrawings, WithTitle, WithStyles
         $sheet->getColumnDimension('Z')->setWidth(10);
         $sheet->getColumnDimension('AA')->setWidth(20);
 
-        foreach ($this->car_datahours_in as $row => $result) {
+        foreach ($this->all_duration as $row => $result) {
             $excelRow = $row + 3;
             if (date('w', strtotime($result->tanggal)) == 0) {
                 $sheet->getStyle("A{$excelRow}:AA{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
