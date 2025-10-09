@@ -78,7 +78,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($car_hour_out as $parking)
+                            @foreach($car_hour_out as $index => $parking)
 
                             <tr role="row">
                                 <td>{{ $index + 1 }}</td>
