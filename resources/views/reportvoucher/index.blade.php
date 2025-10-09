@@ -83,31 +83,31 @@
                             <tr role="row">
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $parking->tanggal }}</td>
-                                <td> {{number_format($result->jam0 ) }}</td>
-                                <td> {{number_format($result->jam1 ) }}</td>
-                                <td> {{number_format($result->jam2 ) }}</td>
-                                <td> {{number_format($result->jam3 ) }}</td>
-                                <td> {{number_format($result->jam4 ) }}</td>
-                                <td> {{number_format($result->jam5 ) }}</td>
-                                <td> {{number_format($result->jam6 ) }}</td>
-                                <td> {{number_format($result->jam7 ) }}</td>
-                                <td> {{number_format($result->jam8 ) }}</td>
-                                <td> {{number_format($result->jam9 ) }}</td>
-                                <td> {{number_format($result->jam10) }} </td>
-                                <td> {{number_format($result->jam11) }} </td>
-                                <td> {{number_format($result->jam12) }} </td>
-                                <td> {{number_format($result->jam13) }} </td>
-                                <td> {{number_format($result->jam14) }} </td>
-                                <td> {{number_format($result->jam15) }} </td>
-                                <td> {{number_format($result->jam16) }} </td>
-                                <td> {{number_format($result->jam17) }} </td>
-                                <td> {{number_format($result->jam18) }} </td>
-                                <td> {{number_format($result->jam19) }} </td>
-                                <td> {{number_format($result->jam20) }} </td>
-                                <td> {{number_format($result->jam21) }} </td>
-                                <td> {{number_format($result->jam22) }} </td>
-                                <td> {{number_format($result->jam23) }} </td>
-                                <td> {{number_format($result->total) }}</td>
+                                <td> {{number_format($parking->jam0 ) }}</td>
+                                <td> {{number_format($parking->jam1 ) }}</td>
+                                <td> {{number_format($parking->jam2 ) }}</td>
+                                <td> {{number_format($parking->jam3 ) }}</td>
+                                <td> {{number_format($parking->jam4 ) }}</td>
+                                <td> {{number_format($parking->jam5 ) }}</td>
+                                <td> {{number_format($parking->jam6 ) }}</td>
+                                <td> {{number_format($parking->jam7 ) }}</td>
+                                <td> {{number_format($parking->jam8 ) }}</td>
+                                <td> {{number_format($parking->jam9 ) }}</td>
+                                <td> {{number_format($parking->jam10) }} </td>
+                                <td> {{number_format($parking->jam11) }} </td>
+                                <td> {{number_format($parking->jam12) }} </td>
+                                <td> {{number_format($parking->jam13) }} </td>
+                                <td> {{number_format($parking->jam14) }} </td>
+                                <td> {{number_format($parking->jam15) }} </td>
+                                <td> {{number_format($parking->jam16) }} </td>
+                                <td> {{number_format($parking->jam17) }} </td>
+                                <td> {{number_format($parking->jam18) }} </td>
+                                <td> {{number_format($parking->jam19) }} </td>
+                                <td> {{number_format($parking->jam20) }} </td>
+                                <td> {{number_format($parking->jam21) }} </td>
+                                <td> {{number_format($parking->jam22) }} </td>
+                                <td> {{number_format($parking->jam23) }} </td>
+                                <td> {{number_format($parking->total) }}</td>
                             </tr>
                         @endforeach
                         </tbody>
