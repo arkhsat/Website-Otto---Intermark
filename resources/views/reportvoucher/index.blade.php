@@ -43,7 +43,7 @@
                     @if(!empty($hour_out))
                     <div style="margin-bottom: 10px;">
                         <a href="{{ route('report.voucher.gelael.pdf', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-primary">Download PDF</a>
-                        <!-- <a href="{{ route('report.voucher.gelael.excel', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-success">Download Excel</a> -->
+                        <a href="{{ route('report.voucher.gelael.excel', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-success">Download Excel</a>
                     </div>
                     <table class="display dataTable cell-border">
                         <thead>
