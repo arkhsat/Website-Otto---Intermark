@@ -66,6 +66,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $totalGP = 0;
+                            $total0sampai1 = 0;
+                            $total1sampai2 = 0;
+                            $total2sampai3 = 0;
+                            $total3sampai4 = 0;
+                            $total4sampai5 = 0;
+                            $total5sampai6 = 0;
+                            $total6sampai7 = 0;
+                            $total7sampai8 = 0;
+                            $total8sampai9 = 0;
+                            $total9sampai10 = 0;
+                            $total10sampai11 = 0;
+                            $total11sampai12 = 0;
+                            $totalDiatas12 = 0;
+                            $totalTransaksi = 0;
+                        @endphp
                             @foreach($duration as $index => $hours)
                             <tr role="row">
                                 <td>{{ $index + 1 }}</td>
