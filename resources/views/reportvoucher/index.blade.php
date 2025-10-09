@@ -83,31 +83,31 @@
                             <tr role="row">
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $parking->tanggal }}</td>
-                                <td> {{number_formar($result->jam0 ) }}</td>
-                                <td> {{number_formar($result->jam1 ) }}</td>
-                                <td> {{number_formar($result->jam2 ) }}</td>
-                                <td> {{number_formar($result->jam3 ) }}</td>
-                                <td> {{number_formar($result->jam4 ) }}</td>
-                                <td> {{number_formar($result->jam5 ) }}</td>
-                                <td> {{number_formar($result->jam6 ) }}</td>
-                                <td> {{number_formar($result->jam7 ) }}</td>
-                                <td> {{number_formar($result->jam8 ) }}</td>
-                                <td> {{number_formar($result->jam9 ) }}</td>
-                                <td> {{number_formar($result->jam10) }} </td>
-                                <td> {{number_formar($result->jam11) }} </td>
-                                <td> {{number_formar($result->jam12) }} </td>
-                                <td> {{number_formar($result->jam13) }} </td>
-                                <td> {{number_formar($result->jam14) }} </td>
-                                <td> {{number_formar($result->jam15) }} </td>
-                                <td> {{number_formar($result->jam16) }} </td>
-                                <td> {{number_formar($result->jam17) }} </td>
-                                <td> {{number_formar($result->jam18) }} </td>
-                                <td> {{number_formar($result->jam19) }} </td>
-                                <td> {{number_formar($result->jam20) }} </td>
-                                <td> {{number_formar($result->jam21) }} </td>
-                                <td> {{number_formar($result->jam22) }} </td>
-                                <td> {{number_formar($result->jam23) }} </td>
-                                <td> {{number_formar($result->total) }}</td>
+                                <td> {{number_format($result->jam0 ) }}</td>
+                                <td> {{number_format($result->jam1 ) }}</td>
+                                <td> {{number_format($result->jam2 ) }}</td>
+                                <td> {{number_format($result->jam3 ) }}</td>
+                                <td> {{number_format($result->jam4 ) }}</td>
+                                <td> {{number_format($result->jam5 ) }}</td>
+                                <td> {{number_format($result->jam6 ) }}</td>
+                                <td> {{number_format($result->jam7 ) }}</td>
+                                <td> {{number_format($result->jam8 ) }}</td>
+                                <td> {{number_format($result->jam9 ) }}</td>
+                                <td> {{number_format($result->jam10) }} </td>
+                                <td> {{number_format($result->jam11) }} </td>
+                                <td> {{number_format($result->jam12) }} </td>
+                                <td> {{number_format($result->jam13) }} </td>
+                                <td> {{number_format($result->jam14) }} </td>
+                                <td> {{number_format($result->jam15) }} </td>
+                                <td> {{number_format($result->jam16) }} </td>
+                                <td> {{number_format($result->jam17) }} </td>
+                                <td> {{number_format($result->jam18) }} </td>
+                                <td> {{number_format($result->jam19) }} </td>
+                                <td> {{number_format($result->jam20) }} </td>
+                                <td> {{number_format($result->jam21) }} </td>
+                                <td> {{number_format($result->jam22) }} </td>
+                                <td> {{number_format($result->jam23) }} </td>
+                                <td> {{number_format($result->total) }}</td>
                             </tr>
                         @endforeach
                         </tbody>
