@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ReportTransaksiCloseByON;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ReportPerpanjangMember;
+use App\Exports\ReportVoucherExports;
+
 
 class ReportVoucher extends Controller
 {
@@ -311,7 +311,7 @@ class ReportVoucher extends Controller
             $fileName = config('app.location'). ' - Report Transaksi Close By ON ' . date('d F Y', strtotime($startDate)) . ' sd ' . date('d F Y', strtotime($endDate)) . '.xlsx';
         }
     
-        return Excel::download(new ReportTransaksiCloseByON ($results, $startDate, $endDate, $judul), $fileName);
+        return Excel::download(new ReportVoucherExports ($results, $startDate, $endDate, $judul), $fileName);
     }
 
 
