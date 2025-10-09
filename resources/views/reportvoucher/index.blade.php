@@ -119,7 +119,6 @@
                         @endforeach
                         <tr>
                             <td colspan="2"><strong>Total</strong></td>
-                            <td align="right"><strong>{{ number_format($totalGP) }}</strong></td>
                             <td align="right"><strong>{{ number_format($total0sampai1) }}</strong></td>
                             <td align="right"><strong>{{ number_format($total1sampai2) }}</strong></td>
                             <td align="right"><strong>{{ number_format($total2sampai3) }}</strong></td>
