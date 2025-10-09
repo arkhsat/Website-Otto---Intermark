@@ -496,9 +496,9 @@ class ReportSummaryController extends Controller
             ORDER BY DATE(timeout)
         ", [$startDate, $endDate]);
 
-$car_datahours_in = DB::select("
+    $car_datahours_in = DB::select("
             SELECT
-                DATE(timeout) AS tanggal,
+                DATE(timein) AS tanggal,
                 COUNT(timein) AS total,
                 SUM(CASE WHEN HOUR(timein) = 0 THEN cost ELSE 0 END) AS jam0,
                 SUM(CASE WHEN HOUR(timein) = 1 THEN cost ELSE 0 END) AS jam1,
@@ -525,16 +525,16 @@ $car_datahours_in = DB::select("
                 SUM(CASE WHEN HOUR(timein) = 22 THEN cost ELSE 0 END) AS jam22,
                 SUM(CASE WHEN HOUR(timein) = 23 THEN cost ELSE 0 END) AS jam23
             FROM transactions
-            WHERE DATE(timeout) BETWEEN ? AND ?
+            WHERE DATE(timein) BETWEEN ? AND ?
                 AND vehicleid IN ('Mobil')
                 AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
-            GROUP BY DATE(timeout)
-            ORDER BY DATE(timeout)
+            GROUP BY DATE(timein)
+            ORDER BY DATE(timein)
             ", [$startDate, $endDate]); 
             
         $motorcycle_datahours_in = DB::select("
             SELECT
-                DATE(timeout) AS tanggal,
+                DATE(timein) AS tanggal,
                 COUNT(timein) AS total,
                 SUM(CASE WHEN HOUR(timein) = 0 THEN cost ELSE 0 END) AS jam0,
                 SUM(CASE WHEN HOUR(timein) = 1 THEN cost ELSE 0 END) AS jam1,
@@ -561,11 +561,11 @@ $car_datahours_in = DB::select("
                 SUM(CASE WHEN HOUR(timein) = 22 THEN cost ELSE 0 END) AS jam22,
                 SUM(CASE WHEN HOUR(timein) = 23 THEN cost ELSE 0 END) AS jam23
             FROM transactions
-            WHERE DATE(timeout) BETWEEN ? AND ?
+            WHERE DATE(timein) BETWEEN ? AND ?
                 AND vehicleid IN ('Motor')
                 AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
-            GROUP BY DATE(timeout)
-            ORDER BY DATE(timeout)
+            GROUP BY DATE(timein)
+            ORDER BY DATE(timein)
             ", [$startDate, $endDate]);
 
     
