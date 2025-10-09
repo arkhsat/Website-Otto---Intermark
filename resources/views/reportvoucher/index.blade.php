@@ -40,7 +40,7 @@
                         </div>
                     </form>
 
-                    @if(!empty($results))
+                    @if(!empty($car_hour_out))
                     <div style="margin-bottom: 10px;">
                         <a href="{{ route('report.voucher.gelael.pdf', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-primary">Download PDF</a>
                         <!-- <a href="{{ route('report.voucher.gelael.excel', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d'))]) }}" class="btn btn-success">Download Excel</a> -->
@@ -78,7 +78,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($results as $parking)
+                            @foreach($car_hour_out as $parking)
 
                             <tr role="row">
                                 <td>{{ $index + 1 }}</td>
