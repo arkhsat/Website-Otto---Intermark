@@ -216,6 +216,18 @@
                     <span><?php echo e(__('Report Summary Amount')); ?></span>
                 </a>
             </li>
+
+            
+            
+
+            
+            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.gelael',''])?'active':''); ?>">
+                <a href="<?php echo e(route('report.voucher.gelael')); ?>">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span><?php echo e(__('Report Penggunaan Voucher Gelael')); ?></span>
+                </a>
+            </li>
+            
             <li class="menu-item <?php echo e(in_array($routeName,['reportdaily.index',''])?'active':''); ?>">
                 <a href="<?php echo e(route('reportdaily.index')); ?>">
                     <div class="icon-item"><i data-feather="book"></i></div>

@@ -34,6 +34,7 @@ use App\Http\Controllers\ReportMemberNonPaymentController;
 use App\Http\Controllers\ReportHotelController;
 use App\Http\Controllers\TandaTerimaController;
 use App\Http\Controllers\ReportPajakController;
+use App\Http\Controllers\ReportVoucher;
 use Illuminate\Routing\Router;
 use Maatwebsite\Excel\Row;
 
@@ -554,6 +555,19 @@ Route::group(
         Route::get('report-pajak', [ReportPajakController::class, 'index'])->name('report.pajak');
         Route::get('report-pajak-data', [ReportPajakController::class, 'data'])->name('report.pajak.data');
         Route::get('report-pajak-print', [ReportPajakController::class, 'generate'])->name('report.pajak.print');
+    }
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function () {
+        Route::get('report-voucher', [ReportVoucher::class, 'index'])->name('report.voucher.gelael');
+        Route::get('report-voucher-pdf', [ReportVoucher::class, 'downloadPDF'])->name('report.voucher.gelael.pdf');
+        Route::get('report-voucher-excel', [ReportVoucher::class, 'downloadExcel'])->name('report.voucher.gelael.excel');
     }
 );
 

@@ -31,7 +31,7 @@
                     <div class="header">
                         <div class="title">
                             <h2>{{ $judul }}</h2>
-                            <h4>Intermark Indonesia</h4>
+                            <h4>{{ config('app.location')}}</h4>
                             <p>Tanggal : {{ date('d F Y', strtotime($Date)) }}
 
                             </p>
