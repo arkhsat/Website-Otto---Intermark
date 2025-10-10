@@ -48,7 +48,6 @@
             <tr>
                 <th>No</th>
                 <th>Tanggal</th>
-                <th>GP</th>
                 <th>1 jam</th>
                 <th>1 - 2 jam</th>
                 <th>2 - 3 jam</th>
@@ -66,7 +65,6 @@
         </thead>
         <tbody>
             @php
-                $totalGP = 0;
                 $total0sampai1 = 0;
                 $total1sampai2 = 0;
                 $total2sampai3 = 0;
@@ -86,7 +84,6 @@
                 <tr role="row">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $hours->tanggal }}</td>
-                    <td>{{ $hours->GP }}</td>
                     <td align="right">{{ number_format($hours->s0sampai1) }}</td>
                     <td align="right">{{ number_format($hours->s1sampai2) }}</td>
                     <td align="right">{{ number_format($hours->s2sampai3) }}</td>
@@ -102,7 +99,6 @@
                     <td align="right">{{ number_format($hours->diatas12) }}</td>
                 </tr>
                 @php
-                    $totalGP += $hours->GP;
                     $total0sampai1 += $hours->s0sampai1;
                     $total1sampai2 += $hours->s1sampai2;
                     $total2sampai3 += $hours->s2sampai3;
@@ -120,7 +116,6 @@
             @endforeach
             <tr>
                 <td colspan="2"><strong>Total</strong></td>
-                <td align="right"><strong>{{ number_format($totalGP) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total0sampai1) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total1sampai2) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total2sampai3) }}</strong></td>

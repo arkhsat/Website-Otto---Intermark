@@ -67,7 +67,6 @@
                         </thead>
                         <tbody>
                         @php
-                            $totalGP = 0;
                             $total0sampai1 = 0;
                             $total1sampai2 = 0;
                             $total2sampai3 = 0;
