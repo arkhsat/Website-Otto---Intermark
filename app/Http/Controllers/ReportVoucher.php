@@ -59,9 +59,9 @@ class ReportVoucher extends Controller
         $results = DB::select("
             SELECT
                 DATE(timeout) AS tanggal,
-                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleif = 'Mobil' THEN 1 ELSE 0 END) as s0sampai1_mobil,
-                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleif = 'Motor' THEN 1 ELSE 0 END) as s0sampai1_motor,
-                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleif = 'Truck' THEN 1 ELSE 0 END) as s0sampai1_truck,
+                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleid = 'Mobil' THEN 1 ELSE 0 END) as s0sampai1_mobil,
+                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleid = 'Motor' THEN 1 ELSE 0 END) as s0sampai1_motor,
+                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleid = 'Truck' THEN 1 ELSE 0 END) as s0sampai1_truck,
                 SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) and vehicleid = 'Mobil' THEN 1 ELSE 0 END) as s1sampai2_mobil,
                 SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) and vehicleid = 'Motor' THEN 1 ELSE 0 END) as s1sampai2_motor,
                 SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) and vehicleid = 'Truck' THEN 1 ELSE 0 END) as s1sampai2_truck,
@@ -125,9 +125,9 @@ class ReportVoucher extends Controller
         $results = DB::select("
            SELECT
                 DATE(timeout) AS tanggal,
-                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleif = 'Mobil' THEN 1 ELSE 0 END) as s0sampai1_mobil,
-                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleif = 'Motor' THEN 1 ELSE 0 END) as s0sampai1_motor,
-                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleif = 'Truck' THEN 1 ELSE 0 END) as s0sampai1_truck,
+                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleid = 'Mobil' THEN 1 ELSE 0 END) as s0sampai1_mobil,
+                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleid = 'Motor' THEN 1 ELSE 0 END) as s0sampai1_motor,
+                SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and vehicleid = 'Truck' THEN 1 ELSE 0 END) as s0sampai1_truck,
                 SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) and vehicleid = 'Mobil' THEN 1 ELSE 0 END) as s1sampai2_mobil,
                 SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) and vehicleid = 'Motor' THEN 1 ELSE 0 END) as s1sampai2_motor,
                 SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) and vehicleid = 'Truck' THEN 1 ELSE 0 END) as s1sampai2_truck,
