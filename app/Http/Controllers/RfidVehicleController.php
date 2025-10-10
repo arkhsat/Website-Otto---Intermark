@@ -212,8 +212,8 @@ class RfidVehicleController extends Controller
                 $memberHistory->biaya = 0;
                 $memberHistory->sebelum = $oldName;
                 $memberHistory->setelah = $request->name;
-                $memberHistory->awal_berlaku = $request->start_date;
-                $memberHistory->akhir_berlaku = $request->end_date;
+                // $memberHistory->awal_berlaku = $request->start_date;
+                // $memberHistory->akhir_berlaku = $request->end_date;
                 $memberHistory->new = 100; // Perubahan pada nama
                 $memberHistory->save();
             }
@@ -225,8 +225,8 @@ class RfidVehicleController extends Controller
                 $memberHistory->biaya = 0;
                 $memberHistory->sebelum = $oldPhoneNumber;
                 $memberHistory->setelah = $request->phone_number;
-                $memberHistory->awal_berlaku = $request->start_date;
-                $memberHistory->akhir_berlaku = $request->end_date;
+                // $memberHistory->awal_berlaku = $request->start_date;
+                // $memberHistory->akhir_berlaku = $request->end_date;
                 $memberHistory->new = 101; // Perubahan pada nomor telepon
                 $memberHistory->save();
             }
@@ -238,8 +238,8 @@ class RfidVehicleController extends Controller
                 $memberHistory->biaya = 0;
                 $memberHistory->sebelum = $oldVehicleId;
                 $memberHistory->setelah = $request->vehicleid;
-                $memberHistory->awal_berlaku = $request->start_date;
-                $memberHistory->akhir_berlaku = $request->end_date;
+                // $memberHistory->awal_berlaku = $request->start_date;
+                // $memberHistory->akhir_berlaku = $request->end_date;
                 $memberHistory->new = 102; // Perubahan pada jenis kendaraan
                 $memberHistory->save();
             }
@@ -251,8 +251,8 @@ class RfidVehicleController extends Controller
                 $memberHistory->biaya = 0;
                 $memberHistory->sebelum = $oldNopol;
                 $memberHistory->setelah = $request->vehicle_no;
-                $memberHistory->awal_berlaku = $request->start_date;
-                $memberHistory->akhir_berlaku = $request->end_date;
+                // $memberHistory->awal_berlaku = $request->start_date;
+                // $memberHistory->akhir_berlaku = $request->end_date;
                 $memberHistory->new = 103; // Perubahan pada nomor polisi
                 $memberHistory->save();
             }
@@ -264,8 +264,8 @@ class RfidVehicleController extends Controller
                 $memberHistory->biaya = 0;
                 $memberHistory->sebelum = $oldCompany;
                 $memberHistory->setelah = $request->company_name;
-                $memberHistory->awal_berlaku = $request->start_date;
-                $memberHistory->akhir_berlaku = $request->end_date;
+                // $memberHistory->awal_berlaku = $request->start_date;
+                // $memberHistory->akhir_berlaku = $request->end_date;
                 $memberHistory->new = 104; // Perubahan pada nama perusahaan
                 $memberHistory->save();
             }
