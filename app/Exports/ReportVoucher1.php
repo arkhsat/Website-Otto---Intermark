@@ -58,21 +58,21 @@ class ReportVoucher1 implements FromView, WithDrawings, WithTitle, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Apply border to the data range
-        $sheet->getStyle('A2:AA' . (count($this->all_duration) + 3))
+        $sheet->getStyle('A2:P' . (count($this->all_duration) + 3))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle('A1:AA' . (count($this->all_duration) + 3))
+        $sheet->getStyle('A1:P' . (count($this->all_duration) + 3))
               ->getAlignment()
               ->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:AA' . (count($this->all_duration) + 3))
+        $sheet->getStyle('A1:P' . (count($this->all_duration) + 3))
                 ->getAlignment()
                 ->setVertical(Alignment::VERTICAL_CENTER);
         $sheet->getRowDimension('1')->setRowHeight(80);
         $sheet->getStyle('1')->getFont()->setSize(13);
         $sheet->getStyle('2')->getFont()->setSize(11);
         $sheet->getStyle('1:2')->getFont()->setBold(true);
-        $sheet->getStyle('A3:AA' . (count($this->all_duration) + 3))->getFont()->setSize(9);
+        $sheet->getStyle('A3:P' . (count($this->all_duration) + 3))->getFont()->setSize(9);
         $sheet->getColumnDimension('B')->setWidth(15);
         $sheet->getColumnDimension('C')->setWidth(10);
         $sheet->getColumnDimension('D')->setWidth(10);
@@ -92,7 +92,7 @@ class ReportVoucher1 implements FromView, WithDrawings, WithTitle, WithStyles
         foreach ($this->all_duration as $row => $result) {
             $excelRow = $row + 3;
             if (date('w', strtotime($result->tanggal)) == 0) {
-                $sheet->getStyle("A{$excelRow}:AA{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
+                $sheet->getStyle("A{$excelRow}:P{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
             }
         }
     }
