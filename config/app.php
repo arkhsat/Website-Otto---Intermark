@@ -16,6 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'location' => env('APP_LOCATION', 'Intermark'),
 
     /*
     |--------------------------------------------------------------------------
