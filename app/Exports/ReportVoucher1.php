@@ -88,17 +88,6 @@ class ReportVoucher1 implements FromView, WithDrawings, WithTitle, WithStyles
         $sheet->getColumnDimension('N')->setWidth(10);
         $sheet->getColumnDimension('O')->setWidth(10);
         $sheet->getColumnDimension('P')->setWidth(10);
-        $sheet->getColumnDimension('Q')->setWidth(10);
-        $sheet->getColumnDimension('R')->setWidth(10);
-        $sheet->getColumnDimension('S')->setWidth(10);
-        $sheet->getColumnDimension('T')->setWidth(10);
-        $sheet->getColumnDimension('U')->setWidth(10);
-        $sheet->getColumnDimension('V')->setWidth(10);
-        $sheet->getColumnDimension('W')->setWidth(10);
-        $sheet->getColumnDimension('X')->setWidth(10);
-        $sheet->getColumnDimension('Y')->setWidth(10);
-        $sheet->getColumnDimension('Z')->setWidth(10);
-        $sheet->getColumnDimension('AA')->setWidth(20);
 
         foreach ($this->all_duration as $row => $result) {
             $excelRow = $row + 3;
