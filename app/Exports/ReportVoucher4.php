@@ -30,7 +30,7 @@ class ReportVoucher4 implements FromView, WithDrawings, WithTitle, WithStyles
 
     public function view(): View
     {
-        return view('exports.reportvoucher', [
+        return view('exports.reportvoucher_truck', [
             'datahours' => $this->truck_duration,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
