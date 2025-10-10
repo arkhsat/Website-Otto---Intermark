@@ -85,35 +85,37 @@
                 <tr role="row">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $hours->tanggal }}</td>
-                    <td align="right">{{ number_format($hours->s0sampai1) }}</td>
-                    <td align="right">{{ number_format($hours->s1sampai2) }}</td>
-                    <td align="right">{{ number_format($hours->s2sampai3) }}</td>
-                    <td align="right">{{ number_format($hours->s3sampai4) }}</td>
-                    <td align="right">{{ number_format($hours->s4sampai5) }}</td>
-                    <td align="right">{{ number_format($hours->s5sampai6) }}</td>
-                    <td align="right">{{ number_format($hours->s6sampai7) }}</td>
-                    <td align="right">{{ number_format($hours->s7sampai8) }}</td>
-                    <td align="right">{{ number_format($hours->s8sampai9) }}</td>
-                    <td align="right">{{ number_format($hours->s9sampai10) }}</td>
-                    <td align="right">{{ number_format($hours->s10sampai11) }}</td>
-                    <td align="right">{{ number_format($hours->s11sampai12) }}</td>
-                    <td align="right">{{ number_format($hours->diatas12) }}</td>
-                    <td align="right">{{ number_format($hours->s0sampai1 + $hours->s1sampai2 + $hours->s2sampai3 + $hours->s3sampai4 + $hours->s4sampai5 + $hours->s5sampai6 + $hours->s6sampai7 + $hours->s7sampai8 + $hours->s8sampai9 + $hours->s9sampai10 + $hours->s10sampai11 + $hours->s11sampai12 + $hours->diatas12) }}</td>
+                    <td align="right">{{ number_format($hours->s0sampai1_mobil + $hours->s0sampai1_motor + $hours->s0sampai1_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s1sampai2_mobil + $hours->s1sampai2_motor + $hours->s1sampai2_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s2sampai3_mobil + $hours->s2sampai3_motor + $hours->s2sampai3_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s3sampai4_mobil + $hours->s3sampai4_motor + $hours->s3sampai4_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s4sampai5_mobil + $hours->s4sampai5_motor + $hours->s4sampai5_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s5sampai6_mobil + $hours->s5sampai6_motor + $hours->s5sampai6_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s6sampai7_mobil + $hours->s6sampai7_motor + $hours->s6sampai7_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s7sampai8_mobil + $hours->s7sampai8_motor + $hours->s7sampai8_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s8sampai9_mobil + $hours->s8sampai9_motor + $hours->s8sampai9_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s9sampai10_mobil + $hours->s9sampai10_motor + $hours->s9sampai10_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s10sampai11_mobil + $hours->s10sampai11_motor + $hours->s10sampai11_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s11sampai12_mobil + $hours->s11sampai12_motor + $hours->s11sampai12_truck) }}</td>
+                    <td align="right">{{ number_format($hours->diatas12_mobil + $hours->diatas12_motor + $hours->diatas12_truck) }}</td>
+                    <td align="right">{{ number_format($hours->s0sampai1_mobil + $hours->s1sampai2_mobil + $hours->s2sampai3_mobil + $hours->s3sampai4_mobil + $hours->s4sampai5_mobil + $hours->s5sampai6_mobil + $hours->s6sampai7_mobil + $hours->s7sampai8_mobil + $hours->s8sampai9_mobil + $hours->s9sampai10_mobil + $hours->s10sampai11_mobil + $hours->s11sampai12_mobil + $hours->diatas12_mobil 
+                    + $hours->s0sampai1_motor + $hours->s1sampai2_motor + $hours->s2sampai3_motor + $hours->s3sampai4_motor + $hours->s4sampai5_motor + $hours->s5sampai6_motor + $hours->s6sampai7_motor + $hours->s7sampai8_motor + $hours->s8sampai9_motor + $hours->s9sampai10_motor + $hours->s10sampai11_motor + $hours->s11sampai12_motor + $hours->diatas12_motor 
+                    + $hours->s0sampai1_truck + $hours->s1sampai2_truck + $hours->s2sampai3_truck + $hours->s3sampai4_truck + $hours->s4sampai5_truck + $hours->s5sampai6_truck + $hours->s6sampai7_truck + $hours->s7sampai8_truck + $hours->s8sampai9_truck + $hours->s9sampai10_truck + $hours->s10sampai11_truck + $hours->s11sampai12_truck + $hours->diatas12_truck) }}</td>
                 </tr>
                 @php
-                    $total0sampai1 += $hours->s0sampai1;
-                    $total1sampai2 += $hours->s1sampai2;
-                    $total2sampai3 += $hours->s2sampai3;
-                    $total3sampai4 += $hours->s3sampai4;
-                    $total4sampai5 += $hours->s4sampai5;
-                    $total5sampai6 += $hours->s5sampai6;
-                    $total6sampai7 += $hours->s6sampai7;
-                    $total7sampai8 += $hours->s7sampai8;
-                    $total8sampai9 += $hours->s8sampai9;
-                    $total9sampai10 += $hours->s9sampai10;
-                    $total10sampai11 += $hours->s10sampai11;
-                    $total11sampai12 += $hours->s11sampai12;
-                    $totalDiatas12 += $hours->diatas12;
+                    $total0sampai1 += $hours->s0sampai1_mobil + $hours->s0sampai1_motor + $hours->s0sampai1_truck;
+                    $total1sampai2 += $hours->s1sampai2_mobil + $hours->s1sampai2_motor + $hours->s1sampai2_truck;
+                    $total2sampai3 += $hours->s2sampai3_mobil + $hours->s2sampai3_motor + $hours->s2sampai3_truck;
+                    $total3sampai4 += $hours->s3sampai4_mobil + $hours->s3sampai4_motor + $hours->s3sampai4_truck;
+                    $total4sampai5 += $hours->s4sampai5_mobil + $hours->s4sampai5_motor + $hours->s4sampai5_truck;
+                    $total5sampai6 += $hours->s5sampai6_mobil + $hours->s5sampai6_motor + $hours->s5sampai6_truck;
+                    $total6sampai7 += $hours->s6sampai7_mobil + $hours->s6sampai7_motor + $hours->s6sampai7_truck;
+                    $total7sampai8 += $hours->s7sampai8_mobil + $hours->s7sampai8_motor + $hours->s7sampai8_truck;
+                    $total8sampai9 += $hours->s8sampai9_mobil + $hours->s8sampai9_motor + $hours->s8sampai9_truck;
+                    $total9sampai10 += $hours->s9sampai10_mobil + $hours->s9sampai10_motor + $hours->s9sampai10_truck;
+                    $total10sampai11 += $hours->s10sampai11_mobil + $hours->s10sampai11_motor + $hours->s10sampai11_truck;
+                    $total11sampai12 += $hours->s11sampai12_mobil + $hours->s11sampai12_motor + $hours->s11sampai12_truck;
+                    $totalDiatas12 += $hours->diatas12_mobil + $hours->diatas12_motor + $hours->diatas12_truck;
                 @endphp
             @endforeach
             <tr>
