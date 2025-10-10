@@ -26,9 +26,9 @@ class ReportVoucherExports implements WithMultipleSheets
     {
         return [
             new ReportVoucher1($this->results, $this->startDate, $this->endDate, 'Report Penggunaan Voucher'),
-            new ReportVoucher1($this->results, $this->startDate, $this->endDate, 'Penggunaan Voucher Mobil'),
-            new ReportVoucher1($this->results, $this->startDate, $this->endDate, 'Penggunaan Voucher Motor'),
-            new ReportVoucher1($this->results, $this->startDate, $this->endDate, 'Penggunaan Voucher Truk'),
+            new ReportVoucher2($this->results, $this->startDate, $this->endDate, 'Penggunaan Voucher Mobil'),
+            new ReportVoucher3($this->results, $this->startDate, $this->endDate, 'Penggunaan Voucher Motor'),
+            new ReportVoucher4($this->results, $this->startDate, $this->endDate, 'Penggunaan Voucher Truk'),
         ];
     }
 }
