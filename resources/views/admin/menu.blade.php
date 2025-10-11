@@ -262,12 +262,12 @@
             </li>
 
             {{-- Untuk Voucher True Blue --}}
-            {{-- <li class="menu-item {{in_array($routeName,['report.summary.voucher.hotel',''])?'active':''}}">
-                <a href="{{route('report.summary.voucher.hotel')}}">
+            <li class="menu-item {{in_array($routeName,['report.voucher.trueblue',''])?'active':''}}">
+                <a href="{{route('report.voucher.trueblue')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Penggunaan Voucher Hotel')}}</span>
+                    <span>{{__('Report Penggunaan Voucher True Blue')}}</span>
                 </a>
-            </li> --}}
+            </li>
 
             {{-- Untuk Vocuher Gelael --}}
             <li class="menu-item {{in_array($routeName,['report.voucher.gelael',''])?'active':''}}">
