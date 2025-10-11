@@ -269,7 +269,7 @@
                 </a>
             </li>
 
-            {{-- Untuk Vocuher Gelael --}}
+            {{-- Untuk Voucher Gelael --}}
             <li class="menu-item {{in_array($routeName,['report.voucher.gelael',''])?'active':''}}">
                 <a href="{{route('report.voucher.gelael')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>

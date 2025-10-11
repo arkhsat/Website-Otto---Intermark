@@ -30,7 +30,7 @@ class ReportTrueBlueExport implements FromView, WithDrawings, WithStyles
 
     public function view(): View
     {
-        return view('exports.reportTrueBlue', [
+        return view('exports.reportvoucher-trueblue', [
             'results' => $this->data,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,

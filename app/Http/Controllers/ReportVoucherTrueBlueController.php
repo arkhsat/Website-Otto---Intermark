@@ -12,7 +12,7 @@ class ReportVoucherTrueBlueController extends Controller
 {
     public function index()
     {   $reportname = NULL;
-        return view('reporthotel.index', compact('reportname'));
+        return view('reportvoucher.index-trueblue', compact('reportname'));
     }
 
     public function dataTrxHotel(Request $request)
@@ -61,7 +61,7 @@ class ReportVoucherTrueBlueController extends Controller
                 ORDER BY datetransact", [$startDate, $endDate]);
                 
         $reportname = 'Laporan True Blue Hotel Menteng';
-        $pdf = PDF::loadView('pdf.pdfreportTrueBlue', compact('results', 'reportname', 'startDate', 'endDate'));
+        $pdf = PDF::loadView('pdf.pdfreportVoucherTrueBlue', compact('results', 'reportname', 'startDate', 'endDate'));
 
         if ($startDate == $endDate) {
             $fileName = 'Laporan Hotel ' . $hotel . ' ' . date('d F Y', strtotime($startDate)) . '.pdf';

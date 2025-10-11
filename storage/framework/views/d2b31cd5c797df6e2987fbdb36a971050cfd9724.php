@@ -218,7 +218,12 @@
             </li>
 
             
-            
+            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.trueblue',''])?'active':''); ?>">
+                <a href="<?php echo e(route('report.voucher.trueblue')); ?>">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span><?php echo e(__('Report Penggunaan Voucher True Blue')); ?></span>
+                </a>
+            </li>
 
             
             <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.gelael',''])?'active':''); ?>">

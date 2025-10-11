@@ -566,9 +566,9 @@ Route::group(
             'XSS',
         ],
     ], function () {
-        Route::get('report-voucher', [ReportVoucher::class, 'index'])->name('report.voucher.gelael');
-        Route::get('report-voucher-pdf', [ReportVoucher::class, 'downloadPDF'])->name('report.voucher.gelael.pdf');
-        Route::get('report-voucher-excel', [ReportVoucher::class, 'downloadExcel'])->name('report.voucher.gelael.excel');
+        Route::get('report-voucher-gelael', [ReportVoucher::class, 'index'])->name('report.voucher.gelael');
+        Route::get('report-voucher-gelael-pdf', [ReportVoucher::class, 'downloadPDF'])->name('report.voucher.gelael.pdf');
+        Route::get('report-voucher-gelael-excel', [ReportVoucher::class, 'downloadExcel'])->name('report.voucher.gelael.excel');
     }
 );
 
@@ -579,7 +579,7 @@ Route::group(
             'XSS',
         ],
     ], function () {
-        Route::get('report-voucher', [ReportVoucherTrueBlueController::class, 'index'])->name('report.voucher.trueblue');
+        Route::get('report-voucher-trueblue', [ReportVoucherTrueBlueController::class, 'index'])->name('report.voucher.trueblue');
         Route::get('report-voucher-trueblue-pdf', [ReportVoucherTrueBlueController::class, 'downloadPDF'])->name('report.voucher.trueblue.pdf');
         Route::get('report-voucher-trueblue-excel', [ReportVoucherTrueBlueController::class, 'downloadExcel'])->name('report.voucher.trueblue.excel');
     }
