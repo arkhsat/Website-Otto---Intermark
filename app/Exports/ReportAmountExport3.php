@@ -30,7 +30,7 @@ class ReportAmountExport3 implements FromView, WithDrawings, WithTitle, WithStyl
 
     public function view(): View
     {
-        return view('exports.reportexcelqty2', [
+        return view('exports.reportexcelamount2', [
             'datahours' => $this->motorcycle_datahours,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
