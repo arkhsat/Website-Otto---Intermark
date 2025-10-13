@@ -60,8 +60,8 @@
                 <th>9 - 10 jam</th>
                 <th>10 - 11 jam</th>
                 <th>11 - 12 jam</th>
-                <th>> 12 jam</th>
-                <th>Total</th>
+                <th> 12 jam</th>
+                <th>TOTAL</th>
             </tr>
         </thead>
         <tbody>
@@ -82,8 +82,7 @@
                 $totalTransaksi = 0;
             @endphp
             @foreach($datahours as $index => $hours)
-
-                <tr role="row" style="{{ date('w', strtotime($result->date)) == 0 ? 'color:red;' : '' }}">
+                <tr role="row">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $hours->tanggal }}</td>
                     <td align="right">{{ number_format($hours->s0sampai1) }}</td>
@@ -99,7 +98,7 @@
                     <td align="right">{{ number_format($hours->s10sampai11) }}</td>
                     <td align="right">{{ number_format($hours->s11sampai12) }}</td>
                     <td align="right">{{ number_format($hours->diatas12) }}</td>
-                    <td align="right">{{ number_format($hours->total) }}</td>
+                    <td align="right">{{ number_format($hours->s0sampai1 + $hours->s1sampai2 + $hours->s2sampai3 + $hours->s3sampai4 + $hours->s4sampai5 + $hours->s5sampai6 + $hours->s6sampai7 + $hours->s7sampai8 + $hours->s8sampai9 + $hours->s9sampai10 + $hours->s10sampai11 + $hours->s11sampai12 + $hours->diatas12) }}</td>
                 </tr>
                 @php
                     $total0sampai1 += $hours->s0sampai1;
@@ -115,7 +114,6 @@
                     $total10sampai11 += $hours->s10sampai11;
                     $total11sampai12 += $hours->s11sampai12;
                     $totalDiatas12 += $hours->diatas12;
-                    $totalTransaksi += $hours->total;
                 @endphp
             @endforeach
             <tr>
@@ -133,7 +131,7 @@
                 <td align="right"><strong>{{ number_format($total10sampai11) }}</strong></td>
                 <td align="right"><strong>{{ number_format($total11sampai12) }}</strong></td>
                 <td align="right"><strong>{{ number_format($totalDiatas12) }}</strong></td>
-                <td align="right"><strong>{{ number_format($totalTransaksi) }}</strong></td>
+                <td align="right"><strong>{{ number_format($total0sampai1 + $total1sampai2 + $total2sampai3 + $total3sampai4 + $total4sampai5 + $total5sampai6 + $total6sampai7 + $total7sampai8 + $total8sampai9 + $total9sampai10 + $total10sampai11 + $total11sampai12 + $totalDiatas12) }}</strong></td>
             </tr>
         </tbody>
     </table>

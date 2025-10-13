@@ -30,7 +30,7 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
 
     public function view(): View
     {
-        return view('exports.reportexcelqty3', [
+        return view('exports.reportexcelamount3', [
             'datahours' => $this->car_datahours_in,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
@@ -56,21 +56,21 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
     }
     public function styles(Worksheet $sheet)
     {
-                $sheet->getStyle('A2:AA' . (count($this->car_datahours_in) + 3))
+                $sheet->getStyle('A2:Z' . (count($this->car_datahours_in) + 3))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle('A1:AA' . (count($this->car_datahours_in) + 3))
+        $sheet->getStyle('A1:Z' . (count($this->car_datahours_in) + 3))
               ->getAlignment()
               ->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:AA' . (count($this->car_datahours_in) + 3))
+        $sheet->getStyle('A1:Z' . (count($this->car_datahours_in) + 3))
                 ->getAlignment()
                 ->setVertical(Alignment::VERTICAL_CENTER);
         $sheet->getRowDimension('1')->setRowHeight(80);
         $sheet->getStyle('1')->getFont()->setSize(13);
         $sheet->getStyle('2')->getFont()->setSize(11);
         $sheet->getStyle('1:2')->getFont()->setBold(true);
-        $sheet->getStyle('A3:AA' . (count($this->car_datahours_in) + 3))->getFont()->setSize(9);
+        $sheet->getStyle('A3:Z' . (count($this->car_datahours_in) + 3))->getFont()->setSize(9);
         $sheet->getColumnDimension('B')->setWidth(15);
         $sheet->getColumnDimension('C')->setWidth(10);
         $sheet->getColumnDimension('D')->setWidth(10);
@@ -96,12 +96,11 @@ class ReportAmountExport5 implements FromView, WithDrawings, WithTitle, WithStyl
         $sheet->getColumnDimension('X')->setWidth(10);
         $sheet->getColumnDimension('Y')->setWidth(10);
         $sheet->getColumnDimension('Z')->setWidth(10);
-        $sheet->getColumnDimension('AA')->setWidth(20);
 
         foreach ($this->car_datahours_in as $row => $result) {
             $excelRow = $row + 3;
             if (date('w', strtotime($result->tanggal)) == 0) {
-                $sheet->getStyle("A{$excelRow}:AA{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
+                $sheet->getStyle("A{$excelRow}:Z{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
             }
         }
     }
