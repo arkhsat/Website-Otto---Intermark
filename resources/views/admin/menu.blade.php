@@ -262,15 +262,20 @@
             </li>
 
             {{-- Untuk Voucher True Blue --}}
-            {{-- <li class="menu-item {{in_array($routeName,['report.summary.voucher.hotel',''])?'active':''}}">
-                <a href="{{route('report.summary.voucher.hotel')}}">
+            <li class="menu-item {{in_array($routeName,['report.voucher.trueblue',''])?'active':''}}">
+                <a href="{{route('report.voucher.trueblue')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Penggunaan Voucher Hotel')}}</span>
+                    <span>{{__('Report Penggunaan Voucher True Blue')}}</span>
                 </a>
-            </li> --}}
+            </li>
 
+<<<<<<< HEAD
             {{-- Untuk Vocuher Gelael --}}
             <!-- <li class="menu-item {{in_array($routeName,['report.voucher.gelael',''])?'active':''}}">
+=======
+            {{-- Untuk Voucher Gelael --}}
+            <li class="menu-item {{in_array($routeName,['report.voucher.gelael',''])?'active':''}}">
+>>>>>>> 5e1b1a02dac782a8bd3b6f2001176ab9e5ceb7b2
                 <a href="{{route('report.voucher.gelael')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
                     <span>{{__('Report Penggunaan Voucher Gelael')}}</span>
