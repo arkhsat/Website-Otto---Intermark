@@ -1,6 +1,8 @@
 {{ Form::model($vehicle, [
     'route' => ['rfid-extend.update', $vehicle->id], 'method' => 'PUT', 'id' => 'formUpdate']) }}
 <div class="modal-body">
+    <input type="hidden" id="end_date_db" value="{{ $vehicle->end_date }}">
+    
     <div class="row">
         <div class="form-group col-md-6">
             {{ Form::label('name', __('Nama'), array('class' => 'form-label')) }}
@@ -113,23 +115,42 @@
         });
 
         // Fungsi untuk menghitung tanggal akhir berdasarkan logika yang diberikan
+        // function calculateEndDate(month) {
+        //     var today = new Date();
+        //     var endDate = new Date();
+
+        //     endDate.setDate(1); // ✅ Set tanggal ke 1 dulu supaya aman dari lompat bulan
+
+        //     if (today.getDate() >= 25 && today.getDate() <= 31) {
+        //         endDate.setMonth(today.getMonth() + 1 + month);
+        //     } else {
+        //         endDate.setMonth(today.getMonth() + month);
+        //     }
+
+        //     endDate.setDate(5); // ✅ Baru atur tanggal akhir
+
+        //     return endDate.toISOString().split('T')[0];
+        // }
+
         function calculateEndDate(month) {
-            var today = new Date();
-            var endDate = new Date();
+            var oldEndDateVal = $('#end_date_db').val();
+            if (!oldEndDateVal) return '';
 
-            endDate.setDate(1); // ✅ Set tanggal ke 1 dulu supaya aman dari lompat bulan
+            var baseDate = new Date(oldEndDateVal);
+            var endDate = new Date(baseDate);
 
-            if (today.getDate() >= 25 && today.getDate() <= 31) {
-                endDate.setMonth(today.getMonth() + 1 + month);
+            endDate.setDate(1); // tetap pakai trik biar aman
+
+            if (baseDate.getDate() >= 25 && baseDate.getDate() <= 31) {
+                endDate.setMonth(baseDate.getMonth() + 1 + month);
             } else {
-                endDate.setMonth(today.getMonth() + month);
+                endDate.setMonth(baseDate.getMonth() + month);
             }
 
-            endDate.setDate(5); // ✅ Baru atur tanggal akhir
+            endDate.setDate(5);
 
             return endDate.toISOString().split('T')[0];
         }
-
 
         // Fungsi untuk memformat angka dengan pemisah ribuan
         function formatRupiah(angka, prefix) {

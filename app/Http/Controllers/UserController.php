@@ -100,6 +100,7 @@ class UserController extends Controller
                     $user->profile = 'avatar.png';
                     $user->lang = 'english';
                     $user->parent_id = parentId();
+                    $user->subscription = $authUser->subscription;
                     $user->save();
 
                     $user->assignRole($role_r);

@@ -19,5 +19,9 @@ class Hotel extends Model
         'parent_id',
     ];
 
+    public function hotelType()
+    {
+        return $this->belongsTo(HotelType::class, 'type');
+    }
    
 }

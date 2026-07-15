@@ -68,22 +68,84 @@ class TandaTerimaController extends Controller
     $tahun = now()->year;
 
     // Ambil data kendaraan dengan whereIn yang sudah dibersihkan
+    // $vehicles = DB::table('rfid_vehicles')
+    //     ->leftJoin('member_history', 'member_history.member_id', '=', 'rfid_vehicles.id')
+    //     ->leftJoin('member_package', 'member_package.product_code', '=', 'member_history.product_code')
+    //     ->leftJoin('member_history', 'member_history.new', '=', 'member_cardnew_status.status' ) // NEW
+    //     ->leftJoin('member_history', 'member_history.new == 1', '=', 'member_package.newcard' ) // NEW
+    //     ->whereIn(DB::raw('UPPER(TRIM(vehicle_no))'), $vehicleNos)
+    //     ->where('rfid_vehicles.rfid_no', '<>', '0')
+    //     ->whereNotNull('member_history.product_code')
+    //     ->select(
+    //             'vehicle_no',
+    //             'company_name',
+    //             'vehicleid',
+    //             'member_history.product_code',
+    //             'member_package.keterangan',
+    //             'member_history.member_id',
+    //             // 'member_history.biaya'
+    //             'member_package.price as biaya',
+    //             'member_package.newcard as newcard' // NEW
+    //     )
+    //     ->orderBy('member_history.id', 'desc')
+    //     ->get();
+    // $vehicles = DB::table('rfid_vehicles')
+    //     ->leftJoin('member_history', 'member_history.member_id', '=', 'rfid_vehicles.id')
+    //     ->leftJoin('member_package', 'member_package.product_code', '=', 'member_history.product_code')
+
+    //     ->whereIn(DB::raw('UPPER(TRIM(vehicle_no))'), $vehicleNos)
+    //     ->where('rfid_vehicles.rfid_no', '<>', '0')
+    //     ->whereNotNull('member_history.product_code')
+
+    //     ->select(
+    //         'vehicle_no',
+    //         'company_name',
+    //         'vehicleid',
+    //         'member_history.product_code',
+    //         'member_package.keterangan',
+    //         'member_history.member_id',
+
+    //         // harga paket
+    //         'member_package.price as biaya',
+
+    //         // tampilkan harga new card hanya jika member_history.new = 1
+    //         DB::raw("
+    //             CASE
+    //                 WHEN member_history.new = 1
+    //                 THEN member_package.newcard
+    //                 ELSE NULL
+    //             END as newcard
+    //         ")
+    //     )
+
+    //     ->orderBy('member_history.id', 'desc')
+    //     ->get();
     $vehicles = DB::table('rfid_vehicles')
         ->leftJoin('member_history', 'member_history.member_id', '=', 'rfid_vehicles.id')
         ->leftJoin('member_package', 'member_package.product_code', '=', 'member_history.product_code')
-        ->whereIn(DB::raw('UPPER(TRIM(vehicle_no))'), $vehicleNos)
+
+        ->whereIn(DB::raw('UPPER(TRIM(rfid_vehicles.vehicle_no))'), $vehicleNos)
         ->where('rfid_vehicles.rfid_no', '<>', '0')
         ->whereNotNull('member_history.product_code')
+        ->where('member_package.price', '>', 0) // ← Tambahkan di sini
+
         ->select(
-                'vehicle_no',
-                'company_name',
-                'vehicleid',
-                'member_history.product_code',
-                'member_package.keterangan',
-                'member_history.member_id',
-                'member_history.biaya'
+            'rfid_vehicles.vehicle_no',
+            'rfid_vehicles.company_name',
+            'rfid_vehicles.vehicleid',
+            'member_history.product_code',
+            'member_package.keterangan',
+            'member_history.member_id',
+            'member_package.price as biaya',
+
+            DB::raw("
+                CASE
+                    WHEN member_history.new = 1
+                    THEN member_package.newcard
+                    ELSE NULL
+                END AS newcard
+            ")
         )
-        ->orderBy('member_history.id', 'desc')
         ->get();
 
     // Kelompokkan berdasarkan company_name
@@ -106,7 +168,8 @@ class TandaTerimaController extends Controller
             'keterangan' => $first->keterangan,
             'biaya' => $first->biaya,
             'vehicleid' => $first->vehicleid,
-            'vehicle_nos' => $vehicle_nos->values(),    
+            'vehicle_nos' => $vehicle_nos->values(),  
+            'newcard' => $first->newcard  // NEW
         ];
     })->values();
 

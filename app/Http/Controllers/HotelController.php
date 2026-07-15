@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\HotelType;
 use App\Models\ParkingZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +26,11 @@ class HotelController extends Controller
     public function create()
     {
        
+        $hotelTypes = HotelType::pluck('type', 'id');
 
+        return view('hotel.create', compact('hotelTypes'));
         
-        return view('hotel.create');
+        // return view('hotel.create');
     }
 
 
@@ -45,6 +48,7 @@ class HotelController extends Controller
         $hotel->check_out = $request->check_out;
         $hotel->plat_no = $request->plat_no;
         $hotel->uidno = $request->uidno;
+        $hotel->type = $request->type;
         $hotel->user_id = Auth::user()->id;
         $hotel->status = '1';
         $hotel->parent_id = parentId();

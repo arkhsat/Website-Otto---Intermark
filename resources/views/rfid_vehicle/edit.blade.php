@@ -86,10 +86,12 @@
         </div>
     </div>
 </div>
+@if(Gate::check('edit rfid vehicle'))
 <div class="modal-footer">
     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
     {{ Form::submit(__('Update'), ['class' => 'btn btn-primary btn-rounded', 'id' => 'submitBtn']) }}
 </div>
+@endif
 {{ Form::close() }}
 
 <script>

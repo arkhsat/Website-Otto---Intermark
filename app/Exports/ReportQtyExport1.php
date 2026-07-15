@@ -21,6 +21,7 @@ class ReportQtyExport1 implements FromView, WithDrawings, WithTitle, WithStyles
     protected $judul;
     protected $car_datahours;
     protected $motorcycle_datahours;
+    protected $truck_datahours;
 
     public function __construct($data, $startDate, $endDate, $judul)
     {   
@@ -60,24 +61,24 @@ class ReportQtyExport1 implements FromView, WithDrawings, WithTitle, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Apply border to the data range
-        $sheet->getStyle('A2:M' . (count($this->data) + 4))
+        $sheet->getStyle('A2:R' . (count($this->data) + 4))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle('A1:M' . (count($this->data) + 4))
+        $sheet->getStyle('A1:R' . (count($this->data) + 4))
               ->getAlignment()
               ->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:M' . (count($this->data) + 4))
+        $sheet->getStyle('A1:R' . (count($this->data) + 4))
                 ->getAlignment()
                 ->setVertical(Alignment::VERTICAL_CENTER);
         $sheet->getRowDimension('1')->setRowHeight(80);
         $sheet->getStyle('1')->getFont()->setSize(13);
         $sheet->getStyle('2:3')->getFont()->setSize(11);
         $sheet->getStyle('1:3')->getFont()->setBold(true);
-        $sheet->getStyle('A4:M' . (count($this->data) + 3))->getFont()->setSize(9);
+        $sheet->getStyle('A4:R' . (count($this->data) + 3))->getFont()->setSize(9);
         $sheet->getColumnDimension('B')->setWidth(15);
 
-        $sheet->getStyle('B' . (count($this->data) + 6) . ':C' . (count($this->data) + 7))
+        $sheet->getStyle('B' . (count($this->data) + 6) . ':C' . (count($this->data) + 8))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
@@ -85,7 +86,7 @@ class ReportQtyExport1 implements FromView, WithDrawings, WithTitle, WithStyles
         foreach ($this->data as $row => $result) {
             $excelRow = $row + 4;
             if (date('w', strtotime($result->date)) == 0) {
-                $sheet->getStyle("A{$excelRow}:M{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
+                $sheet->getStyle("A{$excelRow}:R{$excelRow}")->getFont()->getColor()->setARGB('FFFF0000');
             }
         }
     }

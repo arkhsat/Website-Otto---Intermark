@@ -11,7 +11,7 @@
         </div>
         <div class="form-group col-md-6">
             {{Form::label('uidno',__('UID No'),array('class'=>'form-label'))}}
-            {{Form::text('uidno',null,array('class'=>'form-control','placeholder'=>__('Enter UID Card No')))}}
+            {{Form::text('uidno',null,array('class'=>'form-control','placeholder'=>__('Enter UID Card No'), 'required'))}}
         </div>
         <div class="form-group col-md-6">
             {{Form::label('plat_no',__('Plat No'),array('class'=>'form-label'))}}
@@ -25,6 +25,10 @@
         <div class="form-group  col-md-6">
             {{Form::label('entry_date',__('Check Out'),array('class'=>'form-label'))}}
             {{Form::date('check_out',date('Y-m-d'),array('class'=>'form-control'))}}
+        </div>
+        <div class="form-group col-md-6">
+            {{Form::label('type',__('Type Of Guest'),array('class'=>'form-label'))}}
+            {{Form::select('type', $hotelTypes, null, array('class'=>'form-control','placeholder'=>__('Choose Type Customer'), 'required'))}}
         </div>
         <div class="form-group col-md-6">
             {{Form::label('status',__('status'),array('class'=>'form-label'))}}

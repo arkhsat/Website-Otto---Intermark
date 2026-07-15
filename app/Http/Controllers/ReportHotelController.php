@@ -26,7 +26,12 @@ class ReportHotelController extends Controller
             $results = DB::select("
                 SELECT DATE(tr.timein) as tanggal, 
                 ht.plat_no as nopol, ht.guest_name as nama, tr.vehicleid as jenis_kendaraan,
-                tr.timein as tanggal_masuk, tr.datetransact as tanggal_keluar, ht.room_no as kamar FROM transactions tr
+                tr.timein as tanggal_masuk, tr.datetransact as tanggal_keluar, ht.room_no as kamar, ht.type as tipe_guest, 
+                CASE
+                    WHEN ht.type = 1 THEN 'Hotel Guest'
+                    WHEN ht.type = 2 THEN 'Event Hotel'
+                END AS tipe_guest
+                FROM transactions tr
                 LEFT JOIN hotels ht
                 ON tr.tiketno=ht.uidno
                 WHERE tr.paymentby = 'Hotel'
@@ -38,10 +43,15 @@ class ReportHotelController extends Controller
         } else if ($hotel == 'SCSR') {
             $results = DB::select("
                 SELECT 
-                date(datetransact) as tanggal, ht.plat_no as nopol, ht.guest_name as nama,
+                date(datetransact) as tanggal, ht.plat_no as nopol, ht.guest_name as nama, ht.type as tipe_guest,
                 CASE when tr.vehicleid = 'Motor' then 1 END AS Motor,
                 CASE when tr.vehicleid = 'Mobil' then 1 END AS Mobil,
-                ht.created_at as tanggal_regis, ht.room_no as kamar FROM transactions tr
+                ht.created_at as tanggal_regis, ht.room_no as kamar, ht.type as tipe_guest,
+                CASE
+                    WHEN ht.type = 1 THEN 'Hotel Guest'
+                    WHEN ht.type = 2 THEN 'Event Hotel'
+                END AS tipe_guest
+                FROM transactions tr
                 LEFT JOIN hotels ht
                 ON tr.tiketno=ht.uidno
                 WHERE tr.paymentby = 'Hotel'
@@ -64,7 +74,12 @@ class ReportHotelController extends Controller
             $results = DB::select("
                 SELECT DATE(tr.timein) as tanggal, 
                 ht.plat_no as nopol, ht.guest_name as nama, tr.vehicleid as jenis_kendaraan,
-                tr.timein as tanggal_masuk, tr.datetransact as tanggal_keluar, ht.room_no as kamar FROM transactions tr
+                tr.timein as tanggal_masuk, tr.datetransact as tanggal_keluar, ht.room_no as kamar, ht.type as tipe_guest,    
+                CASE
+                    WHEN ht.type = 1 THEN 'Hotel Guest'
+                    WHEN ht.type = 2 THEN 'Event Hotel'
+                END AS tipe_guest
+                FROM transactions tr
                 LEFT JOIN hotels ht
                 ON tr.tiketno=ht.uidno
                 WHERE tr.paymentby = 'Hotel'
@@ -81,7 +96,12 @@ class ReportHotelController extends Controller
                 date(datetransact) as tanggal, ht.plat_no as nopol, ht.guest_name as nama,
                 CASE when tr.vehicleid = 'Motor' then 1 END AS Motor,
                 CASE when tr.vehicleid = 'Mobil' then 1 END AS Mobil,
-                ht.created_at as tanggal_regis, ht.room_no as kamar FROM transactions tr
+                ht.created_at as tanggal_regis, ht.room_no as kamar, ht.type as tipe_guest,    
+                 CASE
+                    WHEN ht.type = 1 THEN 'Hotel Guest'
+                    WHEN ht.type = 2 THEN 'Event Hotel'
+                END AS tipe_guest
+                FROM transactions tr
                 LEFT JOIN hotels ht
                 ON tr.tiketno=ht.uidno
                 WHERE tr.paymentby = 'Hotel'
@@ -115,7 +135,12 @@ class ReportHotelController extends Controller
             $results = DB::select("
                 SELECT DATE(tr.timein) as tanggal, 
                 ht.plat_no as nopol, ht.guest_name as nama, tr.vehicleid as jenis_kendaraan,
-                tr.timein as tanggal_masuk, tr.datetransact as tanggal_keluar, ht.room_no as kamar FROM transactions tr
+                tr.timein as tanggal_masuk, tr.datetransact as tanggal_keluar, ht.room_no as kamar, ht.type as tipe_guest,
+                CASE
+                    WHEN ht.type = 1 THEN 'Hotel Guest'
+                    WHEN ht.type = 2 THEN 'Event Hotel'
+                END AS tipe_guest
+                FROM transactions tr
                 LEFT JOIN hotels ht
                 ON tr.tiketno=ht.uidno
                 WHERE tr.paymentby = 'Hotel'
@@ -132,7 +157,12 @@ class ReportHotelController extends Controller
                 date(datetransact) as tanggal, ht.plat_no as nopol, ht.guest_name as nama,
                 CASE when tr.vehicleid = 'Motor' then 1 END AS Motor,
                 CASE when tr.vehicleid = 'Mobil' then 1 END AS Mobil,
-                ht.created_at as tanggal_regis, ht.room_no as kamar FROM transactions tr
+                ht.created_at as tanggal_regis, ht.room_no as kamar, ht.type as tipe_guest,
+                CASE
+                    WHEN ht.type = 1 THEN 'Hotel Guest'
+                    WHEN ht.type = 2 THEN 'Event Hotel'
+                END AS tipe_guest
+                FROM transactions tr
                 LEFT JOIN hotels ht
                 ON tr.tiketno=ht.uidno
                 WHERE tr.paymentby = 'Hotel'

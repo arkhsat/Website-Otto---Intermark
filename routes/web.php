@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RfidVehicleCarController;
+use App\Http\Controllers\RfidVehicleBlueBirdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SettingController;
@@ -26,6 +28,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\MemberProductController;
 use App\Http\Controllers\ReportSummaryController;
+use App\Http\Controllers\ReportSummaryPosController;
+use App\Http\Controllers\ReportSummaryMemberController;
 use App\Http\Controllers\ReportONController;
 use App\Http\Controllers\ReportDailyController;
 use App\Http\Controllers\CompanyController;
@@ -33,9 +37,12 @@ use App\Http\Controllers\ReportMemberDailyController;
 use App\Http\Controllers\ReportMemberNonPaymentController;
 use App\Http\Controllers\ReportHotelController;
 use App\Http\Controllers\TandaTerimaController;
+use App\Http\Controllers\TandaTerimaHistoryController;
 use App\Http\Controllers\ReportPajakController;
 use App\Http\Controllers\ReportVoucher;
 use App\Http\Controllers\ReportVoucherTrueBlueController;
+use App\Http\Controllers\PriceController;
+use App\Http\Controllers\GuestTypeController;
 use Illuminate\Routing\Router;
 use Maatwebsite\Excel\Row;
 
@@ -101,6 +108,44 @@ Route::group(
     Route::get('subscription/transaction', [SubscriptionController::class,'transaction'])->name('subscription.transaction');
 }
 );
+
+
+//-------------------------------Price-------------------------------------------
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('/Setting-Price', [PriceController::class, 'getAmountReport'])->name('setting.price');
+    
+}
+);
+
+//-------------------------------Guest Types-------------------------------------------
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('/Setting-Guest-Types', [GuestTypeController::class, 'index'])->name('setting.guest-types');
+    Route::get('/Setting-Guest-Create', [GuestTypeController::class, 'create'])->name('setting.guest-types.create');
+    Route::get('/Setting-Guest-Edit/{id}', [GuestTypeController::class, 'edit'])->name('setting.guest-types.edit');
+    // Route::put('/Setting-Guest-Update/{id}', [GuestTypeController::class, 'update'])->name('setting.guest-types.update');
+    Route::post('/Setting-Guest-Store', [GuestTypeController::class, 'store'])->name('setting.guest-types.store');
+    Route::put('/Setting-Guest-Update/{id}', [GuestTypeController::class, 'update'])->name('setting.guest-types.update');
+    
+}
+);
+
+
 
 //-------------------------------Subscription Payment-------------------------------------------
 
@@ -308,6 +353,18 @@ Route::resource('rfid-vehicle', RfidVehicleController::class)->middleware(
     ]
 );
 
+Route::resource('rfid-vehicle-car', RfidVehicleCarController::class)->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
+Route::resource('rfid-vehicle-bluebird', RfidVehicleBlueBirdController::class)->middleware(
+    [
+        'auth',
+        'XSS',
+    ]
+);
 // Route::resource('rfid-extend', RfidExtendVehicleController::class)->middleware(
 //     [
 //         'auth',
@@ -337,6 +394,34 @@ Route::group(
     ], function () {
 
     Route::resource('rfid-vehicle', RfidVehicleController::class);
+    
+    // Route::get('rfid-vehicle/edit')
+    // Route::get('rfid-vehicle/extend/{eid}', [RfidVehicleController::class,'extend'])->name('rfid-vehicle.extend');
+   
+});
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function () {
+
+    Route::resource('rfid-vehicle-car', RfidVehicleCarController::class);
+    
+    // Route::get('rfid-vehicle/edit')
+    // Route::get('rfid-vehicle/extend/{eid}', [RfidVehicleController::class,'extend'])->name('rfid-vehicle.extend');
+   
+});
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function () {
+
+    Route::resource('rfid-vehicle-bluebird', RfidVehicleBlueBirdController::class);
     
     // Route::get('rfid-vehicle/edit')
     // Route::get('rfid-vehicle/extend/{eid}', [RfidVehicleController::class,'extend'])->name('rfid-vehicle.extend');
@@ -410,6 +495,41 @@ Route::group(
         ],
     ], function (){
 
+    // Route::resource('reportsummary', ReportSummaryController::class, 'getamountreport')->name('report.summary');
+    // Route::get('/report-amount-summary-Member', [ReportSummaryMemberController::class, 'getAmountReportMember'])->name('report.summary.member.amount');
+    // Route::get('/report-amount-summary-Member/pdf', [ReportSummaryMemberController::class, 'downloadpdfAmountMember'])->name('report.summary.member.amount.pdf');
+    // Route::get('/report-amount-summary-Member/excel', [ReportSummaryMemberController::class, 'downloadexcelAmountMember'])->name('report.summary.member.amount.excel');
+    Route::get('/report-qty-summary-Member', [ReportSummaryMemberController::class, 'getQtyReportMember'])->name('report.summary.member.qty');
+    Route::get('/report-qty-summary-Member/pdf', [ReportSummaryMemberController::class, 'downloadpdfQtyMember'])->name('report.summary.member.qty.pdf'); 
+    Route::get('/report-qty-summary-Member/excel', [ReportSummaryMemberController::class, 'downloadexcelQtyMember'])->name('report.summary.member.qty.excel');
+}
+);
+
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('/report-qty-summary-pos', [ReportSummaryPosController::class, 'getQtyReportPos'])->name('report.summary.pos.qty');
+    Route::get('/report-qty-summary-pos/pdf', [ReportSummaryPosController::class, 'downloadpdfQtyPos'])->name('report.summary.pos.qty.pdf'); 
+    Route::get('/report-qty-summary-pos/excel', [ReportSummaryPosController::class, 'downloadexcelQtyPos'])->name('report.summary.pos.qty.excel');
+}
+);
+
+
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
         Route::get('/report-member-summary-daily', [ReportMemberDailyController::class, 'getmemberReport'])->name('reportmember.daily');
         Route::get('/report-member-summary-daily/pdf', [ReportMemberDailyController::class, 'downloadpdfMember'])->name('reportmember.daily.pdf');
         Route::get('/report-member-summary-daily/excel', [ReportMemberDailyController::class, 'downloadexcelMember'])->name('reportmember.daily.excel');
@@ -472,6 +592,20 @@ Route::group(
 
     Route::get('report-tanda-terima', [TandaTerimaController::class, 'index'])->name('tanda.terima.member');
     Route::get('tanda-terima', [TandaTerimaController::class, 'show'])->name('tanda.terima.view');
+
+}
+);
+
+Route::group(
+    [
+        'middleware' => [
+            'auth',
+            'XSS',
+        ],
+    ], function (){
+
+    Route::get('report-tanda-terima-history', [TandaTerimaHistoryController::class, 'index'])->name('tanda.terima.history.member');
+    Route::get('tanda-terima-history', [TandaTerimaHistoryController::class, 'show'])->name('tanda.terima.history.view');
 
 }
 );

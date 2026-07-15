@@ -110,7 +110,8 @@
 <script src="{{ asset('assets/js/vendors/notify/bootstrap-notify.js') }}"></script>
 
 <!-- Lightbox2 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script> -->
+<script src="{{ asset('js/lightbox.min.js') }}"></script>
 
 
 <script src="{{ asset('assets/js/custom-script.js') }}"></script>

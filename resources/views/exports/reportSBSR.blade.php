@@ -52,6 +52,7 @@
                 <th>Jenis Kendaraan</th>
                 <th>Nomor Polisi</th>
                 <th>Kamar</th>
+                <th>Tipe Tamu</th>
             </tr>
             
         </thead>
@@ -68,6 +69,7 @@
                     <td>{{ $result->jenis_kendaraan }}</td>
                     <td>{{ $result->nopol }}</td>
                     <td>{{ $result->kamar }}</td>
+                    <td>{{ $result->tipe_guest }}</td>
                 </tr>
             @endforeach
         </tbody>

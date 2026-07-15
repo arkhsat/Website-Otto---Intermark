@@ -25,21 +25,26 @@ class ReportSummaryController extends Controller
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS Mandiri_Truck,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS QRIS_Truck,
             SUM(cost) as total
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Motor') AND
+            vehicleid IN ('Mobil', 'Motor', 'Truck/Container') AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS') AND
             DATE(dateout) BETWEEN ? AND ?
                     GROUP BY 
@@ -66,20 +71,25 @@ class ReportSummaryController extends Controller
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil Box/Pick Up' THEN cost ELSE 0 END) AS Mandiri_Mobil_Box,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS QRIS_Truck,
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Truck') AND
+            vehicleid IN ('Mobil', 'Motor', 'Truck/Container') AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS') AND
             DATE(dateout) BETWEEN ? AND ?
                     GROUP BY 
@@ -106,21 +116,26 @@ class ReportSummaryController extends Controller
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS Mandiri_Truck,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS QRIS_Truck, 
             COUNT(transactionid) as total
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Motor') AND
+            vehicleid IN ('Mobil', 'Motor', 'Truck/Container') AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS') AND
             DATE(dateout) BETWEEN ? AND ?
                     GROUP BY 
@@ -136,25 +151,30 @@ class ReportSummaryController extends Controller
         $endDate = $request->input('end_date', date('Y-m-d'));
         
         $results = DB::select("
-        SELECT 
+         SELECT 
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS Mandiri_Truck,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS QRIS_Truck,
             COUNT(transactionid) as total
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Motor') AND
+            vehicleid IN ('Mobil', 'Motor', 'Truck/Container') AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS') AND
             DATE(dateout) BETWEEN ? AND ?
                     GROUP BY 
@@ -166,8 +186,9 @@ class ReportSummaryController extends Controller
         $datahours = DB::select("
             SELECT
             DATE(timeout) AS tanggal,
-            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 960) THEN 1 ELSE 0 END) AS GP,
-            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 960 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) THEN 1 ELSE 0 END) as s0sampai1,
+            COUNT(*) as total,
+            SUM(CASE WHEN paymentby = 'GP' THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and paymentby <> 'GP' THEN 1 ELSE 0 END) as s0sampai1,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
@@ -206,25 +227,30 @@ class ReportSummaryController extends Controller
         $endDate = $request->input('end_date', date('Y-m-d'));
         
         $results = DB::select("
-        SELECT 
+         SELECT 
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS Mandiri_Truck,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS QRIS_Truck,
             SUM(cost) as total
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Motor') AND
+            vehicleid IN ('Mobil', 'Motor', 'Truck/Container') AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS') AND
             DATE(dateout) BETWEEN ? AND ?
             GROUP BY 
@@ -240,7 +266,7 @@ class ReportSummaryController extends Controller
             $fileName = 'Intermark - Report Pendapatan ' . date('d F Y', strtotime($startDate)) . ' sd ' . date('d F Y', strtotime($endDate)) . '.pdf';
         }
         $judul = 'Laporan Pendapatan Transaksi Harian';
-        $pdf = Pdf::loadView('PDF/pdfqtyamount', ['data' => $results], compact('startDate', 'endDate', 'judul'));
+        $pdf = Pdf::loadView('PDF/pdfqtyamount', ['data' => $results], compact('startDate', 'endDate', 'judul'))->setPaper('a4', 'landscape');;
         
         return $pdf->download($fileName);
     }
@@ -250,25 +276,30 @@ class ReportSummaryController extends Controller
         $endDate = $request->input('end_date', date('Y-m-d'));
         
         $results = DB::select("
-        SELECT 
+          SELECT 
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS Mandiri_Truck,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN 1 ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN 1 ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN 1 ELSE 0 END) AS QRIS_Truck,
             COUNT(transactionid) as total
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Motor') AND
+            vehicleid IN ('Mobil', 'Motor', 'Truck/Container') AND
             DATE(dateout) BETWEEN ? AND ? AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
             GROUP BY 
@@ -280,8 +311,8 @@ class ReportSummaryController extends Controller
         $car_datahours = DB::select("
             SELECT
             DATE(timeout) AS tanggal,
-            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 960) THEN 1 ELSE 0 END) AS GP,
-            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 960 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN paymentby = 'GP' THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and paymentby <> 'GP' THEN 1 ELSE 0 END) as s0sampai1,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
@@ -305,8 +336,8 @@ class ReportSummaryController extends Controller
         $motorcycle_datahours = DB::select("
             SELECT
             DATE(timeout) AS tanggal,
-            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 960) THEN 1 ELSE 0 END) AS GP,
-            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 960 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN paymentby = 'GP' THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and paymentby <> 'GP' THEN 1 ELSE 0 END) as s0sampai1,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
             SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
@@ -322,6 +353,31 @@ class ReportSummaryController extends Controller
             FROM transactions
             WHERE DATE(timeout) BETWEEN ? AND ?
             AND vehicleid IN ('Motor')
+            AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+        ", [$startDate, $endDate]);
+
+        $truck_datahours = DB::select("
+            SELECT
+            DATE(timeout) AS tanggal,
+            SUM(CASE WHEN paymentby = 'GP' THEN 1 ELSE 0 END) AS GP,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600) and paymentby <> 'GP' THEN 1 ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN 1 ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN 1 ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN 1 ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN 1 ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN 1 ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN 1 ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN 1 ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN 1 ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN 1 ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN 1 ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN 1 ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN 1 ELSE 0 END) as diatas12
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+            AND vehicleid IN ('Truck/Container')
             AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
             GROUP BY DATE(timeout)
             ORDER BY DATE(timeout)
@@ -399,6 +455,42 @@ class ReportSummaryController extends Controller
             ORDER BY DATE(timeout)
             ", [$startDate, $endDate]);
 
+         $truck_datahours_in = DB::select("
+            SELECT
+                DATE(timeout) AS tanggal,
+                COUNT(timein) AS total,
+                SUM(CASE WHEN HOUR(timein) = 0 THEN 1 ELSE 0 END) AS jam0,
+                SUM(CASE WHEN HOUR(timein) = 1 THEN 1 ELSE 0 END) AS jam1,
+                SUM(CASE WHEN HOUR(timein) = 2 THEN 1 ELSE 0 END) AS jam2,
+                SUM(CASE WHEN HOUR(timein) = 3 THEN 1 ELSE 0 END) AS jam3,
+                SUM(CASE WHEN HOUR(timein) = 4 THEN 1 ELSE 0 END) AS jam4,
+                SUM(CASE WHEN HOUR(timein) = 5 THEN 1 ELSE 0 END) AS jam5,
+                SUM(CASE WHEN HOUR(timein) = 6 THEN 1 ELSE 0 END) AS jam6,
+                SUM(CASE WHEN HOUR(timein) = 7 THEN 1 ELSE 0 END) AS jam7,
+                SUM(CASE WHEN HOUR(timein) = 8 THEN 1 ELSE 0 END) AS jam8,
+                SUM(CASE WHEN HOUR(timein) = 9 THEN 1 ELSE 0 END) AS jam9,
+                SUM(CASE WHEN HOUR(timein) = 10 THEN 1 ELSE 0 END) AS jam10,
+                SUM(CASE WHEN HOUR(timein) = 11 THEN 1 ELSE 0 END) AS jam11,
+                SUM(CASE WHEN HOUR(timein) = 12 THEN 1 ELSE 0 END) AS jam12,
+                SUM(CASE WHEN HOUR(timein) = 13 THEN 1 ELSE 0 END) AS jam13,
+                SUM(CASE WHEN HOUR(timein) = 14 THEN 1 ELSE 0 END) AS jam14,
+                SUM(CASE WHEN HOUR(timein) = 15 THEN 1 ELSE 0 END) AS jam15,
+                SUM(CASE WHEN HOUR(timein) = 16 THEN 1 ELSE 0 END) AS jam16,
+                SUM(CASE WHEN HOUR(timein) = 17 THEN 1 ELSE 0 END) AS jam17,
+                SUM(CASE WHEN HOUR(timein) = 18 THEN 1 ELSE 0 END) AS jam18,
+                SUM(CASE WHEN HOUR(timein) = 19 THEN 1 ELSE 0 END) AS jam19,
+                SUM(CASE WHEN HOUR(timein) = 20 THEN 1 ELSE 0 END) AS jam20,
+                SUM(CASE WHEN HOUR(timein) = 21 THEN 1 ELSE 0 END) AS jam21,
+                SUM(CASE WHEN HOUR(timein) = 22 THEN 1 ELSE 0 END) AS jam22,
+                SUM(CASE WHEN HOUR(timein) = 23 THEN 1 ELSE 0 END) AS jam23
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+                AND vehicleid IN ('Truck/Container')
+                AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+            ", [$startDate, $endDate]);
+
         $judul = 'Laporan QTY Transaksi Harian'; // Ubah sesuai keinginan
 
         if ($startDate == $endDate) {
@@ -408,8 +500,8 @@ class ReportSummaryController extends Controller
         }
     
         // return Excel::download(new ReportQtyExport($car_datahours, $motorcycle_datahours, $results, $startDate, $endDate, $judul), $fileName);
-        return Excel::download(new ReportQtyExport($results, $car_datahours, $motorcycle_datahours, 
-        $car_datahours_in, $motorcycle_datahours_in,
+        return Excel::download(new ReportQtyExport($results, $car_datahours, $motorcycle_datahours, $truck_datahours,
+        $car_datahours_in, $motorcycle_datahours_in, $truck_datahours_in,
         $startDate, $endDate, $judul), $fileName);
     }
 
@@ -418,25 +510,35 @@ class ReportSummaryController extends Controller
         $endDate = $request->input('end_date', date('Y-m-d'));
         
         $results = DB::select("
-        SELECT 
+         SELECT 
             DATE(dateout) AS date,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS Mandiri_Mobil,
             SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS Mandiri_Motor,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Mobil Box/Pick Up' THEN cost ELSE 0 END) AS Mandiri_Mobil_Box,
+            SUM(CASE WHEN paymentby = 'Mandiri' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS Mandiri_Truck,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BCA_Mobil,
             SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BCA_Motor,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Mobil Box/Pick Up' THEN cost ELSE 0 END) AS BCA_Mobil_Box,
+            SUM(CASE WHEN paymentby = 'BCA' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BCA_Truck,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BNI_Mobil,
             SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BNI_Motor,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Mobil Box/Pick Up' THEN cost ELSE 0 END) AS BNI_Mobil_Box,
+            SUM(CASE WHEN paymentby = 'BNI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BNI_Truck,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS BRI_Mobil,
             SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS BRI_Motor,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Mobil Box/Pick Up' THEN cost ELSE 0 END) AS BRI_Mobil_B,
+            SUM(CASE WHEN paymentby = 'BRI' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS BRI_Truck,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil' THEN cost ELSE 0 END) AS QRIS_Mobil,
             SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Motor' THEN cost ELSE 0 END) AS QRIS_Motor,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Mobil Box/Pick Up' THEN cost ELSE 0 END) AS QRIS_Mobil_Box,
+            SUM(CASE WHEN paymentby = 'QRIS' AND vehicleid = 'Truck/Container' THEN cost ELSE 0 END) AS QRIS_Truck,
             SUM(cost) as total
         FROM 
             transactions
         WHERE 
             alreadyout = 'x' AND
             statusparking = 'Casual' AND
-            vehicleid IN ('Mobil', 'Motor') AND
+            vehicleid IN ('Mobil', 'Motor','Mobil Box/Pick Up', 'Truck/Container') AND
             paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS') AND
             DATE(dateout) BETWEEN ? AND ?
                     GROUP BY 
@@ -496,7 +598,32 @@ class ReportSummaryController extends Controller
             ORDER BY DATE(timeout)
         ", [$startDate, $endDate]);
 
-    $car_datahours_in = DB::select("
+        $truck_duration = DB::select("
+            SELECT
+            DATE(timeout) AS tanggal,
+            SUM(cost) AS total,
+            SUM(CASE WHEN TIMESTAMPDIFF(SECOND, timein, timeout) <= 3600  THEN cost ELSE 0 END) as s0sampai1,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 3600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 7200) THEN cost ELSE 0 END) as s1sampai2,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 7200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 10800) THEN cost ELSE 0 END) as s2sampai3,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 10800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 14400) THEN cost ELSE 0 END) as s3sampai4,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 14400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 18000) THEN cost ELSE 0 END) as s4sampai5,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 18000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 21600) THEN cost ELSE 0 END) as s5sampai6,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 21600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 25200) THEN cost ELSE 0 END) as s6sampai7,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 25200 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 28800) THEN cost ELSE 0 END) as s7sampai8,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 28800 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 32400) THEN cost ELSE 0 END) as s8sampai9,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 32400 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 36000) THEN cost ELSE 0 END) as s9sampai10,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 36000 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 39600) THEN cost ELSE 0 END) as s10sampai11,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 39600 and TIMESTAMPDIFF(SECOND, timein, timeout) <= 43200) THEN cost ELSE 0 END) as s11sampai12,
+            SUM(CASE WHEN (TIMESTAMPDIFF(SECOND, timein, timeout) > 43200 ) THEN cost ELSE 0 END) as diatas12
+            FROM transactions
+            WHERE DATE(timeout) BETWEEN ? AND ?
+            AND vehicleid IN ('Truck/Container')
+            AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timeout)
+            ORDER BY DATE(timeout)
+        ", [$startDate, $endDate]);
+
+        $car_datahours_in = DB::select("
             SELECT
                 DATE(timein) AS tanggal,
                 COUNT(timein) AS total,
@@ -530,7 +657,7 @@ class ReportSummaryController extends Controller
                 AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
             GROUP BY DATE(timein)
             ORDER BY DATE(timein)
-            ", [$startDate, $endDate]); 
+        ", [$startDate, $endDate]); 
             
         $motorcycle_datahours_in = DB::select("
             SELECT
@@ -568,7 +695,43 @@ class ReportSummaryController extends Controller
             ORDER BY DATE(timein)
             ", [$startDate, $endDate]);
 
-    
+        $truck_datahours_in = DB::select("
+            SELECT
+                DATE(timein) AS tanggal,
+                COUNT(timein) AS total,
+                SUM(CASE WHEN HOUR(timein) = 0 THEN cost ELSE 0 END) AS jam0,
+                SUM(CASE WHEN HOUR(timein) = 1 THEN cost ELSE 0 END) AS jam1,
+                SUM(CASE WHEN HOUR(timein) = 2 THEN cost ELSE 0 END) AS jam2,
+                SUM(CASE WHEN HOUR(timein) = 3 THEN cost ELSE 0 END) AS jam3,
+                SUM(CASE WHEN HOUR(timein) = 4 THEN cost ELSE 0 END) AS jam4,
+                SUM(CASE WHEN HOUR(timein) = 5 THEN cost ELSE 0 END) AS jam5,
+                SUM(CASE WHEN HOUR(timein) = 6 THEN cost ELSE 0 END) AS jam6,
+                SUM(CASE WHEN HOUR(timein) = 7 THEN cost ELSE 0 END) AS jam7,
+                SUM(CASE WHEN HOUR(timein) = 8 THEN cost ELSE 0 END) AS jam8,
+                SUM(CASE WHEN HOUR(timein) = 9 THEN cost ELSE 0 END) AS jam9,
+                SUM(CASE WHEN HOUR(timein) = 10 THEN cost ELSE 0 END) AS jam10,
+                SUM(CASE WHEN HOUR(timein) = 11 THEN cost ELSE 0 END) AS jam11,
+                SUM(CASE WHEN HOUR(timein) = 12 THEN cost ELSE 0 END) AS jam12,
+                SUM(CASE WHEN HOUR(timein) = 13 THEN cost ELSE 0 END) AS jam13,
+                SUM(CASE WHEN HOUR(timein) = 14 THEN cost ELSE 0 END) AS jam14,
+                SUM(CASE WHEN HOUR(timein) = 15 THEN cost ELSE 0 END) AS jam15,
+                SUM(CASE WHEN HOUR(timein) = 16 THEN cost ELSE 0 END) AS jam16,
+                SUM(CASE WHEN HOUR(timein) = 17 THEN cost ELSE 0 END) AS jam17,
+                SUM(CASE WHEN HOUR(timein) = 18 THEN cost ELSE 0 END) AS jam18,
+                SUM(CASE WHEN HOUR(timein) = 19 THEN cost ELSE 0 END) AS jam19,
+                SUM(CASE WHEN HOUR(timein) = 20 THEN cost ELSE 0 END) AS jam20,
+                SUM(CASE WHEN HOUR(timein) = 21 THEN cost ELSE 0 END) AS jam21,
+                SUM(CASE WHEN HOUR(timein) = 22 THEN cost ELSE 0 END) AS jam22,
+                SUM(CASE WHEN HOUR(timein) = 23 THEN cost ELSE 0 END) AS jam23
+            FROM transactions
+            WHERE DATE(timein) BETWEEN ? AND ?
+                AND vehicleid IN ('Truck/Container')
+                AND paymentby IN ('Mandiri', 'BCA', 'BNI', 'BRI', 'QRIS')
+            GROUP BY DATE(timein)
+            ORDER BY DATE(timein)
+            ", [$startDate, $endDate]);
+
+
         $judul = 'Laporan Pendapatan Transaksi';
 
         if ($startDate == $endDate) {
@@ -577,8 +740,8 @@ class ReportSummaryController extends Controller
             $fileName = 'Intermark - Report Pendapatan ' . date('d F Y', strtotime($startDate)) . ' sd ' . date('d F Y', strtotime($endDate)) . '.xlsx';
         }
     
-        return Excel::download(new ReportAmountExport($results, $car_duration, $motorcycle_duration, 
-        $car_datahours_in, $motorcycle_datahours_in, $startDate, $endDate, $judul), $fileName);
+        return Excel::download(new ReportAmountExport($results, $car_duration, $motorcycle_duration, $truck_duration,
+        $car_datahours_in, $motorcycle_datahours_in, $truck_datahours_in, $startDate, $endDate, $judul), $fileName);
     }
    
 }

@@ -33,6 +33,7 @@
                             <th>{{__('UID No')}}</th>
                             <th>{{__('Check In')}}</th>
                             <th>{{__('Check Out')}}</th>
+                            <th>{{__('Type Of Guest')}}</th>
                             <th>{{__('Status')}}</th>
                             <th>{{__('Date Created')}}</th>
                             
@@ -47,6 +48,9 @@
                                 <td> {{ ucfirst($hotel->uidno)}}   </td>
                                 <td> {{ ucfirst($hotel->check_in)}}   </td>
                                 <td> {{ ucfirst($hotel->check_out)}}   </td>
+                                <!-- <td> {{ ucfirst($hotel->type)}}   </td> -->
+                                <td> {{ ucfirst($hotel->hotelType->type ?? '')}}</td>
+                                <!-- <td>{{ optional($hotel->hotelType)->name }}</td> -->
                                 <td> {{ ucfirst($hotel->status)}}   </td>
                                 <td> {{ ucfirst($hotel->created_at)}}   </td>
                             </tr>

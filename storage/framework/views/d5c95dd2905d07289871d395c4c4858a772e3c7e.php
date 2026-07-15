@@ -175,6 +175,27 @@
                         </a>
                     </li>
                 <?php endif; ?>
+                <?php if(\Auth::user()->type=='super admin' || \Auth::user()->type=='owner' || \Auth::user()->type=='manager'): ?>                            
+                    <?php if(Gate::check('manage rfid vehicle')): ?>
+                        <li class="menu-item <?php echo e(in_array($routeName,['rfid-vehicle.index'])?'active':''); ?>">
+                            <a href="<?php echo e(route('rfid-vehicle-car.index')); ?>">
+                                <div class="icon-item"><i data-feather="truck"></i></div>
+                                <span><?php echo e(__('RFID Car')); ?></span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if(\Auth::user()->type=='super admin' || \Auth::user()->type=='owner' || \Auth::user()->type=='manager'): ?>                            
+                    <?php if(Gate::check('manage rfid vehicle')): ?>
+                        <li class="menu-item <?php echo e(in_array($routeName,['rfid-vehicle.index'])?'active':''); ?>">
+                            <a href="<?php echo e(route('rfid-vehicle-bluebird.index')); ?>">
+                                <div class="icon-item"><i data-feather="truck"></i></div>
+                                <span><?php echo e(__('RFID Blue Bird')); ?></span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endif; ?>
 
                 <?php if(Gate::check('manage rfid vehicle')): ?>
                     <li class="menu-item <?php echo e(in_array($routeName,['rfid-extend.index'])?'active':''); ?>">
@@ -218,10 +239,19 @@
             </li>
 
             
-            
-
+            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.trueblue',''])?'active':''); ?>">
+                <a href="<?php echo e(route('report.voucher.trueblue')); ?>">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span><?php echo e(__('Report Penggunaan Voucher True Blue')); ?></span>
+                </a>
+            </li>
+<!-- <<<<<<< HEAD -->
             
             <!-- <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.gelael',''])?'active':''); ?>">
+=======
+            
+            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.gelael',''])?'active':''); ?>">
+>>>>>>> 5e1b1a02dac782a8bd3b6f2001176ab9e5ceb7b2
                 <a href="<?php echo e(route('report.voucher.gelael')); ?>">
                     <div class="icon-item"><i data-feather="book"></i></div>
                     <span><?php echo e(__('Report Penggunaan Voucher Gelael')); ?></span>

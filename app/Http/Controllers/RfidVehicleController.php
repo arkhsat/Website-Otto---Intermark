@@ -10,6 +10,7 @@ use App\Models\VehicleType;
 use App\Models\MemberHistory;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; //
 
 class RfidVehicleController extends Controller
 {
@@ -29,6 +30,16 @@ class RfidVehicleController extends Controller
         }
     }
 
+    public function show()
+    {
+        if (\Auth::user()->can('manage rfid vehicle')) {
+            $vehicles = DB::table('rfid_car')->get();
+    
+            return view('rfid_car.index', compact('vehicles'));
+        } else {
+            return redirect()->back()->with('error', __('Permission denied.'));
+        }
+    }
 
     public function create()
     {
@@ -36,6 +47,14 @@ class RfidVehicleController extends Controller
         $memberTypes = MemberPackage::where('parent_id', parentId())->get();
         $company = Company::pluck('company_name', 'company_name');
         return view('rfid_vehicle.create', compact('vehicleTypes', 'memberTypes', 'company'));
+    }
+
+    public function create_car()
+    {
+        $vehicleTypes = VehicleType::pluck('title', 'id');
+        $memberTypes = MemberPackage::where('parent_id', parentId())->get();
+        $company = Company::pluck('company_name', 'company_name');
+        return view('rfid_car.create', compact('vehicleTypes', 'memberTypes', 'company'));
     }
 
     public function extend(RfidVehicle $rfidVehicle)

@@ -59,21 +59,21 @@ class ReportAmountExport1 implements FromView, WithDrawings, WithTitle, WithStyl
     public function styles(Worksheet $sheet)
     {
         // Apply border to the data range
-        $sheet->getStyle('A2:M' . (count($this->data) + 4))
+        $sheet->getStyle('A2:R' . (count($this->data) + 4))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle('A1:M' . (count($this->data) + 4))
+        $sheet->getStyle('A1:R' . (count($this->data) + 4))
               ->getAlignment()
               ->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:M' . (count($this->data) + 4))
+        $sheet->getStyle('A1:R' . (count($this->data) + 4))
                 ->getAlignment()
                 ->setVertical(Alignment::VERTICAL_CENTER);
         $sheet->getRowDimension('1')->setRowHeight(80);
         $sheet->getStyle('1')->getFont()->setSize(13);
         $sheet->getStyle('2:3')->getFont()->setSize(11);
         $sheet->getStyle('1:3')->getFont()->setBold(true);
-        $sheet->getStyle('A4:M' . (count($this->data) + 3))->getFont()->setSize(9);
+        $sheet->getStyle('A4:R' . (count($this->data) + 3))->getFont()->setSize(9);
         
         $sheet->getColumnDimension('B')->setWidth(15);
         $sheet->getColumnDimension('C')->setWidth(15);
@@ -87,8 +87,13 @@ class ReportAmountExport1 implements FromView, WithDrawings, WithTitle, WithStyl
         $sheet->getColumnDimension('K')->setWidth(15);
         $sheet->getColumnDimension('L')->setWidth(15);
         $sheet->getColumnDimension('M')->setWidth(15);
+        $sheet->getColumnDimension('N')->setWidth(15);
+        $sheet->getColumnDimension('O')->setWidth(15);
+        $sheet->getColumnDimension('P')->setWidth(15);
+        $sheet->getColumnDimension('Q')->setWidth(15);
+        $sheet->getColumnDimension('R')->setWidth(15);
 
-        $sheet->getStyle('B' . (count($this->data) + 6) . ':C' . (count($this->data) + 7))
+        $sheet->getStyle('B' . (count($this->data) + 6) . ':C' . (count($this->data) + 8))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);

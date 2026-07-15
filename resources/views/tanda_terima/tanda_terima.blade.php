@@ -108,9 +108,9 @@
             width: 50%;
         }
         .signature {
-            float: right;
+            /* float: right; */
             margin-top: 30px;
-            text-align: center;
+            text-align: right;
         }
 .section .row {
     display: grid;
@@ -215,8 +215,13 @@
 
     $nopollist = $item->vehicle_nos->take(5); 
     $showNopolList = $item->qty <= 5 && $nopollist->count() > 0;
+    
+    $addon = $item->newcard;
+    $subadd = $item->qty * $item->newcard;
 
-    $subtotal = $item->qty * $item->biaya;
+    $sub = $item->qty * $item->biaya;
+
+    $subtotal = $subadd + $sub;
     $total += $subtotal;
 @endphp
 
@@ -232,14 +237,29 @@
             <li>{{ $nopol }}</li>
         @endforeach
     </ul>
-@else
+<!-- @elseif($addon == 1)
     <em>No Polisi Terlampir Terpisah.</em>
-        @endif
+        @endif -->
     </td>
     <td style="text-align:center;">{{ $item->qty }}</td>
     <td>Rp {{ number_format($item->biaya, 0, ',', '.') }}</td>
-    <td>Rp {{ number_format($subtotal, 0, ',', '.') }}</td>
+    <td>Rp {{ number_format($sub, 0, ',', '.') }}</td>
 </tr>
+@if($addon > 0)
+<tr>
+    <td>
+        Additional Charge <br>
+        @if($addon)
+    <ul>
+        <li>Pembuatan Kartu Baru Untuk {{ $value_kendaraan }}</li>
+    </ul>
+        @endif
+    </td>
+    <td style="text-align:center;">{{ $item->qty }}</td>
+    <td>Rp {{ number_format($item->newcard , 0, ',', '.') }}</td>
+    <td>Rp {{ number_format($subadd, 0, ',', '.') }}</td>
+</tr>
+@endif
 
 @endforeach
             <tr>
@@ -256,6 +276,10 @@
             <p>Authorised Signed,</p><br><br><br>
             <p>Admin Otto Intermark</p>
         </div>
+
+        <div style="clear: both;"></div>
+
+        <div style="page-break-after: always;"></div>
 
         </body>
         </html>

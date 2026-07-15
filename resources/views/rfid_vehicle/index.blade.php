@@ -34,6 +34,12 @@
                 <div class="card-body">
                     <button id="btnPrint" class="btn btn-info mb-3">Cetak Laporan</button>
                     <button id="btnExcel" class="btn btn-success mb-3">Download Excel</button>
+                    <div class="mb-3">
+                        <label>
+                            <input type="checkbox" id="filterActiveOnly">
+                            Tampilkan hanya status Aktif
+                        </label>
+                    </div>
                     <div class="table-responsive">
                         <table class="display dataTable cell-border datatbl-advance" id="rfidVehicleTable">
                             <thead>
@@ -201,5 +207,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    $.fn.dataTable.ext.search.push(function (settings, data) {
+
+        let isChecked = document.getElementById('filterActiveOnly').checked;
+
+        // kolom Status = index ke-8
+        let statusColumn = data[8] || '';
+
+        // Jika checkbox OFF → tampilkan semua
+        if (!isChecked) return true;
+
+        // Jika checkbox ON → hanya Aktif
+        return statusColumn.includes('Aktif') &&
+               !statusColumn.includes('Kadaluarsa');
+    });
+
+    $('#filterActiveOnly').on('change', function () {
+        $('#rfidVehicleTable').DataTable().draw();
+    });
+
+});
+
 
 </script>

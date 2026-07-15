@@ -35,6 +35,7 @@
                 <th style="width: 30%;" colspan="2">Kendaraan</th>
                 <th style="width: 10%;" rowspan="2">Nomor Polisi</th>
                 <th style="width: 10%;" rowspan="2">Kamar</th>
+                <th style="width: 10%;" rowspan="2">Tipe Tamu</th>
             </tr>
             <tr>
                 <th style="width: 15%;">Mobil</th>
@@ -57,6 +58,7 @@
                         <td>{{ $result->Motor }}</td>
                         <td>{{ $result->nopol }}</td>
                         <td>{{ $result->kamar }}</td>
+                        <td>{{ $result->tipe_guest }}</td>
                     @php
                         $summaryByDate = [];
                         foreach ($results as $result) {

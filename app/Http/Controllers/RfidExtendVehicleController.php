@@ -9,6 +9,7 @@ use App\Models\RfidVehicle;
 use App\Models\VehicleType;
 use App\Models\MemberHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RfidExtendVehicleController extends Controller
 {
@@ -45,17 +46,59 @@ class RfidExtendVehicleController extends Controller
         return view('rfid_extend.edit', compact('vehicle', 'vehicleTypes', 'memberTypes'));
     }
 
+    // public function update(Request $request, $id)
+    // {
+    //     $validator = \Validator::make(
+    //         $request->all(), [
+    //             // 'name' => 'required|string|max:255',
+    //             // 'phone_number' => 'required|string|max:15',
+    //             // 'company_name' => 'required|string|max:255',
+    //             'membertype' => 'required|string',
+    //             // 'vehicle_no' => 'required|string|max:20',
+    //             // 'rfid_no' => 'required|string|max:50|unique:rfid_vehicles,rfid_no,' . $id,
+    //             // 'price' => 'required|numeric',
+    //             'start_date' => 'required|date',
+    //             'end_date' => 'required|date|after_or_equal:start_date',
+    //             'notes' => 'nullable|string'
+    //         ]
+    //     );
+
+    //     if ($validator->fails()) {
+    //         return redirect()->back()->with('error', $validator->errors()->first());
+    //     }
+
+    //     $vehicle = RfidVehicle::findOrFail($id);
+    //     // $vehicle->vehicle_no = $request->vehicle_no;
+    //     // $vehicle->rfid_no = $request->rfid_no;
+    //     // $vehicle->name = $request->name;
+    //     // $vehicle->phone_number = $request->phone_number;
+    //     $vehicle->notes = $request->notes;
+    //     $vehicle->vehicleid = $request->vehicle_type;
+    //     $vehicle->slot = $request->price;
+    //     $vehicle->member_type = $request->membertype;
+    //     $vehicle->start_date = $request->start_date;
+    //     $vehicle->status = 'x';
+    //     $vehicle->end_date = $request->end_date;
+    //     $vehicle->save();
+
+    //     $memberHistory = new MemberHistory();
+    //     $memberHistory->member_id = $vehicle->id;
+    //     $memberHistory->product_code = $request->membertype;
+    //     $memberHistory->vehicle_id = $request->vehicle_type;
+    //     $memberHistory->new = 0;
+    //     $memberHistory->biaya = $request->price;
+    //     $memberHistory->awal_berlaku = $request->start_date;
+    //     $memberHistory->akhir_berlaku = $request->end_date;
+    //     $memberHistory->save();
+
+    //     return redirect()->back()->with('success', __('Berhasil Memperpanjang Masa Aktif RFID'));
+    // }
+
     public function update(Request $request, $id)
     {
         $validator = \Validator::make(
             $request->all(), [
-                // 'name' => 'required|string|max:255',
-                // 'phone_number' => 'required|string|max:15',
-                // 'company_name' => 'required|string|max:255',
                 'membertype' => 'required|string',
-                // 'vehicle_no' => 'required|string|max:20',
-                // 'rfid_no' => 'required|string|max:50|unique:rfid_vehicles,rfid_no,' . $id,
-                // 'price' => 'required|numeric',
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
                 'notes' => 'nullable|string'
@@ -66,31 +109,44 @@ class RfidExtendVehicleController extends Controller
             return redirect()->back()->with('error', $validator->errors()->first());
         }
 
-        $vehicle = RfidVehicle::findOrFail($id);
-        // $vehicle->vehicle_no = $request->vehicle_no;
-        // $vehicle->rfid_no = $request->rfid_no;
-        // $vehicle->name = $request->name;
-        // $vehicle->phone_number = $request->phone_number;
-        $vehicle->notes = $request->notes;
-        $vehicle->vehicleid = $request->vehicle_type;
-        $vehicle->slot = $request->price;
-        $vehicle->member_type = $request->membertype;
-        $vehicle->start_date = $request->start_date;
-        $vehicle->status = 'x';
-        $vehicle->end_date = $request->end_date;
-        $vehicle->save();
+        DB::beginTransaction();
 
-        $memberHistory = new MemberHistory();
-        $memberHistory->member_id = $vehicle->id;
-        $memberHistory->product_code = $request->membertype;
-        $memberHistory->vehicle_id = $request->vehicle_type;
-        $memberHistory->new = 0;
-        $memberHistory->biaya = $request->price;
-        $memberHistory->awal_berlaku = $request->start_date;
-        $memberHistory->akhir_berlaku = $request->end_date;
-        $memberHistory->save();
+        try {
+            $vehicle = RfidVehicle::findOrFail($id);
 
-        return redirect()->back()->with('success', __('Berhasil Memperpanjang Masa Aktif RFID'));
+            // UPDATE VEHICLE
+            $vehicle->notes = $request->notes;
+            $vehicle->vehicleid = $request->vehicle_type;
+            $vehicle->slot = $request->price;
+            $vehicle->member_type = $request->membertype;
+            $vehicle->start_date = $request->start_date;
+            $vehicle->status = 'x';
+            $vehicle->end_date = $request->end_date;
+            $vehicle->save();
+
+            // INSERT HISTORY
+            $memberHistory = new MemberHistory();
+            $memberHistory->member_id = $vehicle->id;
+            $memberHistory->product_code = $request->membertype;
+            $memberHistory->vehicle_id = $request->vehicle_type;
+            $memberHistory->new = 0;
+            $memberHistory->biaya = $request->price;
+            $memberHistory->awal_berlaku = $request->start_date;
+            $memberHistory->akhir_berlaku = $request->end_date;
+            $memberHistory->save();
+
+            // ✅ jika semua sukses
+            DB::commit();
+
+            return redirect()->back()->with('success', __('Berhasil Memperpanjang Masa Aktif RFID NEHH'));
+
+        } catch (\Exception $e) {
+
+            // ❌ kalau ada error → rollback semua
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Gagal update: ' . $e->getMessage());
+        }
     }
 
 

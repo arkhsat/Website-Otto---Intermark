@@ -52,6 +52,7 @@
                 <th colspan="2">Kendaraan</th>
                 <th rowspan="2">Nomor Polisi</th>
                 <th rowspan="2">Kamar</th>
+                <th rowspan="2">Tipe Tamu</th>
             </tr>
             <tr>
                 <th>Mobil</th>
@@ -72,6 +73,7 @@
                     <td>{{ $result->Motor }}</td>
                     <td>{{ $result->nopol }}</td>
                     <td>{{ $result->kamar }}</td>
+                    <td>{{ $result->tipe_guest }}</td>
                 </tr>
             @endforeach
         </tbody>

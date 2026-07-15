@@ -57,6 +57,9 @@
                             <h4 style="text-align: center;">{{$reportname}}</h4>
                             <div style="margin-bottom: 10px;">
                                 <a href="{{ route('report.hotel.SBSR.pdf', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d')), 'hotel' => request('hotel')]) }}" class="btn btn-primary">Download PDF</a>
+                                 <!-- <a href="{{ url('report-hotel/pdf/SBSR?entry_date=' . request('entry_date', date('Y-m-d')) . '&end_date=' . request('end_date', date('Y-m-d')) . '&hotel=' . request('hotel')) }}" class="btn btn-primary">
+                                    Download PDF
+                                    </a> -->
                                 <a href="{{ route('report.hotel.SBSR.excel', ['entry_date' => request('entry_date', date('Y-m-d')), 'end_date' => request('end_date', date('Y-m-d')), 'hotel' => request('hotel')]) }}" class="btn btn-success">Download Excel</a>
                             </div>
                             <table class="display dataTable cell-border">
@@ -69,6 +72,7 @@
                                         <td class="xl65" style="width: 130pt;">Jenis Kendaraan</td>
                                         <td class="xl65" style="width: 130pt;">Nomor Polisi</td>
                                         <td class="xl65" style="width: 130pt;">Kamar</td>
+                                        <td class="xl65" style="width: 130pt;">Tipe Tamu</td>
                                         {{-- <td class="xl65" style="width: 130pt;">Biaya</td> --}}
                                     </tr>
                                 </thead>
@@ -78,10 +82,12 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $result->tanggal_masuk }}</td>
                                             <td>{{ $result->tanggal_keluar }}</td>
-                                            <td>{{ $result->nama}}</td>
+                                             <!-- <td>{{ $result->nama}}</td> -->
+                                            <td>{{ $result->nama ?? '-'}}</td>
                                             <td>{{ $result->jenis_kendaraan }}</td>
                                             <td>{{ $result->nopol }}</td>
                                             <td>{{ $result->kamar }}</td>
+                                            <td>{{ $result->tipe_guest}}</td>
                                             {{-- <td>Rp {{ number_format($result->biaya, 0, ',', '.') }}</td> --}}
                                         </tr>
                                     @endforeach
@@ -117,7 +123,8 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $result->tanggal }}</td>
                                             <td>{{ $result->tanggal_regis }}</td>
-                                            <td>{{ $result->nama}}</td>
+                                            <!-- <td>{{ $result->nama}}</td> -->
+                                            <td>{{ $result->nama ?? '-'}}</td>
                                             <td>{{ $result->Mobil }}</td>
                                             <td>{{ $result->Motor }}</td>
                                             <td>{{ $result->nopol }}</td>
@@ -137,13 +144,13 @@
     </div>
 @endsection
 
-<script>
+<!-- <script>
 
     $(document).ready(function() {
         $('.datatbl-advance').DataTable();
     });
 
-</script>
+</script> -->
 
 
 

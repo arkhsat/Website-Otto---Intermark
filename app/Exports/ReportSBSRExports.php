@@ -53,26 +53,27 @@ class ReportSBSRExports implements FromView, WithDrawings, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Apply border to the data range
-        $sheet->getStyle('A2:G' . (count($this->data) + 2))
+        $sheet->getStyle('A2:H' . (count($this->data) + 2))
               ->getBorders()
               ->getAllBorders()
               ->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle('A1:G' . (count($this->data) + 2))
+        $sheet->getStyle('A1:H' . (count($this->data) + 2))
               ->getAlignment()
               ->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:G' . (count($this->data) + 2))
+        $sheet->getStyle('A1:H' . (count($this->data) + 2))
                 ->getAlignment()
                 ->setVertical(Alignment::VERTICAL_CENTER);
         $sheet->getRowDimension('1')->setRowHeight(80);
         $sheet->getStyle('1')->getFont()->setSize(13);
         $sheet->getStyle('2')->getFont()->setSize(11);
         $sheet->getStyle('1:2')->getFont()->setBold(true);
-        $sheet->getStyle('A3:G' . (count($this->data) + 3))->getFont()->setSize(9);
+        $sheet->getStyle('A3:H' . (count($this->data) + 3))->getFont()->setSize(9);
         $sheet->getColumnDimension('B')->setWidth(25);
         $sheet->getColumnDimension('C')->setWidth(18);
         $sheet->getColumnDimension('D')->setWidth(25);
         $sheet->getColumnDimension('E')->setWidth(14);
         $sheet->getColumnDimension('F')->setWidth(12);
         $sheet->getColumnDimension('G')->setWidth(8);
+        $sheet->getColumnDimension('H')->setWidth(15);
     }
 }
