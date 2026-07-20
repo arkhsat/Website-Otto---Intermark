@@ -115,42 +115,42 @@
         });
 
         // Fungsi untuk menghitung tanggal akhir berdasarkan logika yang diberikan
-        // function calculateEndDate(month) {
-        //     var today = new Date();
-        //     var endDate = new Date();
-
-        //     endDate.setDate(1); // ✅ Set tanggal ke 1 dulu supaya aman dari lompat bulan
-
-        //     if (today.getDate() >= 25 && today.getDate() <= 31) {
-        //         endDate.setMonth(today.getMonth() + 1 + month);
-        //     } else {
-        //         endDate.setMonth(today.getMonth() + month);
-        //     }
-
-        //     endDate.setDate(5); // ✅ Baru atur tanggal akhir
-
-        //     return endDate.toISOString().split('T')[0];
-        // }
-
         function calculateEndDate(month) {
-            var oldEndDateVal = $('#end_date_db').val();
-            if (!oldEndDateVal) return '';
+            var today = new Date();
+            var endDate = new Date();
 
-            var baseDate = new Date(oldEndDateVal);
-            var endDate = new Date(baseDate);
+            endDate.setDate(1); // ✅ Set tanggal ke 1 dulu supaya aman dari lompat bulan
 
-            endDate.setDate(1); // tetap pakai trik biar aman
-
-            if (baseDate.getDate() >= 25 && baseDate.getDate() <= 31) {
-                endDate.setMonth(baseDate.getMonth() + 1 + month);
+            if (today.getDate() >= 25 && today.getDate() <= 31) {
+                endDate.setMonth(today.getMonth() + 1 + month);
             } else {
-                endDate.setMonth(baseDate.getMonth() + month);
+                endDate.setMonth(today.getMonth() + month);
             }
 
-            endDate.setDate(5);
+            endDate.setDate(5); // ✅ Baru atur tanggal akhir
 
             return endDate.toISOString().split('T')[0];
         }
+
+        // function calculateEndDate(month) {
+        //     var oldEndDateVal = $('#end_date_db').val();
+        //     if (!oldEndDateVal) return '';
+
+        //     var baseDate = new Date(oldEndDateVal);
+        //     var endDate = new Date(baseDate);
+
+        //     endDate.setDate(1); // tetap pakai trik biar aman
+
+        //     if (baseDate.getDate() >= 25 && baseDate.getDate() <= 31) {
+        //         endDate.setMonth(baseDate.getMonth() + 1 + month);
+        //     } else {
+        //         endDate.setMonth(baseDate.getMonth() + month);
+        //     }
+
+        //     endDate.setDate(5);
+
+        //     return endDate.toISOString().split('T')[0];
+        // }
 
         // Fungsi untuk memformat angka dengan pemisah ribuan
         function formatRupiah(angka, prefix) {

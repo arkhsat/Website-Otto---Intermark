@@ -86,9 +86,13 @@ class UserController extends Controller
                 }
 
                 $ids = parentId();
-                $authUser = \App\Models\User::find($ids);
+                // $authUser = \App\Models\User::find($ids);
+                $authUser = User::find(auth()->id());
+                // dd($ids);
                 $total_user = $authUser->totalUser();
+                // dd($authUser->subscription);
                 $subscription = Subscription::find($authUser->subscription);
+                // dd($subscription);
                 if ($total_user < $subscription->total_user || $subscription->total_user == 0) {
                     $role_r = Role::findById($request->role);
                     $user = new User();
