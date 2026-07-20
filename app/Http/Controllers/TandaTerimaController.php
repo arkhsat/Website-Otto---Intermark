@@ -120,8 +120,16 @@ class TandaTerimaController extends Controller
 
     //     ->orderBy('member_history.id', 'desc')
     //     ->get();
+    $latestHistory = DB::table('member_history')
+        ->select('member_id', DB::raw('MAX(id) as id'))
+        ->groupBy('member_id');
+
     $vehicles = DB::table('rfid_vehicles')
-        ->leftJoin('member_history', 'member_history.member_id', '=', 'rfid_vehicles.id')
+        ->leftJoinSub($latestHistory, 'latest', function ($join) {
+            $join->on('rfid_vehicles.id', '=', 'latest.member_id');
+        })
+        // ->leftJoin('member_history', 'member_history.member_id', '=', 'rfid_vehicles.id')
+        ->leftJoin('member_history', 'member_history.id', '=', 'latest.id')
         ->leftJoin('member_package', 'member_package.product_code', '=', 'member_history.product_code')
 
         ->whereIn(DB::raw('UPPER(TRIM(rfid_vehicles.vehicle_no))'), $vehicleNos)
@@ -147,6 +155,8 @@ class TandaTerimaController extends Controller
             ")
         )
         ->get();
+
+        dd($vehicles);
 
     // Kelompokkan berdasarkan company_name
     $grouped = $vehicles->groupBy('company_name');
