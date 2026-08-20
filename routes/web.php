@@ -43,6 +43,7 @@ use App\Http\Controllers\ReportVoucher;
 use App\Http\Controllers\ReportVoucherTrueBlueController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\GuestTypeController;
+use App\Http\Controllers\ReportVoucherIntermarkController;
 use Illuminate\Routing\Router;
 use Maatwebsite\Excel\Row;
 
@@ -706,6 +707,20 @@ Route::group(
     }
 );
 
+// Route::group(
+//     [
+//         'middleware' => [
+//             'auth',
+//             'XSS',
+//         ],
+//     ], function () {
+//         Route::get('report-voucher-trueblue', [ReportVoucherTrueBlueController::class, 'index'])->name('report.voucher.trueblue');
+//         Route::get('report-voucher-trueblue-pdf', [ReportVoucherTrueBlueController::class, 'downloadPDF'])->name('report.voucher.trueblue.pdf');
+//         Route::get('report-voucher-trueblue-excel', [ReportVoucherTrueBlueController::class, 'downloadExcel'])->name('report.voucher.trueblue.excel');
+//     }
+// );
+
+
 Route::group(
     [
         'middleware' => [
@@ -713,10 +728,12 @@ Route::group(
             'XSS',
         ],
     ], function () {
-        Route::get('report-voucher-trueblue', [ReportVoucherTrueBlueController::class, 'index'])->name('report.voucher.trueblue');
-        Route::get('report-voucher-trueblue-pdf', [ReportVoucherTrueBlueController::class, 'downloadPDF'])->name('report.voucher.trueblue.pdf');
-        Route::get('report-voucher-trueblue-excel', [ReportVoucherTrueBlueController::class, 'downloadExcel'])->name('report.voucher.trueblue.excel');
+        Route::get('report-voucher', [ReportVoucherIntermarkController::class, 'index'])->name('report.voucher.intermark');
+        Route::get('report-voucher-data', [ReportVoucherIntermarkController::class, 'dataTrxHotel'])->name('report.voucher.intermark.data');
+        Route::get('report-voucher-pdf', [ReportVoucherIntermarkController::class, 'downloadPDF'])->name('report.voucher.intermark.pdf');
+        Route::get('report-voucher-excel', [ReportVoucherIntermarkController::class, 'downloadExcel'])->name('report.voucher.intermark.excel');
     }
 );
+
 
 
