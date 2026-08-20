@@ -296,25 +296,14 @@
                 </a>
             </li>
 
-            <!-- {{-- Untuk Voucher True Blue --}}
-            <li class="menu-item {{in_array($routeName,['report.voucher.trueblue',''])?'active':''}}">
-                <a href="{{route('report.voucher.trueblue')}}">
+            <li class="menu-item {{in_array($routeName,['report.voucher.intermark',''])?'active':''}}">
+                <a href="{{route('report.voucher.intermark')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Penggunaan Voucher True Blue')}}</span>
+                    <span>{{__('Report Pengunaan Voucher')}}</span>
                 </a>
-            </li> -->
-<!-- <<<<<<< HEAD -->
-            {{-- Untuk Vocuher Gelael --}}
-            <!-- <li class="menu-item {{in_array($routeName,['report.voucher.gelael',''])?'active':''}}">
-=======
-            {{-- Untuk Voucher Gelael --}}
-            <li class="menu-item {{in_array($routeName,['report.voucher.gelael',''])?'active':''}}">
->>>>>>> 5e1b1a02dac782a8bd3b6f2001176ab9e5ceb7b2
-                <a href="{{route('report.voucher.gelael')}}">
-                    <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Penggunaan Voucher Gelael')}}</span>
-                </a>
-            </li> -->
+            </li>
+
+
             
             <li class="menu-item {{in_array($routeName,['reportdaily.index',''])?'active':''}}">
                 <a href="{{route('reportdaily.index')}}">
