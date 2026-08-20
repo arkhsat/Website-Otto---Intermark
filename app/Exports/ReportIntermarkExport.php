@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
-class ReportTrueBlueExport implements FromView, WithDrawings, WithStyles
+class ReportIntermarkExport implements FromView, WithDrawings, WithStyles
 {
     protected $data;
     protected $startDate;
@@ -30,7 +30,7 @@ class ReportTrueBlueExport implements FromView, WithDrawings, WithStyles
 
     public function view(): View
     {
-        return view('exports.reportvoucher-trueblue', [
+        return view('exports.reportvoucher_intermark', [
             'results' => $this->data,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,

@@ -51,13 +51,11 @@
                 <th>Kode Voucher</th>
                 <th>Jenis Kendaraan</th>
                 <th>Nomor Polisi</th>
-                <th>Biaya</th>
             </tr>
             
         </thead>
         <tbody>
             @php
-            $totalBiaya = 0; 
             @endphp
             @foreach($results as $index => $result)
                 <tr role="row">
@@ -67,7 +65,6 @@
                     <td>{{ $result->kode_voucher}}</td>
                     <td>{{ $result->jenis_kendaraan }}</td>
                     <td>{{ $result->nopol }}</td>
-                    <td>{{ $result->biaya }}</td>
                 </tr>
             @endforeach
         </tbody>

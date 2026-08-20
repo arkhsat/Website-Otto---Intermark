@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Transaksi Close By ON</title>
+    <title>Laporan Voucher Intermark</title>
     <link rel="stylesheet" href="{{ public_path('pdf.css') }}" type="text/css"> 
 </head>
 <body>
@@ -33,7 +33,6 @@
             <th style="width: 20%;">Kode Voucher</th>
             <th style="width: 10%;">Kendaraan</th>
             <th style="width: 10%;">Nomor Polisi</th>
-            <th style="width: 10%;">Biaya</th>
         </thead>
         <tbody>
             @php
@@ -49,7 +48,6 @@
                     <td>{{ $result->kode_voucher}}</td>
                     <td>{{ $result->jenis_kendaraan }}</td>
                     <td>{{ $result->nopol }}</td>
-                    <td>{{ $result->biaya }}</td>
                     @php
                         $summaryByDate = [];
                         foreach ($results as $result) {

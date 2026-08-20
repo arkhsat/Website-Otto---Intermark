@@ -252,25 +252,14 @@
                 </a>
             </li>
 
-            <!-- 
-            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.trueblue',''])?'active':''); ?>">
-                <a href="<?php echo e(route('report.voucher.trueblue')); ?>">
+            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.intermark',''])?'active':''); ?>">
+                <a href="<?php echo e(route('report.voucher.intermark')); ?>">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span><?php echo e(__('Report Penggunaan Voucher True Blue')); ?></span>
+                    <span><?php echo e(__('Report Pengunaan Voucher')); ?></span>
                 </a>
-            </li> -->
-<!-- <<<<<<< HEAD -->
-            
-            <!-- <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.gelael',''])?'active':''); ?>">
-=======
-            
-            <li class="menu-item <?php echo e(in_array($routeName,['report.voucher.gelael',''])?'active':''); ?>">
->>>>>>> 5e1b1a02dac782a8bd3b6f2001176ab9e5ceb7b2
-                <a href="<?php echo e(route('report.voucher.gelael')); ?>">
-                    <div class="icon-item"><i data-feather="book"></i></div>
-                    <span><?php echo e(__('Report Penggunaan Voucher Gelael')); ?></span>
-                </a>
-            </li> -->
+            </li>
+
+
             
             <li class="menu-item <?php echo e(in_array($routeName,['reportdaily.index',''])?'active':''); ?>">
                 <a href="<?php echo e(route('reportdaily.index')); ?>">

@@ -267,7 +267,7 @@
                 <td><strong>Rp <?php echo e(number_format($total, 0, ',', '.')); ?></strong></td>
             </tr>
         </table>
-
+   
         <div class="amount-in-words">
             <?php echo e(ucwords(terbilang($total))); ?> Rupiah
         </div>

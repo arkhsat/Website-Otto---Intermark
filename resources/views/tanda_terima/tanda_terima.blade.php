@@ -267,7 +267,7 @@
                 <td><strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></td>
             </tr>
         </table>
-
+   
         <div class="amount-in-words">
             {{ ucwords(terbilang($total)) }} Rupiah
         </div>
