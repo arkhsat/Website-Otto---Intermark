@@ -20,15 +20,15 @@ class ReportVoucherIntermarkController extends Controller
     //     $startDate = $request->input('entry_date', date('Y-m-d'));
     //     $endDate = $request->input('end_date', date('Y-m-d'));
     //     $voucherType = $request->input('voucher_type', 'ALL');
-    //     if ($voucherType === 'SBX') {
+    //     if ($voucherType === 'STR') {
     //         $voucherCondition = "AND settlementreport LIKE ?";
-    //         $voucherParam = 'SBX%';
+    //         $voucherParam = 'STR%';
     //     } elseif ($voucherType === 'SPH') {
     //         $voucherCondition = "AND settlementreport LIKE ?";
     //         $voucherParam = 'SPH%';
     //     } else {
     //         $voucherCondition = "AND settlementreport LIKE ?";
-    //         $voucherParam = 'SBX%' OR 'SPH%';
+    //         $voucherParam = 'STR%' OR 'SPH%';
     //     }
 
     //     $results = DB::select("
@@ -69,14 +69,14 @@ class ReportVoucherIntermarkController extends Controller
             ->whereNotNull('nokartubank')
             ->whereBetween(DB::raw('DATE(datetransact)'), [$startDate, $endDate]);
 
-        if ($voucherType === 'SBX') {
-            $query->where('settlementreport', 'LIKE', 'SBX%');
-        } elseif ($voucherType === 'SUB') {
-            $query->where('settlementreport', 'LIKE', 'SUB%');
+        if ($voucherType === 'STR') {
+            $query->where('settlementreport', 'LIKE', 'VCSTR%');
+        } elseif ($voucherType === 'SBW') {
+            $query->where('settlementreport', 'LIKE', 'VCSBW%');
         } else {
             $query->where(function ($q) {
-                $q->where('settlementreport', 'LIKE', 'SBX%')
-                ->orWhere('settlementreport', 'LIKE', 'SUB%');
+                $q->where('settlementreport', 'LIKE', 'VCSTR%')
+                ->orWhere('settlementreport', 'LIKE', 'VCSBW%');
             });
         }
 
@@ -138,19 +138,19 @@ class ReportVoucherIntermarkController extends Controller
                 [$startDate, $endDate]
             );
 
-        if ($voucherType === 'SBX') {
+        if ($voucherType === 'STR') {
 
-            $query->where('settlementreport', 'LIKE', 'SBX%');
+            $query->where('settlementreport', 'LIKE', 'VCSTR%');
 
-        } elseif ($voucherType === 'SUB') {
+        } elseif ($voucherType === 'SBW') {
 
-            $query->where('settlementreport', 'LIKE', 'SUB%');
+            $query->where('settlementreport', 'LIKE', 'VCSBW%');
 
         } else {
 
             $query->where(function ($q) {
-                $q->where('settlementreport', 'LIKE', 'SBX%')
-                ->orWhere('settlementreport', 'LIKE', 'SUB%');
+                $q->where('settlementreport', 'LIKE', 'VCSTR%')
+                ->orWhere('settlementreport', 'LIKE', 'VCSBW%');
             });
         }
 
@@ -172,10 +172,10 @@ class ReportVoucherIntermarkController extends Controller
         );
 
         // Nama voucher
-        if ($voucherType === 'SBX') {
+        if ($voucherType === 'VCSTR') {
             $voucherName = 'Starbucks';
-        } elseif ($voucherType === 'SUB') {
-            $voucherName = 'Subway';
+        } elseif ($voucherType === 'VCSBW') {
+            $voucherName = 'SBWway';
         } else {
             $voucherName = 'All';
         }
@@ -216,19 +216,19 @@ class ReportVoucherIntermarkController extends Controller
                 [$startDate, $endDate]
             );
 
-        if ($voucherType === 'SBX') {
+        if ($voucherType === 'VCSTR') {
 
-            $query->where('settlementreport', 'LIKE', 'SBX%');
+            $query->where('settlementreport', 'LIKE', 'VCSTR%');
 
-        } elseif ($voucherType === 'SUB') {
+        } elseif ($voucherType === 'VCSBW') {
 
-            $query->where('settlementreport', 'LIKE', 'SUB%');
+            $query->where('settlementreport', 'LIKE', 'VCSBW%');
 
         } else {
 
             $query->where(function ($q) {
-                $q->where('settlementreport', 'LIKE', 'SBX%')
-                ->orWhere('settlementreport', 'LIKE', 'SUB%');
+                $q->where('settlementreport', 'LIKE', 'VCSTR%')
+                ->orWhere('settlementreport', 'LIKE', 'VCSBW%');
             });
         }
 
@@ -236,10 +236,10 @@ class ReportVoucherIntermarkController extends Controller
             ->orderBy('datetransact')
             ->get();
 
-        if ($voucherType === 'SBX') {
+        if ($voucherType === 'VCSTR') {
             $voucherName = 'Starbucks';
-        } elseif ($voucherType === 'SUB') {
-            $voucherName = 'Subway';
+        } elseif ($voucherType === 'VCSBW') {
+            $voucherName = 'SBWway';
         } else {
             $voucherName = 'All';
         }
