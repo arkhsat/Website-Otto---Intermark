@@ -63,10 +63,10 @@ class ReportVoucherIntermarkController extends Controller
                 DATE(dateout) AS tanggal_keluar,
                 vehicleid AS jenis_kendaraan,
                 settlementreport AS kode_voucher,
-                nokartubank AS nomor_kartu,
+                paymentby AS nomor_kartu,
                 COALESCE(nopolisi, '-') AS nopol
             ")
-            ->whereNotNull('nokartubank')
+            ->whereNotNull('paymentby')
             ->whereBetween(DB::raw('DATE(datetransact)'), [$startDate, $endDate]);
 
         if ($voucherType === 'STR') {
@@ -95,12 +95,12 @@ class ReportVoucherIntermarkController extends Controller
     //             DATE(dateout) AS tanggal_keluar, 
     //             vehicleid AS jenis_kendaraan, 
     //             settlementreport AS kode_voucher, 
-    //             nokartubank AS nomor_kartu,
+    //             paymentby AS nomor_kartu,
     //             CASE WHEN nopolisi IS NULL THEN '-' ELSE nopolisi 
     //             END AS nopol
     //             FROM transactions 
     //             WHERE settlementreport LIKE 'SBW%' or settlementreport LIKE 'STR%'
-    //             AND nokartubank IS NOT NULL 
+    //             AND paymentby  IS NOT NULL 
     //             AND DATE(datetransact) BETWEEN ? AND ? 
     //             ORDER BY datetransact", [$startDate, $endDate]);
                 
@@ -129,10 +129,10 @@ class ReportVoucherIntermarkController extends Controller
                 DATE(dateout) AS tanggal_keluar,
                 vehicleid AS jenis_kendaraan,
                 settlementreport AS kode_voucher,
-                nokartubank AS nomor_kartu,
+                paymentby AS nomor_kartu,
                 COALESCE(nopolisi, '-') AS nopol
             ")
-            ->whereNotNull('nokartubank')
+            ->whereNotNull('paymentby')
             ->whereBetween(
                 DB::raw('DATE(datetransact)'),
                 [$startDate, $endDate]
@@ -175,7 +175,7 @@ class ReportVoucherIntermarkController extends Controller
         if ($voucherType === 'VCSTR') {
             $voucherName = 'Starbucks';
         } elseif ($voucherType === 'VCSBW') {
-            $voucherName = 'SBWway';
+            $voucherName = 'Subway';
         } else {
             $voucherName = 'All';
         }
@@ -207,10 +207,10 @@ class ReportVoucherIntermarkController extends Controller
                 DATE(dateout) AS tanggal_keluar,
                 vehicleid AS jenis_kendaraan,
                 settlementreport AS kode_voucher,
-                nokartubank AS nomor_kartu,
+                paymentby AS nomor_kartu,
                 COALESCE(nopolisi, '-') AS nopol
             ")
-            ->whereNotNull('nokartubank')
+            ->whereNotNull('paymentby')
             ->whereBetween(
                 DB::raw('DATE(datetransact)'),
                 [$startDate, $endDate]
@@ -239,7 +239,7 @@ class ReportVoucherIntermarkController extends Controller
         if ($voucherType === 'VCSTR') {
             $voucherName = 'Starbucks';
         } elseif ($voucherType === 'VCSBW') {
-            $voucherName = 'SBWway';
+            $voucherName = 'Subway';
         } else {
             $voucherName = 'All';
         }
