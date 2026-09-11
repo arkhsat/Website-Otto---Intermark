@@ -261,17 +261,38 @@
                 </a>
             </li> --}}
 
-            <li class="menu-item {{in_array($routeName,['report.hotel',''])?'active':''}}">
-                <a href="{{route('report.hotel')}}">
+            <li class="menu-item {{in_array($routeName,['report.on',''])?'active':''}}">
+                <a href="{{route('report.on')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Transaksi Hotel')}}</span>
+                    <span>{{__('Report Close ON')}}</span>
+                </a>
+            </li>
+
+            <li class="menu-item {{in_array($routeName,['reportdaily.index',''])?'active':''}}">
+                <a href="{{route('reportdaily.index')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Harian')}}</span>
+                </a>
+            </li>
+
+            <li class="menu-item {{in_array($routeName,['report.pajak',''])?'active':''}}">
+                <a href="{{route('report.pajak')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Pajak')}}</span>
+                </a>
+            </li>
+
+            <li class="menu-item {{in_array($routeName,['report.voucher.intermark',''])?'active':''}}">
+                <a href="{{route('report.voucher.intermark')}}">
+                    <div class="icon-item"><i data-feather="book"></i></div>
+                    <span>{{__('Report Pengunaan Voucher')}}</span>
                 </a>
             </li>
             
-            <li class="menu-item {{in_array($routeName,['report.summary.qty',''])?'active':''}}">
-                <a href="{{route('report.summary.qty')}}">
+            <li class="menu-item {{in_array($routeName,['report.summary.amount',''])?'active':''}}">
+                <a href="{{route('report.summary.amount')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Summary Qty')}}</span>
+                    <span>{{__('Report Summary Amount')}}</span>
                 </a>
             </li>
 
@@ -282,13 +303,6 @@
                 </a>
             </li>
 
-            <li class="menu-item {{in_array($routeName,['report.summary.amount',''])?'active':''}}">
-                <a href="{{route('report.summary.amount')}}">
-                    <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Summary Amount')}}</span>
-                </a>
-            </li>
-
             <li class="menu-item {{in_array($routeName,['report.summary.pos.qty',''])?'active':''}}">
                 <a href="{{route('report.summary.pos.qty')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
@@ -296,36 +310,26 @@
                 </a>
             </li>
 
-            <li class="menu-item {{in_array($routeName,['report.voucher.intermark',''])?'active':''}}">
-                <a href="{{route('report.voucher.intermark')}}">
+            <li class="menu-item {{in_array($routeName,['report.summary.qty',''])?'active':''}}">
+                <a href="{{route('report.summary.qty')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Pengunaan Voucher')}}</span>
+                    <span>{{__('Report Summary Qty')}}</span>
                 </a>
             </li>
 
-
-            
-            <li class="menu-item {{in_array($routeName,['reportdaily.index',''])?'active':''}}">
-                <a href="{{route('reportdaily.index')}}">
+            <li class="menu-item {{in_array($routeName,['report.hotel',''])?'active':''}}">
+                <a href="{{route('report.hotel')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Harian')}}</span>
+                    <span>{{__('Report Transaksi Hotel')}}</span>
                 </a>
             </li>
 
-            <li class="menu-item {{in_array($routeName,['report.on',''])?'active':''}}">
-                <a href="{{route('report.on')}}">
+            {{-- <li class="menu-item {{in_array($routeName,['report.qris',''])?'active':''}}">
+                <a href="{{route('report.qris')}}">
                     <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Close ON')}}</span>
+                    <span>{{__('Report Qris')}}</span>
                 </a>
-            </li>
-
-            <li class="menu-item {{in_array($routeName,['report.pajak',''])?'active':''}}">
-                <a href="{{route('report.pajak')}}">
-                    <div class="icon-item"><i data-feather="book"></i></div>
-                    <span>{{__('Report Pajak')}}</span>
-                </a>
-            </li>
-            
+            </li> --}}
             
             <li class="cdxmenu-title">
                 <h5>{{__('Report Member')}}</h5>
