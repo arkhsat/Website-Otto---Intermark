@@ -79,7 +79,7 @@
                                 <a href="<?php echo e(route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SBX'
+                                    'voucher_type' => 'VCSTR'
                                 ])); ?>"
                                 class="btn btn-warning">
                                     Starbucks
@@ -89,14 +89,14 @@
                                 <a href="<?php echo e(route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SUB'
+                                    'voucher_type' => 'VCSBW'
                                 ])); ?>"
                                 class="btn btn-info">
                                     Subway
                                 </a>
 
 
-                            <?php elseif($voucherType === 'SBX'): ?>
+                            <?php elseif($voucherType === 'VCSTR'): ?>
 
                                 
                                 <a href="<?php echo e(route('report.voucher.intermark.data', [
@@ -112,20 +112,20 @@
                                 <a href="<?php echo e(route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SUB'
+                                    'voucher_type' => 'VCSBW'
                                 ])); ?>"
                                 class="btn btn-info">
                                     Subway
                                 </a>
 
 
-                            <?php elseif($voucherType === 'SUB'): ?>
+                            <?php elseif($voucherType === 'VCSBW'): ?>
 
                                 
                                 <a href="<?php echo e(route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SBX'
+                                    'voucher_type' => 'VCSTR'
                                 ])); ?>"
                                 class="btn btn-warning">
                                     Starbucks

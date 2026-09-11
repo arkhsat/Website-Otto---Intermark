@@ -74,7 +74,7 @@
                                 <a href="{{ route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SBX'
+                                    'voucher_type' => 'VCSTR'
                                 ]) }}"
                                 class="btn btn-warning">
                                     Starbucks
@@ -84,14 +84,14 @@
                                 <a href="{{ route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SUB'
+                                    'voucher_type' => 'VCSBW'
                                 ]) }}"
                                 class="btn btn-info">
                                     Subway
                                 </a>
 
 
-                            @elseif($voucherType === 'SBX')
+                            @elseif($voucherType === 'VCSTR')
 
                                 {{-- All --}}
                                 <a href="{{ route('report.voucher.intermark.data', [
@@ -107,20 +107,20 @@
                                 <a href="{{ route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SUB'
+                                    'voucher_type' => 'VCSBW'
                                 ]) }}"
                                 class="btn btn-info">
                                     Subway
                                 </a>
 
 
-                            @elseif($voucherType === 'SUB')
+                            @elseif($voucherType === 'VCSBW')
 
                                 {{-- Starbucks --}}
                                 <a href="{{ route('report.voucher.intermark.data', [
                                     'entry_date' => request('entry_date'),
                                     'end_date' => request('end_date'),
-                                    'voucher_type' => 'SBX'
+                                    'voucher_type' => 'VCSTR'
                                 ]) }}"
                                 class="btn btn-warning">
                                     Starbucks

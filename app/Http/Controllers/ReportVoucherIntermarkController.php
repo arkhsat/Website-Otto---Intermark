@@ -69,9 +69,9 @@ class ReportVoucherIntermarkController extends Controller
             ->whereNotNull('paymentby')
             ->whereBetween(DB::raw('DATE(datetransact)'), [$startDate, $endDate]);
 
-        if ($voucherType === 'STR') {
+        if ($voucherType === 'VCSTR') {
             $query->where('settlementreport', 'LIKE', 'VCSTR%');
-        } elseif ($voucherType === 'SBW') {
+        } elseif ($voucherType === 'VCSBW') {
             $query->where('settlementreport', 'LIKE', 'VCSBW%');
         } else {
             $query->where(function ($q) {
@@ -138,11 +138,11 @@ class ReportVoucherIntermarkController extends Controller
                 [$startDate, $endDate]
             );
 
-        if ($voucherType === 'STR') {
+        if ($voucherType === 'VCSTR') {
 
             $query->where('settlementreport', 'LIKE', 'VCSTR%');
 
-        } elseif ($voucherType === 'SBW') {
+        } elseif ($voucherType === 'VCSBW') {
 
             $query->where('settlementreport', 'LIKE', 'VCSBW%');
 
